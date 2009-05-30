@@ -1,7 +1,7 @@
 import math
 import urllib
 import cStringIO
-from PIL import Image
+from PIL import Image, ImageDraw
 
 class ImageCreator:
     """class which creates map image"""
@@ -14,6 +14,9 @@ class ImageCreator:
     def __init__(self, mapData):
         self.mapData = mapData
         self.centerTile = self.deg2num(mapData.latitude, mapData.longitude, mapData.zoom)
+        print 'self.centerTile: ', self.centerTile
+        print 'self.mapData: ', self.mapData.longitude, self.mapData.latitude
+        print 'self.leftUpCorner', self.num2deg(self.centerTile['x'], self.centerTile['y'], self.mapData.zoom)
         
     def getImage(self):
         return self.getImageFromTiles(self.getTilesNumbers(self.mapData))
@@ -65,16 +68,20 @@ class ImageCreator:
         if x < 0:
             x = 0
         elif x >= self.tileWidth:
+            print 'x ', x
             x = x - self.tileWidth
+            print 'x - self.tileWidht', x, self.tileWidth
         if y < 0:
             y = 0
         elif y > self.tileHeight:
             y = self.tileHeight - 1
+        
         return {'x': x, 'y': y}
     
     def getTilesNumbers(self, mapaData):
-        self.tileWidth = math.pow(2, self.mapData.zoom);
-        self.tileHeight = math.pow(2, self.mapData.zoom);
+        self.tileWidth = int(math.pow(2, self.mapData.zoom));
+        print "!!!!!", self.tileWidth
+        self.tileHeight = int(math.pow(2, self.mapData.zoom));
         self.setUpMiddlePoint()
         p1 = self.getLeftUpCorner()
         p2 = self.getRightDownCorner()
@@ -146,6 +153,10 @@ class ImageCreator:
                 x = x + self.tileOptions['width']
                 i = i + 1
         print resultImage.size
+        draw = ImageDraw.Draw(resultImage)
+        print 'rysuje: ', self.middlePoint
+  
+        draw.line((5, 5, self.middlePoint['x'], self.middlePoint['y']), fill = 128)
         resultImage.show()
         return resultImage
 

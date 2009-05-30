@@ -1,6 +1,10 @@
+from OSMTilesProcessing.imageCreator2 import ImageCreator
+from OSMTilesProcessing.mapRequestData2 import MapRequestData
 
-__author__="pafciu"
-__date__ ="$2009-05-26 01:35:57$"
+a1 = {'x': 5, 'y': 15}
+a2 = {'x': 12, 'y': 3}
 
-if __name__ == "__main__":
-    print "Hello";
+
+
+creator = ImageCreator(MapRequestData())
+creator.getImage()

@@ -22,6 +22,7 @@ class TilesProcessor:
 
         centerTile = tile.loadTileFromCoordinates(mapData.center['x'], \
         mapData.center['y'], mapData.zoom, mapData.tileSource)
+
         
 
         print 'tu ', centerTile.getLeftUpCorner()
@@ -73,6 +74,8 @@ class TilesProcessor:
         leftUpTileNumber['y'], mapData.zoom)
         rightDownTileNumber = tile.correctTileNumber(rightDownTileNumber['x'], \
         rightDownTileNumber['y'], mapData.zoom)
+
+        print 'tilesy :', leftUpTileNumber, rightDownTileNumber
 
         endLoopY = False
         y = leftUpTileNumber['y']

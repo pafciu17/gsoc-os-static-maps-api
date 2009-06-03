@@ -1,6 +1,7 @@
 from PIL import Image
 import tile
 from tile import Tile
+from rawMap import RawMap
 
 ##
 # factory method, for given mapRequest creates appropriate tiles processor
@@ -26,42 +27,16 @@ class NoTilesProcessorError(Exception):
 class TilesProcessor:
 
     def __init__(self, mapRequest):
-        print 'test'
         self.mapRequest = mapRequest
 
     ##
     # creates map
     #
     def createMap(self):
-        print 'createMap'
-        return self.prepareMap(self.concatenateTiles(self.getTiles()))
-        pass
-
-    ##
-    # gets tiles and concatenates them to result image
-    #
-    # @param tiles list, two dimensional list of tiles
-    # @return Image
-    def concatenateTiles(self, tiles):
-        self.firstTile = tiles[0][0]
-        temporaryImageSizeInTiles = {'x': len(tiles[0]), 'y': len(tiles)}
-        resultImage = Image.new("RGB", 
-        (temporaryImageSizeInTiles['x'] * self.mapRequest.tileSource.sampleTile.parameters['width']
-        , temporaryImageSizeInTiles['y'] * self.mapRequest.tileSource.sampleTile.parameters['height']))
-        x, y = 0, 0
-        for row in tiles:
-            for tile in row:
-                resultImage.paste(tile.img, (x, y, x + self.firstTile.parameters['width'],
-                y + self.firstTile.parameters['width']))
-                x = x + self.firstTile.parameters['width']
-            y = y + self.firstTile.parameters['height']
-            x = 0
-
-        resultImage.show()
-        return resultImage
+        self.rawMap = RawMap(self.getTiles(), self.mapRequest.tileSource.sampleTile)
+        return self.prepareMap()
 
     def getTiles(self):
-        print 'aaaaaa _getTiles'
         pass
 
     def prepareMap(self, tiles):
@@ -71,26 +46,17 @@ class TilesProcessorCreatesMapFromCenterPoint(TilesProcessor):
 
     def __init__(self, mapRequest):
         TilesProcessor.__init__(self, mapRequest)
-        print 'TilesProcessorCreatesMapFromCenterPoint'
+
+    def prepareMap(self):
 
 
-    def prepareMap(self, initialImage):
-        distanceFromCenterPoint = self.firstTile.getDistanceFromPoint(
-        self.mapRequest.parameters['center'])
-        print 'centerPoint', self.mapRequest.parameters['center']
-        print 'leftUpPoint', self.firstTile.getLeftUpCorner()
-        print 'distanceFromCenterPoint', distanceFromCenterPoint
-        pixelDistanceFromCenterPoint = {}
-        pixelDistanceFromCenterPoint['x'] = int((distanceFromCenterPoint['lon'] * \
-        tile.lonToPixels(1, self.mapRequest.parameters['zoom'],
-        self.mapRequest.tileSource.sampleTile.parameters['width'])))
-
-        pixelDistanceFromCenterPoint['y'] = int((distanceFromCenterPoint['lat'] * \
-        tile.latToPixels(1, self.mapRequest.parameters['zoom'],
-        self.mapRequest.tileSource.sampleTile.parameters['height'])))
-        print 'mnoznik', str(tile.latToPixels(1, self.mapRequest.parameters['zoom'],
-        self.mapRequest.tileSource.sampleTile.parameters['height']) * 11)
-        print 'pixelDistanFromCenterPoint', pixelDistanceFromCenterPoint
+        self.rawMap.setMeasuringTile(self.centerTile)
+        distance = self.getPixelDistance(self.mapRequest.center)
+        leftUp['x'] = abs(int(distance['x'] - self.mapRequest.parameters['size']['width'] / 2))
+        leftUp['y'] = abs(int(distance['y'] - self.mapRequest.parameters['size']['height'] / 2))
+        rightDown['x'] = abs(int(leftUp['x'] + self.mapRequest.parameters['size']['width']))
+        rightDown['y'] = abs(int(leftUp['y'] + self.mapRequest.parameters['size']['height']))
+        return self.rawImage.getResultImage(leftUp, rightDown)
 
         # set left up and right up corner of the result image
         leftUp = {}
@@ -102,7 +68,7 @@ class TilesProcessorCreatesMapFromCenterPoint(TilesProcessor):
         rightDown['x'] = leftUp['x'] + self.mapRequest.parameters['size']['width']
         rightDown['y'] = leftUp['y'] + self.mapRequest.parameters['size']['height']
 
-        print 'leftUp rightDown ', leftUp, rightDown
+        print leftUp, rightDown
 
         # control if map is fitted to image size
         if leftUp['y'] < 0:
@@ -110,58 +76,65 @@ class TilesProcessorCreatesMapFromCenterPoint(TilesProcessor):
         if rightDown['y'] > initialImage.size[1]:
             rightDown['y'] = initialImage.size[1]
 
-        print leftUp, rightDown
-
         # calculate result map size
         mapSize = {'width': rightDown['x'] - leftUp['x'], 'height': rightDown['y'] - leftUp['y']}
+
+      
 
         # create result image
         resultImage = initialImage.transform((mapSize['width'], mapSize['height']) \
         , Image.EXTENT, (leftUp['x'], leftUp['y'], rightDown['x'], rightDown['y']))
 
         return resultImage
+    
     def getTiles(self):
-        print '__getTiles'
-        centerTile = tile.loadTileFromCoordinates(self.mapRequest.parameters['center']['lon'], 
+      
+        self.centerTile = tile.loadTileFromCoordinates(self.mapRequest.parameters['center']['lon'],
         self.mapRequest.parameters['center']['lat'],  
         self.mapRequest.parameters['zoom'], self.mapRequest.tileSource)
         distanceInsideCenterTileFromLeftUpCorner = \
-        centerTile.getDistanceFromPoint(self.mapRequest.parameters['center'])
-        
+        self.centerTile.getDistanceFromPoint(self.mapRequest.parameters['center'])
 
+        print 'centerTile.getLeftUpCorner()', self.centerTile.getLeftUpCorner()
+        self.centerTile.img.show()
+        nextTile = tile.loadTileFromNumbers(self.centerTile.parameters['x'],
+        self.centerTile.parameters['y'] + 1, self.centerTile.parameters['zoom'], self.mapRequest.tileSource)
+        print 'nextTile.getLeftUpCorner() ', nextTile.getLeftUpCorner()
+        pixelDistance = nextTile.getDistanceFromPoint(self.centerTile.getLeftUpCorner())
+        print 'nextTile distance from centerTile ', pixelDistance
+        print 'nextTile distance from centerTile, pixelDistance ', pixelDistance['lat'] * \
+            tile.latToPixels(1, self.mapRequest.parameters['zoom'], self.centerTile.parameters['height'])
         # lets take abs value distance, and calculate distance from leftUpCorner
         # of tile to center point of the requested map
         pixelDistanceInsideCenterTileFromLeftUpCorner = {}
         pixelDistanceInsideCenterTileFromLeftUpCorner['x'] = \
         abs(distanceInsideCenterTileFromLeftUpCorner['lon']) \
-        * tile.lonToPixels(1, self.mapRequest.parameters['zoom'], centerTile.parameters['width'])
+        * tile.lonToPixels(1, self.mapRequest.parameters['zoom'], self.centerTile.parameters['width'])
         pixelDistanceInsideCenterTileFromLeftUpCorner['y'] = \
         abs(distanceInsideCenterTileFromLeftUpCorner['lat']) \
-        * tile.latToPixels(1, self.mapRequest.parameters['zoom'], centerTile.parameters['height'])
+        * tile.latToPixels(1, self.mapRequest.parameters['zoom'], self.centerTile.parameters['height'])
 
         # calculate how many tiles should be download
         pixelDistanceToLeftEndOfTheMap = int(self.mapRequest.parameters['size']['width'] / 2) 
         - int(pixelDistanceInsideCenterTileFromLeftUpCorner['x'])
         pixelDistanceToRightEndOfTheMap = int(self.mapRequest.parameters['size']['width'] / 2)
-        - int(centerTile.parameters['width'] 
+        - int(self.centerTile.parameters['width']
         - pixelDistanceInsideCenterTileFromLeftUpCorner['x'])
         pixelDistanceToTopEndOfTheMap = int(self.mapRequest.parameters['size']['height'] / 2)
         - int(pixelDistanceInsideCenterTileFromLeftUpCorner['y'])
         pixelDistanceToBottomEndOfTheMap = int(self.mapRequest.parameters['size']['height'] / 2)
-        - int(centerTile.parameters['width']
+        - int(self.centerTile.parameters['width']
         - pixelDistanceInsideCenterTileFromLeftUpCorner['y'])
 
-        left = 1 + pixelDistanceToLeftEndOfTheMap / centerTile.parameters['width']
-        right = 1 + pixelDistanceToRightEndOfTheMap / centerTile.parameters['width']
-        top = 1 + pixelDistanceToTopEndOfTheMap / centerTile.parameters['height']
-        bottom = 1 + pixelDistanceToBottomEndOfTheMap / centerTile.parameters['height']
+        left = 1 + pixelDistanceToLeftEndOfTheMap / self.centerTile.parameters['width']
+        right = 1 + pixelDistanceToRightEndOfTheMap / self.centerTile.parameters['width']
+        top = 1 + pixelDistanceToTopEndOfTheMap / self.centerTile.parameters['height']
+        bottom = 1 + pixelDistanceToBottomEndOfTheMap / self.centerTile.parameters['height']
 
-        print left, right, top, bottom
-
-        leftUpTileNumber = {'x': centerTile.parameters['x'] - left, \
-        'y': centerTile.parameters['y'] - top}
-        rightDownTileNumber = {'x': centerTile.parameters['x'] + right, \
-        'y': centerTile.parameters['y'] + bottom}
+        leftUpTileNumber = {'x': self.centerTile.parameters['x'] - left, \
+        'y': self.centerTile.parameters['y'] - top}
+        rightDownTileNumber = {'x': self.centerTile.parameters['x'] + right, \
+        'y': self.centerTile.parameters['y'] + bottom}
 
         # validate tile numbers
         leftUpTileNumber = tile.correctTileNumber(leftUpTileNumber['x'], \
@@ -177,7 +150,6 @@ class TilesProcessorCreatesMapFromCenterPoint(TilesProcessor):
             endLoopX = False
             row = list()
             while not endLoopX:
-                print 'loop', x, y
                 row.append(tile.loadTileFromNumbers(x, y, self.mapRequest.parameters['zoom'], self.mapRequest.tileSource))
                 if x == rightDownTileNumber['x']:
                     endLoopX = True
@@ -190,15 +162,13 @@ class TilesProcessorCreatesMapFromCenterPoint(TilesProcessor):
                 endLoopY = True
             else:
                 y = y + 1
-        
         return tiles
 
 class TilesProcessorCreatesMapFromBoundaryPoints(TilesProcessor):
 
     def __init__(self, mapRequest):
         TilesProcessor.__init__(self, mapRequest)
-        print 'TilesProcessorCreatesMapFromBoundaryPoints'
         
     def createMap(self, mapRequest):
-        print 'TilesProcessorCreatesMapFromBoundaryPoints'
+        pass
         

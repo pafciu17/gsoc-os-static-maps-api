@@ -23,20 +23,44 @@ class Tile:
     # @return dictionary, x is lon distance and y is lat distance
     def getDistanceFromPoint(self, point):
         leftUpCorner = self.getLeftUpCorner()
+
         return {'lat': abs(point['lat'] - leftUpCorner['lat']), \
         'lon': abs(point['lon'] - leftUpCorner['lon'])}
+
+    def getWidthLon(self):
+        return getDistanceFromPoint(num2deg(self.parameters['x'] + 1,
+        self.parameters['y'], self.parameters['zoom']))
+
+    def getHeightLat(self):
+        return getDistanceFromPoint(num2deg(self.parameters['x'],
+        self.parameters['y'] + 1, self.parameters['zoom']))
+
+    def getPixelScale(self):
+        lonForPixel = self.getWidthLon() / self.parameters['width']
+        latForPixel = self.getWidthLat() / self.parameters['height']
+        return {'x': lonForPixel, 'y': latForPixel}
+
+    def lonAndLatToPixels(self, lon, lat):
+        scale = self.getPixelScale(self)
+        return {'x': lon * scale['x'], 'y': lat * scale['y']}
+
 
 ##
 # class represtents mapnik tile
 class MapnikTile(Tile):
     
-    # parameters specific for mapnik tiles
     def __init__(self, x, y, zoom, tileSource, load=True):
         Tile.__init__(self, x, y, zoom, tileSource, load)
+        # parameters specific for mapnik tiles
         self.parameters['width'] = 256
         self.parameters['height'] = 256
     
-
+##
+# gets tile x and y numbers for point with given latitude and longitude
+# @param lat_deg int latitude
+# @param lon_deg int longitude
+# @param zoom int
+# @return dictionary 
 def deg2num(lat_deg, lon_deg, zoom):
     lat_rad = lat_deg * math.pi / 180.0
     n = 2.0 ** zoom
@@ -46,6 +70,12 @@ def deg2num(lat_deg, lon_deg, zoom):
     ytile = int((1.0 - math.log(math.tan(lat_rad) + (1 / math.cos(lat_rad))) / math.pi) / 2.0 * n)
     return{'x': xtile, 'y': ytile}
 
+##
+# calculates coordinates of the left up corner of the tile
+# @param xtile int tile x-number
+# @param ytile int tile y-number
+# @param zoom int
+# @return dictionary coordinates of the left up corner of the tile
 def num2deg(xtile, ytile, zoom):
     n = 2.0 ** zoom
     lon_deg = xtile / n * 360.0 - 180.0
@@ -53,6 +83,8 @@ def num2deg(xtile, ytile, zoom):
     lat_deg = lat_rad * 180.0 / math.pi
     return{'lat': lat_deg, 'lon': lon_deg}
 
+##
+# load tile from its numbers
 def loadTileFromNumbers(x, y, zoom, tileSource):
     return tileSource.tileClass(x, y, zoom, tileSource)
 
@@ -95,7 +127,6 @@ def correctTileNumber(x, y, zoom):
 # @param return int
 def lonToPixels(lon, zoom, tileWidth):
     pixelPerDegree = ((worldWidthInTiles(zoom)) * tileWidth) / 360.0
-    print 'pixel per dergree - lonToPixel', pixelPerDegree
     return lon * pixelPerDegree
 
 ##
@@ -106,7 +137,17 @@ def lonToPixels(lon, zoom, tileWidth):
 # @param tileHeight int, height is given in pixels
 # @param return int
 def latToPixels(lat, zoom, tileHeight):
-
     pixelPerDegree = ((worldHeightInTiles(zoom)) * tileHeight) / 180.0
-    print 'pixel per dergree - latToPixel', pixelPerDegree
     return lat * pixelPerDegree
+
+def testTileHeight(x, y, zoom, tileSource):
+    tile = loadTileFromNumbers(x, y, zoom, tileSource)
+    leftDown = num2deg(x, y + 1, zoom)
+    dis = tile.getDistanceFromPoint(leftDown)
+    print ' dla tile %d %d wysokosc to: ' %(x, y), latToPixels(dis['lat'], zoom, tile.parameters['height'])
+
+def testTileWidth(x, y, zoom, tileSource):
+    tile = loadTileFromNumbers(x, y, zoom, tileSource)
+    rightUp = num2deg(x + 1, y, zoom)
+    dis = tile.getDistanceFromPoint(rightUp)
+    print ' dla tile %d %d szerokosc to: ' %(x, y), lonToPixels(dis['lon'], zoom, tile.parameters['width'])

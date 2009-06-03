@@ -11,5 +11,5 @@ def createMap(mapRequest):
     processor = tilesProcessor.create(mapRequest)
     # creates and returns result map
     image = processor.createMap()
+    # temporary image show
     image.show()
-    pass

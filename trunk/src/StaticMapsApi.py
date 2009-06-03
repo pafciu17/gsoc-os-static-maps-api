@@ -1,7 +1,6 @@
 from OSMMapCreating import mapCreator
 from OSMMapCreating import mapRequest
 
-
 mapCreator.createMap(mapRequest.MapRequest())
 
 """from OSMTilesProcessing.imageCreator2 import ImageCreator

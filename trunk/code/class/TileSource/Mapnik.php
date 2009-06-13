@@ -1,6 +1,6 @@
 <?php
 
-class MapnikTileSource extends TileSource
+class TileSourceMapnik extends TileSource
 {
 
 	/**

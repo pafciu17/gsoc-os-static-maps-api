@@ -1,6 +1,6 @@
 <?php
 
-class CycleTileSource extends TileSource
+class TileSourceCycle extends TileSource
 {
 
 	/**

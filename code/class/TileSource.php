@@ -29,8 +29,8 @@ abstract class TileSource
 	 *
 	 * @var array
 	 */
-	static private $_classMap = array('mapnik' => 'MapnikTileSource',
-		'cycle' => 'CycleTileSource');
+	static private $_classMap = array('mapnik' => 'TileSourceMapnik',
+		'cycle' => 'TileSourceCycle');
 	
 	/**
 	 * creates apprioprate TileSource

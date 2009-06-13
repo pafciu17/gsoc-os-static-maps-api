@@ -13,6 +13,7 @@ include_once('Smarty/Smarty.class.php');
 //include my loader
 include_once('./code/base/MyLoader.php');
 
+/*
 function loadCodeClass($nazwa) 
 {
 	if (file_exists('./code/base/'.$nazwa.'.php')) {
@@ -26,17 +27,21 @@ function loadCodeClass($nazwa)
 	}
 	return true;
 }
+*/
 
 //set autload function
 function __autoload($name) 
 {
 	$loader = new MyLoader();
+	$loader->addSource(array('./code/base', './code/modul', './code/class'));
 	if ($loader->loadClass($name)) {
 	} else {
 		Zend_Loader::loadClass($name,'./libs');
 	}
 }
 
+$get = new GET($_GET);
+$post = new POST($_POST);
 //creates configuration file
 $conf = new Conf();
 //creates handlers for data send by POST and GET

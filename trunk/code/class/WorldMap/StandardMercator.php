@@ -1,5 +1,5 @@
 <?php
-class StandardMercatorWorldMap extends WorldMap 
+class WorldMapStandardMercator extends WorldMap 
 {
 	/**
 	 * get pixel coordinates for given longitude and latitude

@@ -24,6 +24,6 @@ class TileSourceMapnik extends TileSource
 	 */
 	public function getWorldMap($zoom)
 	{
-		return new StandardMercatorWorldMap($zoom, $this);
+		return new WorldMapStandardMercator($zoom, $this);
 	}
 }

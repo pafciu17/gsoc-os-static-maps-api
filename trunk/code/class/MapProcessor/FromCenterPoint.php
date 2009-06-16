@@ -169,7 +169,8 @@ class MapProcessorFromCenterPoint extends MapProcessor
 		$resultMap = new Map($newImage);
 		$resultMap->setLeftUpCorner($this->_worldMap->getLon($leftUpPointInPixels['x']),
 		$this->_worldMap->getLat($leftUpPointInPixels['y']));
-		return new Map($newImage);
+		$resultMap->setWorldMap($this->_worldMap);
+		return $resultMap;
 	}
 	
 	

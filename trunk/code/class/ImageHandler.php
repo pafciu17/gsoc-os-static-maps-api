@@ -53,4 +53,16 @@ abstract class ImageHandler
 	{
 		return $this->_fileExtension;
 	}
+	
+	/**
+	 * draw pixel
+	 *
+	 * @param unknown_type $image
+	 * @param unknown_type $x
+	 * @param unknown_type $y
+	 */
+	public function drawPixel($image, $x, $y)
+	{
+		imagesetpixel($image, $x, $y, imagecolorallocate($image, 200, 0, 0));
+	}
 }

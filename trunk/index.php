@@ -1,4 +1,5 @@
 <?php
+
 //all errors will be report
 error_reporting(E_ALL | E_STRICT);
 session_start();
@@ -40,13 +41,11 @@ function __autoload($name)
 	}
 }
 
-$get = new GET($_GET);
-$post = new POST($_POST);
 //creates configuration file
 $conf = new Conf();
 //creates handlers for data send by POST and GET
-$get = new GET($_GET);
-$post = new POST($_POST);
+$get = new Get($_GET);
+$post = new Post($_POST);
 //creates main controller
 $controller = new MainController($get, $post, $conf);
 //execute controller

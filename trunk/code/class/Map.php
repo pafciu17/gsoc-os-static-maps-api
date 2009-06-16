@@ -119,4 +119,38 @@ class Map
 		$this->_worldMap = $worldMap;
 	}
 	
+	/**
+	 * return world map object
+	 *
+	 * @return WorldMap
+	 */
+	public function getWorldMap()
+	{
+		return $this->_worldMap;
+	}
+	
+	/**
+	 * get coordinates of the point in pixels, left up corner of map has coordiantes: 0 px 0 px
+	 *
+	 * @param float $lon
+	 * @param float $lat
+	 * @return array
+	 */
+	public function getPixelPointFromCoordinates($lon, $lat)
+	{
+		$leftUp = $this->getLeftUpCorner();
+		$leftUpPointInPixel = $this->_worldMap->getPixelXY($leftUp['lon'], $leftUp['lat']);
+		$pointInPixel = $this->_worldMap->getPixelXY($lon, $lat);
+		return array('x' => $pointInPixel['x'] - $leftUpPointInPixel['x'], 'y' => $pointInPixel['y'] - $leftUpPointInPixel['y']);
+	}
+	
+	/**
+	 * return image handler
+	 *
+	 * @return ImageHandler
+	 */
+	public function getImageHandler()
+	{
+		return $this->_imageHandler;
+	}
 }

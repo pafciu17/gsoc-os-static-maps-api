@@ -24,12 +24,12 @@ class MapRequest
 	 *
 	 * @var array
 	 */
-	static private $_urlParametersNames = array('centerX' => 'centerX',
-		'centerY' => 'centerY',
-		'leftUpX' => 'leftUpX',
-		'leftUpY' => 'leftUpY',
-		'rightDownX' => 'rightDownX',
-		'rightDownY' => 'rightDownY',
+	static private $_urlParametersNames = array('centerLon' => 'centerLon',
+		'centerLat' => 'centerLat',
+		'leftUpLon' => 'leftUpLon',
+		'leftUpLat' => 'leftUpLat',
+		'rightDownLon' => 'rightDownLon',
+		'rightDownLat' => 'rightDownLat',
 		'width' => 'width',
 		'height' => 'height',
 		'zoom' => 'zoom',
@@ -58,11 +58,11 @@ class MapRequest
 	 */
 	public function getCenterPoint()
 	{
-		return array('lon' => 22.5, 'lat' => 51.25);
 		// @TODO maybe it would be good place to validate data ?
-		if (isset($this->_mapData['centerX']) && isset($this->_mapData['centerY'])) {
-			return array('lon' => $this->_mapData['centerX'], 'lat' => $this->_mapData['centerY']);
+		if (isset($this->_mapData['centerLon']) && isset($this->_mapData['centerLat'])) {
+			return array('lon' => $this->_mapData['centerLon'], 'lat' => $this->_mapData['centerLat']);
 		}
+		return array('lon' => 0, 'lat' => 51.5);
 	}
 	
 	/**
@@ -72,10 +72,10 @@ class MapRequest
 	 */
 	public function getWidth()
 	{
-		return 300;
 		if (isset($this->_mapData['width'])) {
 			return $this->_mapData['width'];
 		}
+		return 250;
 	}
 	
 	/**
@@ -85,10 +85,10 @@ class MapRequest
 	 */
 	public function getHeight()
 	{
-		return 300;
 		if (isset($this->_mapData['height'])) {
 			return $this->_mapData['width'];
 		}
+		return 250;
 	}
 	
 	/**
@@ -111,9 +111,9 @@ class MapRequest
 	 */
 	public function getZoom()
 	{
-		return 10;	
 		if (isset($this->_mapData['zoom'])) {
 			return $this->_mapData['zoom'];
-		}
+		} 
+		return 5;
 	}
 }

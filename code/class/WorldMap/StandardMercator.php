@@ -60,5 +60,32 @@ class WorldMapStandardMercator extends WorldMap
 		$lat = rad2deg(2 * atan(exp($a))) - 90; 
 		return $this->_correctLat($lat);
 	}
+	
+	/**
+	 * create proper world for longitude distance between two given longitudes and given width of the map
+	 *
+	 * @param float $lon
+	 * @param float $lon2
+	 * @param int $width
+	 * @return WorldMap
+	 */
+	public function createProperWorldFromWidth($lon, $lon2, $width)
+	{
+		
+	}
+	
+	/**
+	 * create world for given latitude distance between two given latitudes and given height of the map
+	 *
+	 * @param float $lat
+	 * @param float $lat2
+	 * @param int $height
+	 * @return WorldMap
+	 */
+	public function createProperWordlFromHeight($lat, $lat2, $height)
+	{
+		
+	}
+	
 }
 ?>

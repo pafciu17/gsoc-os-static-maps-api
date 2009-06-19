@@ -52,6 +52,30 @@ class MapRequest
 	}
 	
 	/**
+	 * return coordinates of the left up corner of the map
+	 *
+	 * @return array
+	 */
+	public function getLeftUpCornerPoint()
+	{
+		if (isset($this->_mapData['leftUpLon']) && isset($this->_mapData['letUpLat'])) {
+			return array('lon' => $this->_mapData['leftUpLon'], 'lat' => $this->_mapData['leftUpLat']);
+		}
+	}
+	
+	/**
+	 * return coordinates of the left right down corner of the map
+	 *
+	 * @return array
+	 */
+	public function getRightDownCornerPoint()
+	{
+		if (isset($this->_mapData['rigthDownLon']) && isset($this->_mapData['rightDownLat'])) {
+			return array('lon' => $this->_mapData['rightDownLon'], 'lat' => $this->_mapData['rightDownLat']);
+		}
+	}
+	
+	/**
 	 * return coordinates of center point
 	 *
 	 * @return array

@@ -71,6 +71,26 @@ abstract class WorldMap
 	} 
 	
 	/**
+	 * create proper world for longitude distance between two given longitudes and given width of the map
+	 *
+	 * @param float $lon
+	 * @param float $lon2
+	 * @param int $width
+	 * @return WorldMap
+	 */
+	abstract function createProperWorldFromWidth($lon, $lon2, $width);
+	
+	/**
+	 * create world for given latitude distance between two given latitudes and given height of the map
+	 *
+	 * @param float $lat
+	 * @param float $lat2
+	 * @param int $height
+	 * @return WorldMap
+	 */
+	abstract function createProperWordlFromHeight($lat, $lat2, $height);
+	
+	/**
 	 * get pixel coordinates for given longitude and latitude
 	 *
 	 * @param int $lon
@@ -115,6 +135,16 @@ abstract class WorldMap
 	public function getTileSource()
 	{
 		return $this->_tileSource;
+	}
+	
+	/**
+	 * return zoom of the world map
+	 *
+	 * @return int
+	 */
+	public function getZoom()
+	{
+		return $this->_zoom;
 	}
 	
 }

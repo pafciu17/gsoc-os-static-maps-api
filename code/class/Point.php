@@ -25,4 +25,14 @@ class Point
 		$this->_coordinates['lat']);
 		$map->getImageHandler()->drawPixel($image, $pointInPixels['x'], $pointInPixels['y']);
 	}
+	
+	public function getLon()
+	{
+		return $this->_coordinates['lon'];
+	}
+	
+	public function getLat()
+	{
+		return $this->_coordinates['lat'];
+	}
 }

@@ -1,7 +1,9 @@
 <?php
 
 //all errors will be report
+
 error_reporting(E_ALL | E_STRICT);
+set_time_limit(90);
 session_start();
 
 //include path indicates on lib directory

@@ -76,6 +76,28 @@ class MapRequest
 	}
 	
 	/**
+	 * set coordinates of the left up corner point
+	 *
+	 * @param array $coordinates
+	 */
+	public function setLeftUpCornerPoint($coordinates)
+	{
+		$this->_mapData['leftUpLon'] = $coordinates['lon'];
+		$this->_mapData['leftUpLat'] = $coordinates['lat'];
+	}
+	
+	/**
+	 * set coordinates of the right down corner point
+	 *
+	 * @param array $coordinates
+	 */
+	public function setRightDownCornerPoint($coordinates)
+	{					
+		$this->_mapData['rightDownLon'] = $coordinates['lon'];
+		$this->_mapData['rightDownLat'] = $coordinates['lat'];
+	}
+	
+	/**
 	 * return coordinates of center point
 	 *
 	 * @return array
@@ -121,7 +143,6 @@ class MapRequest
 	 */
 	public function getType()
 	{
-		return 'cycle';
 		if (isset($this->_mapData['type'])) {
 			return $this->_mapData['type'];
 		}

@@ -14,6 +14,7 @@ class MapModule extends Module
 		// create map object
 		$map = $mapProcessor->createMap();
 		// send output image 
+
 		$map->setImageHandler(new ImageHandlerPNG());
 		$map->send();
 		die;

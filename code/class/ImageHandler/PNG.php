@@ -17,7 +17,7 @@ class ImageHandlerPNG extends ImageHandler
 	public function sendImage($image)
 	{
 		header('Content-type: image/png');
-		imagejpeg($image);
+		imagepng($image);
 	}
 	
 	/**
@@ -31,4 +31,14 @@ class ImageHandlerPNG extends ImageHandler
 		return imagecreatefrompng($url);
 	}
 	
+	/**
+	 * saves image to file
+	 *
+	 * @param resource $image
+	 * @param string $url
+	 */
+	public function saveImage($image, $url)
+	{
+		imagepng($image, $url);
+	}
 }

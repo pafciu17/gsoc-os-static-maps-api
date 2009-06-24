@@ -128,6 +128,23 @@ abstract class WorldMap
 	abstract public function getLat($y);
 	
 	/**
+	 * return distance between two points in pixels
+	 *
+	 * @param float $lon
+	 * @param float $lat
+	 * @param float $lon2
+	 * @param float $lat2
+	 * @return array distance in x-pixels and y-pixels
+	 */
+	public function getPixelDistance($lon, $lat, $lon2, $lat2)
+	{
+		$point = $this->getPixelXY($lon, $lat);
+		$point2 = $this->getPixelXY($lon2, $lat2);
+		return array('x' => abs($point['x'] - $point2['x']), 
+		'y' => abs($point['y'] - $point2['y'])); 
+	}
+	
+	/**
 	 * return tile source which has been used to create map
 	 *
 	 * @return TileSource

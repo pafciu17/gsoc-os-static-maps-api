@@ -58,7 +58,7 @@ class MapRequest
 	 */
 	public function getLeftUpCornerPoint()
 	{
-		if (isset($this->_mapData['leftUpLon']) && isset($this->_mapData['letUpLat'])) {
+		if (isset($this->_mapData['leftUpLon']) && isset($this->_mapData['leftUpLat'])) {
 			return array('lon' => $this->_mapData['leftUpLon'], 'lat' => $this->_mapData['leftUpLat']);
 		}
 	}
@@ -70,7 +70,7 @@ class MapRequest
 	 */
 	public function getRightDownCornerPoint()
 	{
-		if (isset($this->_mapData['rigthDownLon']) && isset($this->_mapData['rightDownLat'])) {
+		if (isset($this->_mapData['rightDownLon']) && isset($this->_mapData['rightDownLat'])) {
 			return array('lon' => $this->_mapData['rightDownLon'], 'lat' => $this->_mapData['rightDownLat']);
 		}
 	}
@@ -86,7 +86,6 @@ class MapRequest
 		if (isset($this->_mapData['centerLon']) && isset($this->_mapData['centerLat'])) {
 			return array('lon' => $this->_mapData['centerLon'], 'lat' => $this->_mapData['centerLat']);
 		}
-		return array('lon' => 0, 'lat' => 51.5);
 	}
 	
 	/**
@@ -110,7 +109,7 @@ class MapRequest
 	public function getHeight()
 	{
 		if (isset($this->_mapData['height'])) {
-			return $this->_mapData['width'];
+			return $this->_mapData['height'];
 		}
 		return 250;
 	}
@@ -139,5 +138,15 @@ class MapRequest
 			return $this->_mapData['zoom'];
 		} 
 		return 5;
+	}
+	
+	public function setHeight($height)
+	{
+		$this->_mapData['height'] = $height;
+	}
+	
+	public function setWidth($width)
+	{
+		$this->_mapData['width'] = $width;
 	}
 }

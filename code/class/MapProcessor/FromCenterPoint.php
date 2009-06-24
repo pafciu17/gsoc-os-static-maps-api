@@ -6,11 +6,11 @@
 class MapProcessorFromCenterPoint extends MapProcessor 
 {
 	/**
-	 * return x-number and y-number of the most to the up and to the right tile
+	 * return coordinates of the right down corner of the map
 	 *
 	 * @return array
 	 */
-	protected function _getRightDownTileNumbers()
+	protected function _getRightDownPoint()
 	{
 		$centerPoint = $this->_mapData->getCenterPoint();
 		$centerPointInPixels = $this->_worldMap->getPixelXY($centerPoint['lon'], $centerPoint['lat']);
@@ -18,15 +18,15 @@ class MapProcessorFromCenterPoint extends MapProcessor
 		'y' => $centerPointInPixels['y'] + round($this->_mapData->getHeight() / 2));
 		$lon = $this->_worldMap->getLon($rightDownPointInPixels['x']);
 		$lat = $this->_worldMap->getLat($rightDownPointInPixels['y']);
-		return $this->_tileSource->getTileNumbersFromCoordinates($lon, $lat, $this->_mapData->getZoom());
+		return array('lon' => $lon, 'lat' => $lat);
 	}
 	
 	/**
-	 * return x-number and y-number of the most to the left to the up tile
+	 * return coordinates of the right up corner of the map
 	 *
 	 * @return array
 	 */
-	protected function _getLeftUpTileNumbers()
+	protected function _getLeftUpPoint()
 	{
 		$centerPoint = $this->_mapData->getCenterPoint();
 		$centerPointInPixels = $this->_worldMap->getPixelXY($centerPoint['lon'], $centerPoint['lat']);
@@ -34,7 +34,7 @@ class MapProcessorFromCenterPoint extends MapProcessor
 		'y' => $centerPointInPixels['y'] - round($this->_mapData->getHeight() / 2));
 		$lon = $this->_worldMap->getLon($leftUpPointInPixels['x']);
 		$lat = $this->_worldMap->getLat($leftUpPointInPixels['y']);
-		return $this->_tileSource->getTileNumbersFromCoordinates($lon, $lat, $this->_mapData->getZoom());
+		return array('lon' => $lon, 'lat' => $lat);
 	}
 	
 	/**
@@ -50,8 +50,9 @@ class MapProcessorFromCenterPoint extends MapProcessor
 		$centerPointInPixels = $this->_worldMap->getPixelXY($centerPoint['lon'], $centerPoint['lat']);
 		$leftUpPointInPixels = array('x' => $centerPointInPixels['x'] - round($this->_mapData->getWidth() / 2),
 		'y' => $centerPointInPixels['y'] - round($this->_mapData->getHeight() / 2));
-		return array('x' => $leftUpPointInPixels['x'] - $leftUpBigMapInPixels['x'],
+		$result = array('x' => $leftUpPointInPixels['x'] - $leftUpBigMapInPixels['x'],
 		'y' => $leftUpPointInPixels['y'] - $leftUpBigMapInPixels['y']);
+		return $result;
 	}
 	
 	/**

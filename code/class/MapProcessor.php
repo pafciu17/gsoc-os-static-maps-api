@@ -40,9 +40,8 @@ abstract class MapProcessor
 	{
 		if (!is_null($mapData->getCenterPoint()) && !is_null($mapData->getWidth()) && !is_null($mapData->getHeight())) {
 			return new MapProcessorFromCenterPoint($mapData, TileSource::factory($mapData->getType()));
-		} else if (!is_null($mapData->getLeftUpCornerPoint()) && !is_null($mapData->getRightDownCornerPoint()) && !is_null($mapData->getHeight())
-		&& !is_null($mapData->getWidth())) {
-			return new MapProcessorFromBoundaryBox($mapData, TileSource::factory($mapData->getType()));
+		} else if (!is_null($mapData->getLeftUpCornerPoint()) && !is_null($mapData->getRightDownCornerPoint()) && !is_null($mapData->getZoom())) {
+			return new MapProcessorFromBoundaryBoxZoom($mapData, TileSource::factory($mapData->getType()));
 		}
 		throw new NoMapProcessorException("No map processor has been choosen");
 	}
@@ -55,19 +54,29 @@ abstract class MapProcessor
 	}
 	
 	/**
-	 * load all tiles from given range
+	 * load all tiles
 	 *
-	 * @param array $leftUpTilesNumber
-	 * @param array $rightDownTilesNumber
+	 * @param array $leftUpCorner
+	 * @param array $rightDownCorner
 	 * @return array
 	 */
-	protected function _getTiles($leftUpTilesNumber, $rightDownTilesNumber)
+	protected function _getTiles($leftUpCorner, $rightDownCorner)
 	{
 		$tiles = array();
+		$leftUpTilesNumber = $this->_tileSource->getTileNumbersFromCoordinates($leftUpCorner['lon'],
+		$leftUpCorner['lat'], $this->_worldMap->getZoom());
+		$rightDownTilesNumber = $this->_tileSource->getTileNumbersFromCoordinates($rightDownCorner['lon'],
+		$rightDownCorner['lat'], $this->_worldMap->getZoom());
 		for($y = $leftUpTilesNumber['y']; $y <= $rightDownTilesNumber['y']; $y++) {
 			$row = array();
-			for ($x = $leftUpTilesNumber['x']; $x <= $rightDownTilesNumber['x']; $x++) {
-				$row[] = $this->_tileSource->getTile($x, $y, $this->_worldMap->getZoom());
+			$x = $leftUpTilesNumber['x'];
+			while (true) {
+				$tile = $this->_tileSource->getTile($x, $y, $this->_worldMap->getZoom());
+				$row[] = $tile;
+				if ($x == $rightDownTilesNumber['x']) {
+					break;
+				}
+				$x++;
 			}
 			$tiles[] = $row;
 		}
@@ -86,7 +95,7 @@ abstract class MapProcessor
 	}
 	
 	/**
-	 * prepare object to create output map
+	 * prepare object to create output map, validate map data
 	 *
 	 */
 	protected function _prepareToCreateMap()
@@ -118,10 +127,10 @@ abstract class MapProcessor
 			$y += $this->_tileSource->getTileHeight();
 		}
 		$map = new Map($mapImage);
-
 		$leftUp = $firstTile->getLeftUpCorner();
 		$map->setLeftUpCorner($leftUp['lon'], $leftUp['lat']);
 		$map->setWorldMap($this->_worldMap);
+		$map->setImageHandler($this->_tileSource->getImageHandler());
 		return $map;
 	}
 	
@@ -148,25 +157,23 @@ abstract class MapProcessor
 	 */
 	protected function _createTemporaryMap()
 	{
-		$leftUpTileNumbers = $this->_getLeftUpTileNumbers();
-		$rightDownTileNumbers = $this->_getRightDownTileNumbers();
-		$tiles = $this->_getTiles($leftUpTileNumbers, $rightDownTileNumbers);
+		$tiles = $this->_getTiles($this->_getLeftUpPoint(), $this->_getRightDownPoint());
 		return $this->_concatenateTiles($tiles);
 	}
 	
 	/**
-	 * return x-number and y-number of the most to the up and to the right tile
+	 * return coordinates of the right down corner of the map
 	 *
 	 * @return array
 	 */
-	abstract protected function _getRightDownTileNumbers();
+	abstract protected function _getRightDownPoint();
 	
 	/**
-	 * return x-number and y-number of the most to the left to the up tile
+	 * return coordinates of the right up corner of the map
 	 *
 	 * @return array
 	 */
-	abstract protected function _getLeftUpTileNumbers();
+	abstract protected function _getLeftUpPoint();
 	
 	/**
 	 * get pixel coordinates for cuting result map from temporary one
@@ -194,11 +201,19 @@ abstract class MapProcessor
 	 */
 	protected function _createResultMapImage($image, $leftUpX, $leftUpY, $width, $height)
 	{	
+		if ($leftUpY < 0) {
+			$height += $leftUpY;
+			$leftUpY = 0;
+		}
+		$imageWidth = imagesx($image);
+		$imageHeight = imagesy($image);
+		if ($leftUpY + $height > $imageHeight) {
+			$height = $imageHeight - $leftUpY;
+		}
 		$newImage = $this->_tileSource->getImageHandler()->createImage($width, $height);
 		imagecopy($newImage, $image, 0, 0, $leftUpX, $leftUpY, 
 		$width, $height);
 		return $newImage;
 	}
-	
 	
 }

@@ -65,12 +65,26 @@ abstract class ImageHandler
 	/**
 	 * draw pixel
 	 *
-	 * @param unknown_type $image
-	 * @param unknown_type $x
-	 * @param unknown_type $y
+	 * @param resource $image
+	 * @param int $x
+	 * @param int $y
 	 */
 	public function drawPixel($image, $x, $y)
 	{
 		imagesetpixel($image, $x, $y, imagecolorallocate($image, 200, 0, 0));
+	}
+	
+	/**
+	 * draw line between given points
+	 *
+	 * @param resource $image
+	 * @param int $startX
+	 * @param int $startY
+	 * @param int $endX
+	 * @param int $endY
+	 */
+	public function drawLine($image, $startX, $startY, $endX, $endY)
+	{
+		imageline($image, $startX, $startY, $endX, $endY, imagecolorallocate($image, 200, 0, 0));
 	}
 }

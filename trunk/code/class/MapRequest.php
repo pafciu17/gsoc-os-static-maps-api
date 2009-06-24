@@ -120,7 +120,6 @@ class MapRequest
 		if (isset($this->_mapData['width'])) {
 			return $this->_mapData['width'];
 		}
-		return 250;
 	}
 	
 	/**
@@ -133,7 +132,6 @@ class MapRequest
 		if (isset($this->_mapData['height'])) {
 			return $this->_mapData['height'];
 		}
-		return 250;
 	}
 	
 	/**
@@ -158,7 +156,6 @@ class MapRequest
 		if (isset($this->_mapData['zoom'])) {
 			return $this->_mapData['zoom'];
 		} 
-		return 5;
 	}
 	
 	public function setHeight($height)

@@ -42,6 +42,8 @@ abstract class MapProcessor
 			return new MapProcessorFromCenterPoint($mapData, TileSource::factory($mapData->getType()));
 		} else if (!is_null($mapData->getLeftUpCornerPoint()) && !is_null($mapData->getRightDownCornerPoint()) && !is_null($mapData->getZoom())) {
 			return new MapProcessorFromBoundaryBoxZoom($mapData, TileSource::factory($mapData->getType()));
+		} else if (!is_null($mapData->getLeftUpCornerPoint()) && !is_null($mapData->getRightDownCornerPoint())) {
+			return new MapProcessorFromBoundaryBoxWidthHeight($mapData, TileSource::factory($mapData->getType()));
 		}
 		throw new NoMapProcessorException("No map processor has been choosen");
 	}
@@ -50,7 +52,9 @@ abstract class MapProcessor
 	{
 		$this->_mapData = $mapData;
 		$this->_tileSource= $source;
-		$this->_worldMap = $source->getWorldMap($this->_mapData->getZoom());
+		if (!is_null($this->_mapData->getZoom())) {
+			$this->_worldMap = $source->getWorldMap($this->_mapData->getZoom());
+		}
 	}
 	
 	/**
@@ -147,6 +151,7 @@ abstract class MapProcessor
 		$outputMapLeftUpInPixels['y'], $this->_mapData->getWidth(), $this->_mapData->getHeight()));
 		$this->_setUpResultMapLeftUpCornerPoint($resultMap);
 		$resultMap->setWorldMap($this->_worldMap);
+		$resultMap->setImageHandler($this->_tileSource->getImageHandler());
 		return $resultMap;
 	}
 	

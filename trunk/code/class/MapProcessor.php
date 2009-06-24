@@ -71,21 +71,14 @@ abstract class MapProcessor
 		$leftUpCorner['lat'], $this->_worldMap->getZoom());
 		$rightDownTilesNumber = $this->_tileSource->getTileNumbersFromCoordinates($rightDownCorner['lon'],
 		$rightDownCorner['lat'], $this->_worldMap->getZoom());
-		for($y = $leftUpTilesNumber['y']; $y <= $rightDownTilesNumber['y']; $y++) {
-			$row = array();
-			$x = $leftUpTilesNumber['x'];
-			while (true) {
-				$tileGetter = new TileGetter($this->_tileSource, $x, $y, $this->_wordlMap->getZoom);
-				$tile = $this->_tileSource->getTile($x, $y, $this->_worldMap->getZoom());
-				$row[] = $tile;
-				if ($x == $rightDownTilesNumber['x']) {
-					break;
-				}
-				$x++;
-			}
-			$tiles[] = $row;
+		
+		
+		$tilesGetter = new TilesGetter($leftUpTilesNumber, $rightDownTilesNumber, $this->_tileSource, $this->_worldMap);
+		$tilesGetter->startLoading();
+		while(!$tilesGetter->isLoaded()) {//wating for finishing loading
 		}
-		return $tiles;
+		return $tilesGetter->getTiles();
+
 	}
 	
 	/**

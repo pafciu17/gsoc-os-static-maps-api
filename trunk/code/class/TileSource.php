@@ -37,7 +37,8 @@ abstract class TileSource
 	 * @var array
 	 */
 	static private $_classMap = array('mapnik' => 'TileSourceMapnik',
-		'cycle' => 'TileSourceCycle');
+		'cycle' => 'TileSourceCycle',
+		'osmrender' => 'TileSourceOsmrender');
 	
 	/**
 	 * creates apprioprate TileSource
@@ -51,7 +52,8 @@ abstract class TileSource
 				return new $className();
 			}
 		}
-		throw new TileSourceException("Wrong tile source class");
+		$defaultClass = reset(self::$_classMap);
+		return new $defaultClass();
 	}
 	
 	/**

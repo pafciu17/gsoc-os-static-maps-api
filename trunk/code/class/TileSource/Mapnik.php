@@ -14,7 +14,7 @@ class TileSourceMapnik extends TileSource
 	public function __construct()
 	{
 		$this->_imageHandler = new ImageHandlerPNG();
-		$this->_tileCache = new TileCache('./dynamic/mapnik', 10, $this->_imageHandler);
+		$this->_tileCache = new TileCache('./dynamic/mapnik', 1000000, $this->_imageHandler);
 	}
 
 	/**

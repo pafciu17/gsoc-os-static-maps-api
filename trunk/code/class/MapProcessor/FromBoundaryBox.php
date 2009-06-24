@@ -1,111 +1,86 @@
 <?php
-class NoMapProcessorException extends Exception 
-{
-}
-
 /**
- * define infterface for map processor, it creates output map
+ * creates map from boundary box
  *
  */
-class MapProcessorFromBoundaryBox extends MapProcessor 
+abstract class MapProcessorFromBoundaryBox extends MapProcessor
 {
-	
-	/**
-	 * create temporary map which is made of all tiles which have been load
-	 *
-	 * @return Map
-	 */
-	public function _createTemporaryMap()
+	protected function _prepareData()
 	{
-		$this->_worldMap = $this->_getProperWorldMap();
-		$leftUpTileNumbers = $this->_getLeftUpTileNumbers();
-		$rightDownTileNumbers = $this->_getRightDownTileNumbers();
-		$tiles = $this->_getTiles($leftUpTileNumbers, $rightDownTileNumbers);
-		return $this->_concatenateTiles($tiles);
+		
 	}
 	
 	/**
-	 * return proper world map object
+	 * prepare object to create output map
 	 *
-	 * @return map
 	 */
-	private function _getProperWorldMap()
+	protected function _prepareToCreateMap()
 	{
-		$leftUpCorner = $this->_mapData->getLeftUpCornerPoint();
 		$rightDownCorner = $this->_mapData->getRightDownCornerPoint();
-		if (!is_null($this->_mapData->getWidth())) {
-			return $this->_worldMap->createProperWorldFromWidth($leftUpCorner['lon'], $rightDownCorner['lon'], $this->_mapData->getWidth());
-		} else if (!is_null($this->_mapData->getHeight())) {
-			return $this->_worldMap->createProperWordlFromHeight($leftUpCorner['lat'], $rightDownCorner['lat'], $this->_mapData->getHeight());
-		}
-		return $this->_worldMap;
+		$leftUpCorner = $this->_mapData->getLeftUpCornerPoint();
+		while ($rightDownCorner['lon'] <= $leftUpCorner['lon']) {
+			$rightDownCorner['lon'] += 360;
+		} 
+		$this->_mapData->setRightDownCornerPoint($rightDownCorner);
+		$this->_setUpSizeOfTheResultMap();
+		parent::_prepareToCreateMap();
+	}
+	
+	protected function _setUpSizeOfTheResultMap()
+	{
+		$point = $this->_mapData->getLeftUpCornerPoint();
+		$point2 = $this->_mapData->getRightDownCornerPoint();
+		$distance = $this->_worldMap->getPixelDistance($point['lon'], $point['lat'], $point2['lon'], $point2['lat']);
+		$this->_mapData->setHeight($distance['y']);
+		$this->_mapData->setWidth($distance['x']);
 	}
 	
 	/**
-	 * get numbers of the most to top and to left tile
+	 * get pixel coordinates for cuting result map from temporary one
 	 *
-	 * @return array
+	 * @return array coordinates of the left up corner
 	 */
-	private function _getLeftUpTileNumbers()
+	protected function _getLeftUpCornerForCutingResultMap(Map $map)
+	{
+		$leftUpCornerOfTemporaryMap = $map->getLeftUpCorner();
+		$leftUpCornerOfTemporaryMapInPixels = $this->_worldMap->getPixelXY($leftUpCornerOfTemporaryMap['lon'], 
+		$leftUpCornerOfTemporaryMap['lat']);
+		$leftUpCornerOfResultMap = $this->_mapData->getLeftUpCornerPoint();
+		$leftUpCornerOfResultMapInPixels = $this->_worldMap->getPixelXY($leftUpCornerOfResultMap['lon'],
+		$leftUpCornerOfResultMap['lat']);
+		return array('x' => $leftUpCornerOfResultMapInPixels['x'] - $leftUpCornerOfTemporaryMapInPixels['x'],
+		'y' => $leftUpCornerOfResultMapInPixels['y'] - $leftUpCornerOfTemporaryMapInPixels['y']);
+	}
+	
+	/**
+	 * it sets coordinates of the left up corner of the result map
+	 * 
+	 * @param Map $resultMap
+	 */
+	protected function _setUpResultMapLeftUpCornerPoint(Map $resultMap)
 	{
 		$leftUpCorner = $this->_mapData->getLeftUpCornerPoint();
-		return $this->_tileSource->getTileNumbersFromCoordinates($leftUpCorner['lon'], $leftUpCorner['lat'], $this->_mapData->getZoom());
+		$resultMap->setLeftUpCorner($leftUpCorner['lon'], $leftUpCorner['lat']);
 	}
 	
 	/**
-	 * get numbers of the most to down and to left tile
+	 * return coordinates of the right down corner of the map
 	 *
 	 * @return array
 	 */
-	private function _getRightDownTileNumbers()
+	protected function _getRightDownPoint()
 	{
-		$rightDownPointInPixels = $this->_mapData->getRightDownCornerPoint();
-		return $this->_tileSource->getTileNumbersFromCoordinates($rightDownPointInPixels['lon'], $rightDownPointInPixels['lat'], $this->_mapData->getZoom());
-	}
-	
-	
-	/**
-	 * create output map from the temoporary one
-	 *
-	 * @param Map $map
-	 */
-	private function _prepareOutputMap($map)
-	{
-		$image = $map->getImage();
-		$leftUpBigMap = $map->getLeftUpCorner();
-		$leftUpBigMapInPixels = $this->_worldMap->getPixelXY($leftUpBigMap['lon'], $leftUpBigMap['lat']);
-		$centerPoint = $this->_mapData->getCenterPoint();
-		$centerPointInPixels = $this->_worldMap->getPixelXY($centerPoint['lon'], $centerPoint['lat']);
-		$leftUpPointInPixels = array('x' => $centerPointInPixels['x'] - round($this->_mapData->getWidth() / 2),
-		'y' => $centerPointInPixels['y'] - round($this->_mapData->getHeight() / 2));
-		$outputMapLeftUpInPixels = array('x' => $leftUpPointInPixels['x'] - $leftUpBigMapInPixels['x'],
-		'y' => $leftUpPointInPixels['y'] - $leftUpBigMapInPixels['y']);
-		
-		
-		$resultMap = new Map($this->_createResultMapImage($image, $outputMapLeftUpInPixels['x'],
-		$outputMapLeftUpInPixels['y'], $this->_mapData->getWidth(), $this->_mapData->getHeight()));
-		$resultMap->setLeftUpCorner($this->_worldMap->getLon($leftUpPointInPixels['x']),
-		$this->_worldMap->getLat($leftUpPointInPixels['y']));
-		$resultMap->setWorldMap($this->_worldMap);
-		return $resultMap;
+		return $this->_mapData->getRightDownCornerPoint();
 	}
 	
 	/**
-	 * create result image from given temporary image
+	 * return coordinates of the right up corner of the map
 	 *
-	 * @param resource $image
-	 * @param int $leftUpX x-coordinate of the left up corner of the new image
-	 * @param int $leftUpY y-coordinate of the left up corner of the new image
-	 * @param int $width width of the new image
-	 * @param int $height of the new image
-	 * @return resource
+	 * @return array
 	 */
-	protected function _createResultMapImage($image, $leftUpX, $leftUpY, $width, $height)
-	{	
-		$newImage = $this->_tileSource->getImageHandler()->createImage($width, $height);
-		imagecopy($newImage, $image, 0, 0, $leftUpX, $leftUpY, 
-		$width, $height);
-		return $newImage;
+	protected function _getLeftUpPoint()
+	{
+		return $this->_mapData->getLeftUpCornerPoint();
 	}
-
 }
+?>

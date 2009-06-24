@@ -75,6 +75,7 @@ abstract class MapProcessor
 			$row = array();
 			$x = $leftUpTilesNumber['x'];
 			while (true) {
+				$tileGetter = new TileGetter($this->_tileSource, $x, $y, $this->_wordlMap->getZoom);
 				$tile = $this->_tileSource->getTile($x, $y, $this->_worldMap->getZoom());
 				$row[] = $tile;
 				if ($x == $rightDownTilesNumber['x']) {

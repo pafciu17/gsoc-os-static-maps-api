@@ -45,6 +45,14 @@ abstract class ImageHandler
 	abstract public function loadImage($url);
 	
 	/**
+	 * saves image to file
+	 *
+	 * @param resource $image
+	 * @param string $url
+	 */
+	abstract public function saveImage($image, $url);
+	
+	/**
 	 * return file extension for image file which is handled by this class
 	 *
 	 * @return string

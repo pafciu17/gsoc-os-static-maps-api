@@ -9,11 +9,12 @@ class TileSourceCycle extends TileSource
 	 * @var array
 	 */
 	protected $_configuration = array('tileWidth' => 256, 'tileHeight' => 256,
-		'sourceUrl' => 'http://tile.openstreetmap.org/');
+		'sourceUrl' => 'http://tile.openstreetmap.org', 'minZoom' => 0, 'maxZoom' => 18);
 
 	public function __construct()
 	{
 		$this->_imageHandler = new ImageHandlerPNG();
+		$this->_tileCache = new TileCache('./dynamic/cycle', 10, $this->_imageHandler);
 	}
 
 	/**

@@ -17,6 +17,14 @@ class WorldMapStandardMercator extends WorldMap
 		return array('x' => $x, 'y' => $y);
 	}
 	
+	public function validatePixelX($x)
+	{
+		if ($x >= $this->getWidth()) {
+			return $x = $this->getWidth() - 1;
+		}
+		return $x;
+	}
+	
 	/**
 	 * get width of the world map
 	 *
@@ -46,7 +54,7 @@ class WorldMapStandardMercator extends WorldMap
 	public function getLon($x)
 	{
 		$lon = (($x / $this->getWidth()) * 360) - 180;
-		return $this->_correctLon($lon);
+		return $lon;
 	}
 	
 	/**
@@ -71,7 +79,16 @@ class WorldMapStandardMercator extends WorldMap
 	 */
 	public function createProperWorldFromWidth($lon, $lon2, $width)
 	{
-		
+		$maxZoom = $this->_tileSource->getMaxZoom();
+		for ($i = $this->_tileSource->getMinZoom(); $i <= $maxZoom; $i++) {
+			$className = get_class($this);
+			$world = new $className($i, $this->_tileSource);
+			$distance = $world->getPixelDistance($lon, 0, $lon2, 0);
+			if ($width < $distance['x']) {
+				return $world;
+			}
+		}
+		return $world;
 	}
 	
 	/**
@@ -84,7 +101,15 @@ class WorldMapStandardMercator extends WorldMap
 	 */
 	public function createProperWordlFromHeight($lat, $lat2, $height)
 	{
-		
+		$maxZoom = $this->_tileSource->getMaxZoom();
+		for ($i = $this->_tileSource->getMinZoom(); $i <= $maxZoom; $i++) {
+			$world = new WorldMap($i, $this->_tileSource);
+			$distance = $world->getPixelDistance(0, $lat, 0, $lat2);
+			if ($width > $distance['y']) {
+				return $world;
+			}
+		}
+		return $world;
 	}
 	
 }

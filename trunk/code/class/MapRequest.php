@@ -37,7 +37,8 @@ class MapRequest
 		'width' => 'width',
 		'height' => 'height',
 		'zoom' => 'zoom',
-		'type' => 'type');
+		'type' => 'type'
+	);
 	
 	public function __construct(GET $get)
 	{

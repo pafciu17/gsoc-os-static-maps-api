@@ -65,6 +65,11 @@ class MapRequest
 		if (isset($this->_mapData['leftUpLon']) && isset($this->_mapData['leftUpLat'])) {
 			return array('lon' => $this->_mapData['leftUpLon'], 'lat' => $this->_mapData['leftUpLat']);
 		}
+		if (isset($this->_mapData['leftDownLon']) && isset($this->_mapData['rightUpLat'])) {
+			$this->_mapData['leftUpLon'] = $this->_mapData['leftDownLon'];
+			$this->_mapData['leftUpLat'] = $this->_mapData['rightUpLat'];
+			return array('lon' => $this->_mapData['rightDownLon'], 'lat' => $this->_mapData['rightDownLon']);
+		}
 	}
 	
 	/**
@@ -76,6 +81,11 @@ class MapRequest
 	{
 		if (isset($this->_mapData['rightDownLon']) && isset($this->_mapData['rightDownLat'])) {
 			return array('lon' => $this->_mapData['rightDownLon'], 'lat' => $this->_mapData['rightDownLat']);
+		}
+		if (isset($this->_mapData['rightUpLon']) && isset($this->_mapData['leftDownLat'])) {
+			$this->_mapData['rightDownLon'] = $this->_mapData['rightUpLon'];
+			$this->_mapData['rightDownLat'] = $this->_mapData['leftDownLat'];
+			return array('lon' => $this->_mapData['rightDownLon'], 'lat' => $this->_mapData['rightDownLon']);
 		}
 	}
 	

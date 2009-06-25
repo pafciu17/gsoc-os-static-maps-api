@@ -23,14 +23,24 @@ class Point
 		$image = $map->getImage();
 		$pointInPixels = $map->getPixelPointFromCoordinates($this->_coordinates['lon'],
 		$this->_coordinates['lat']);
-		$map->getImageHandler()->drawPixel($image, $pointInPixels['x'], $pointInPixels['y']);
+		imagesetpixel($image, $pointInPixels['x'], $pointInPixels['y'], imagecolorallocate($image, 200, 0, 0));
 	}
 	
+	/**
+	 * return longitude
+	 *
+	 * @return float;
+	 */
 	public function getLon()
 	{
 		return $this->_coordinates['lon'];
 	}
 	
+	/**
+	 * return latitude
+	 *
+	 * @return float
+	 */
 	public function getLat()
 	{
 		return $this->_coordinates['lat'];

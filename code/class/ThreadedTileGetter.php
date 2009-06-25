@@ -1,5 +1,5 @@
 <?php
-class ThreadedTileGetter implements TileGetter 
+class ThreadedTileGetter  implements TileGetter
 {
 	/**
 	 * numbers of the tile

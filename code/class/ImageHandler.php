@@ -61,30 +61,4 @@ abstract class ImageHandler
 	{
 		return $this->_fileExtension;
 	}
-	
-	/**
-	 * draw pixel
-	 *
-	 * @param resource $image
-	 * @param int $x
-	 * @param int $y
-	 */
-	public function drawPixel($image, $x, $y)
-	{
-		imagesetpixel($image, $x, $y, imagecolorallocate($image, 200, 0, 0));
-	}
-	
-	/**
-	 * draw line between given points
-	 *
-	 * @param resource $image
-	 * @param int $startX
-	 * @param int $startY
-	 * @param int $endX
-	 * @param int $endY
-	 */
-	public function drawLine($image, $startX, $startY, $endX, $endY)
-	{
-		imageline($image, $startX, $startY, $endX, $endY, imagecolorallocate($image, 200, 0, 0));
-	}
 }

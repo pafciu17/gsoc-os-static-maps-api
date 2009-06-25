@@ -28,12 +28,13 @@ class Line
 	 */
 	public function draw(Map $map)
 	{
+	
 		$image = $map->getImage();
 		$startPointInPixels = $map->getPixelPointFromCoordinates($this->_startPoint->getLon(),
 		$this->_startPoint->getLat());
 		$endPointInPixels = $map->getPixelPointFromCoordinates($this->_endPoint->getLon(),
 		$this->_endPoint->getLat());
-		$map->getImageHandler()->drawLine($image, $startPointInPixels['x'], $startPointInPixels['y'], 
-		$endPointInPixels['x'], $endPointInPixels['y']);
+		imageline($image, $startPointInPixels['x'], $startPointInPixels['y'], 
+		$endPointInPixels['x'], $endPointInPixels['y'], imagecolorallocate($image, 200, 0, 0));
 	}
 }

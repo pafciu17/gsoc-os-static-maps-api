@@ -8,6 +8,8 @@ class Map
 	
 	/**
 	 * map image
+	 * 
+	 * @var resource
 	 */
 	protected $_img;
 	
@@ -40,7 +42,7 @@ class Map
 	/**
 	 * return map image
 	 *
-	 * @return image
+	 * @return resource
 	 */
 	public function getImage()
 	{

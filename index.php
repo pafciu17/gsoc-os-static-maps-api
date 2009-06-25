@@ -39,7 +39,8 @@ function __autoload($name)
 	$loader->addSource(array('./code/base', './code/modul', './code/class'));
 	if ($loader->loadClass($name)) {
 	} else {
-		Zend_Loader::loadClass($name,'./libs');
+		Zend_Loader::loadClass($name, './libs');
+		
 	}
 }
 

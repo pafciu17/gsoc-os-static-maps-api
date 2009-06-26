@@ -8,23 +8,27 @@ class MapModule extends Module
 
 	public function execute()
 	{
-		$mapRequest = new MapRequest($this->_get);
-		
-		$leftUpCorner = $mapRequest->getLeftUpCornerPoint();
-		$rightDownCorner = $mapRequest->getRightDownCornerPoint();
-		$mapProcessor = MapProcessor::factory($mapRequest);
-		// create map object
-		$map = $mapProcessor->createMap();
-		// send output image 
+
+		try {
+			$mapRequest = new MapRequest($this->_get);
+			$leftUpCorner = $mapRequest->getLeftUpCornerPoint();
+			$rightDownCorner = $mapRequest->getRightDownCornerPoint();
+			$mapProcessor = MapProcessor::factory($mapRequest);
+			// create map object
+			$map = $mapProcessor->createMap();
+			// send output image
 
 
-		$map->setImageHandler(new ImageHandlerPNG());
-		$map->send();
-		die;
+			$map->setImageHandler(new ImageHandlerPNG());
+			$map->send();
+			die;
+		} catch (NoMapProcessorException $e) {
+			echo 'Map cannot be created from given attributes';
+		}
 		/*
-		header('Content-Type: image/png');
-		$img = imagecreatefrompng('http://tile.openstreetmap.org/12/2048/1362.png');
-		
-		imagepng($img);*/
+		 header('Content-Type: image/png');
+		 $img = imagecreatefrompng('http://tile.openstreetmap.org/12/2048/1362.png');
+
+		 imagepng($img);*/
 	}
 }

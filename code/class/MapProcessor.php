@@ -71,8 +71,6 @@ abstract class MapProcessor
 		$leftUpCorner['lat'], $this->_worldMap->getZoom());
 		$rightDownTilesNumber = $this->_tileSource->getTileNumbersFromCoordinates($rightDownCorner['lon'],
 		$rightDownCorner['lat'], $this->_worldMap->getZoom());
-		
-		
 		$tilesGetter = new TilesGetter($leftUpTilesNumber, $rightDownTilesNumber, $this->_tileSource, $this->_worldMap);
 		$tilesGetter->startLoading();
 		while(!$tilesGetter->isLoaded()) {//wating for finishing loading

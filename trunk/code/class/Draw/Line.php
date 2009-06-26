@@ -1,5 +1,5 @@
 <?php
-class Line
+class DrawLine implements Drawable 
 {
 	/**
 	 * start point of the line

@@ -9,14 +9,28 @@ abstract class ImageHandler
 	protected $_fileExtension;
 	
 	/**
-	 * create appropriate handler for given extension
+	 * it maps url values to image classes
 	 *
-	 * @param string $extension
+	 * @var unknown_type
+	 */
+	protected static $_classMap = array('png' => 'ImageHandlerPNG',
+		'jpg' => 'ImageHandlerJPEG',
+		'jpeg' => 'ImageHandlerJPEG',
+		'gif' => 'ImageHandlerGIF');
+	
+	/**
+	 * create appropriate handler for given url name
+	 *
+	 * @param string $urlFileTypeName
 	 * @return ImageHandler
 	 */
-	static public function factory($extension)
+	static public function factory($urlFileTypeName)
 	{
-		//@todo implement it	
+		if (array_key_exists($urlFileTypeName, self::$_classMap)) {
+			return new self::$_classMap[$urlFileTypeName];
+		}
+		$defaultClass = reset(self::$_classMap);
+		return new $defaultClass();
 	}
 	
 	/**

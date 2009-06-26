@@ -19,7 +19,9 @@ class MapModule extends Module
 			// send output image
 
 
-			$map->setImageHandler(new ImageHandlerPNG());
+			$map->setImageHandler(ImageHandler::factory($mapRequest->getImageType()));
+			$drawHandle = new DrawHandle($map);
+			$drawHandle->draw(new DrawRequest($mapRequest));
 			$map->send();
 			die;
 		} catch (NoMapProcessorException $e) {

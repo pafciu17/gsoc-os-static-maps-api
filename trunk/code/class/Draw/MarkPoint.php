@@ -1,5 +1,5 @@
 <?php
-class DrawMarkPoint extends Point implements Drawable
+class DrawMarkPoint extends DrawPoint implements Drawable
 {
 	/**
 	 * draw point on map

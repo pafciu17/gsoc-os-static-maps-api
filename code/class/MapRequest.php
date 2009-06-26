@@ -33,17 +33,34 @@ class MapRequest
 		'leftDownLon' => 'leftDownLon',
 		'leftDownLat' => 'leftDownLat',
 		'rightUpLon' => 'rightUpLon',
-		'rightDownLon' => 'rightDownLon',
+		'rightUpLat' => 'rightUpLat',
 		'width' => 'width',
 		'height' => 'height',
 		'zoom' => 'zoom',
-		'type' => 'type'
+		'type' => 'type',
+		'imgType' => 'imgType',
+		'points' => 'points'
 	);
+	
+	public function getMarkPoints()
+	{
+		return $this->_mapData['points'];
+	}
 	
 	public function __construct(GET $get)
 	{
 		$this->_get = $get;
 		$this->_setUpMapData($get);
+	}
+	
+	/**
+	 * return image type
+	 *
+	 * @return string
+	 */
+	public function getImageType()
+	{
+		return $this->_mapData['imgType'];		
 	}
 	
 	private function _setUpMapData(GET $get)
@@ -52,6 +69,8 @@ class MapRequest
 			$parameter = $get->$urlName;
 			if (!is_null($parameter)) {
 				$this->_mapData[$appName] = $parameter;
+			} else {
+				$this->_mapData[$appName] = null;
 			}
 		}
 	}

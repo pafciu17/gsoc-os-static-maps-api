@@ -1,5 +1,5 @@
 <?php
-class Point
+class DrawPoint implements Drawable 
 {
 	/**
 	 * coordinates of the point

@@ -20,7 +20,7 @@ abstract class MapProcessorFromBoundaryBox extends MapProcessor
 		$leftUpCorner = $this->_mapData->getLeftUpCornerPoint();
 		while ($rightDownCorner['lon'] <= $leftUpCorner['lon']) {
 			$rightDownCorner['lon'] += 360;
-		} 
+		}
 		$this->_mapData->setRightDownCornerPoint($rightDownCorner);
 		$this->_setUpSizeOfTheResultMap();
 		parent::_prepareToCreateMap();

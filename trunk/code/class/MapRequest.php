@@ -39,7 +39,8 @@ class MapRequest
 		'zoom' => 'zoom',
 		'type' => 'type',
 		'imgType' => 'imgType',
-		'points' => 'points'
+		'points' => 'points',
+		'bbox' => 'bbox'
 	);
 	
 	public function getMarkPoints()
@@ -76,6 +77,26 @@ class MapRequest
 	}
 	
 	/**
+	 * return coordinates of bound box
+	 *
+	 * @return 
+	 */
+	private function _getBoundBox()
+	{
+		$bbox = array();
+		if (!is_null($this->_mapData['bbox'])) {
+			$coordinates = explode(',', $this->_mapData['bbox']);
+			if (isset($coordinates[0]) && isset($coordinates[1]) && isset($coordinates[2]) && isset($coordinates[3])) {
+				$bbox['left'] = $coordinates[0];
+				$bbox['top'] = $coordinates[1];
+				$bbox['right'] = $coordinates[2];
+				$bbox['bottom'] = $coordinates[3];
+			}
+		}
+		return $bbox;
+	}
+	
+	/**
 	 * return coordinates of the left up corner of the map
 	 *
 	 * @return array
@@ -86,9 +107,13 @@ class MapRequest
 			return array('lon' => $this->_mapData['leftUpLon'], 'lat' => $this->_mapData['leftUpLat']);
 		}
 		if (isset($this->_mapData['leftDownLon']) && isset($this->_mapData['rightUpLat'])) {
-			$this->_mapData['leftUpLon'] = $this->_mapData['leftDownLon'];
-			$this->_mapData['leftUpLat'] = $this->_mapData['rightUpLat'];
-			return array('lon' => $this->_mapData['rightDownLon'], 'lat' => $this->_mapData['rightDownLon']);
+			$this->_mapData['leftDownLon'] = $this->_mapData['leftDownLon'];
+			$this->_mapData['rightUpLat'] = $this->_mapData['rightUpLat'];
+			return array('lon' => $this->_mapData['leftDownLon'], 'lat' => $this->_mapData['rightUpLat']);
+		}
+		$bbox = $this->_getBoundBox();
+		if (isset($bbox['left']) && isset($bbox['top'])) {
+			return array('lon' => $bbox['left'], 'lat' => $bbox['top']);
 		}
 	}
 	
@@ -106,6 +131,10 @@ class MapRequest
 			$this->_mapData['rightDownLon'] = $this->_mapData['rightUpLon'];
 			$this->_mapData['rightDownLat'] = $this->_mapData['leftDownLat'];
 			return array('lon' => $this->_mapData['rightDownLon'], 'lat' => $this->_mapData['rightDownLon']);
+		}
+		$bbox = $this->_getBoundBox();
+		if (isset($bbox['right']) && isset($bbox['bottom'])) {
+			return array('lon' => $bbox['right'], 'lat' => $bbox['bottom']);
 		}
 	}
 	

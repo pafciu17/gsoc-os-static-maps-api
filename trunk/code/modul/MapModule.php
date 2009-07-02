@@ -21,7 +21,9 @@ class MapModule extends Module
 
 			$map->setImageHandler(ImageHandler::factory($mapRequest->getImageType()));
 			$drawHandle = new DrawHandle($map);
-			$drawHandle->draw(new DrawRequest($mapRequest));
+			$drawRequest = new DrawRequest($mapRequest);
+			$drawRequest->setDefaultColor($this->_conf->get('default_drawnings_color'));
+			$drawHandle->draw($drawRequest);
 			$map->send();
 			die;
 		} catch (NoMapProcessorException $e) {

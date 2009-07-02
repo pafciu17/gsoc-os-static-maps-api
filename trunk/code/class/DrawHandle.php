@@ -23,6 +23,7 @@ class DrawHandle
 	{
 		$drawings = $request->getDrawings();
 		foreach ($drawings as $drawing) {
+			$drawing->setColor($request->getColor());
 			$drawing->draw($this->_map);
 		}
 	}

@@ -1,5 +1,5 @@
 <?php
-class DrawPoint implements Drawable 
+class DrawPoint extends Draw
 {
 	/**
 	 * coordinates of the point
@@ -23,7 +23,8 @@ class DrawPoint implements Drawable
 		$image = $map->getImage();
 		$pointInPixels = $map->getPixelPointFromCoordinates($this->_coordinates['lon'],
 		$this->_coordinates['lat']);
-		imagesetpixel($image, $pointInPixels['x'], $pointInPixels['y'], imagecolorallocate($image, 200, 0, 0));
+		imagesetpixel($image, $pointInPixels['x'], $pointInPixels['y'], imagecolorallocate($image, 
+		$this->_color->getR(), $this->_color->getG(), $this->_color->getB()));
 	}
 	
 	/**

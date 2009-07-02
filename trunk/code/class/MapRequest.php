@@ -40,12 +40,39 @@ class MapRequest
 		'type' => 'type',
 		'imgType' => 'imgType',
 		'points' => 'points',
-		'bbox' => 'bbox'
+		'bbox' => 'bbox',
+		'paths' => 'paths',
+		'color' => 'color'
 	);
 	
+	/**
+	 * return string which contains coordinates of points to draw
+	 *
+	 * @return string
+	 */
 	public function getMarkPoints()
 	{
 		return $this->_mapData['points'];
+	}
+	
+	/**
+	 * return string which contains coordinates of paths points 
+	 *
+	 * @return string
+	 */
+	public function getPathPoints()
+	{
+		return $this->_mapData['paths'];
+	}
+	
+	/**
+	 * return string which contains RGB cordinates of draw color
+	 *
+	 * @return string
+	 */
+	public function getColor()
+	{
+		return $this->_mapData['color'];
 	}
 	
 	public function __construct(GET $get)

@@ -1,5 +1,5 @@
 <?php
-class DrawLine implements Drawable 
+class DrawLine extends Draw
 {
 	/**
 	 * start point of the line
@@ -35,6 +35,7 @@ class DrawLine implements Drawable
 		$endPointInPixels = $map->getPixelPointFromCoordinates($this->_endPoint->getLon(),
 		$this->_endPoint->getLat());
 		imageline($image, $startPointInPixels['x'], $startPointInPixels['y'], 
-		$endPointInPixels['x'], $endPointInPixels['y'], imagecolorallocate($image, 200, 0, 0));
+		$endPointInPixels['x'], $endPointInPixels['y'], imagecolorallocate($image, 
+		$this->_color->getR(), $this->_color->getG(), $this->_color->getB()));
 	}
 }

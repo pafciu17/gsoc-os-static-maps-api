@@ -1,0 +1,66 @@
+@CHARSET "UTF-8";
+body {
+	text-align: center;
+}
+div#all {
+	width: 1200px;
+}
+body div {
+	margin: auto
+}
+div#menu {
+	float: left;
+	width: 200px;
+}
+div#content {
+	float: right;
+	width: 960px;
+	padding:5px;
+}
+div#top {
+	text-align: left;
+	padding:10px;
+	padding-left:60px;
+}
+#menu ul li {
+	list-style-type: none;
+}
+
+table.listTable {
+	margin:auto
+}
+
+table.listTable td, table.listTable th {
+	padding:  3px;
+}
+
+table.listTable th {
+	background-color: #7ec67e;
+}
+
+.oddRow {
+	background-color: #4aa6ba;
+}
+
+.evenRow {
+	background-color: #31d231;	
+}
+
+h3 {
+	text-align: left;
+	padding-left: 10%;
+}
+
+div.underListTableOptions {
+	text-align: left;
+	padding: 5px;
+	padding-left: 10%;
+}
+
+table.form {
+	text-align: left;
+}
+div.formButtons {
+	text-align: left;
+	padding-left: 80px;
+}

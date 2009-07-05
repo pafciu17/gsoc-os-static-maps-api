@@ -34,7 +34,7 @@ class ViewHandlerSmarty extends ViewHandler
 	 */
 	public function assign($name, $value)
 	{
-		$this->_view->assing($name, $value);
+		$this->_view->assign($name, $value);
 	}
 	
 	/**
@@ -44,6 +44,7 @@ class ViewHandlerSmarty extends ViewHandler
 	 */
 	public function display($tpl)
 	{
+		parent::display($tpl);
 		$this->_view->display($tpl);	
 	}
 	

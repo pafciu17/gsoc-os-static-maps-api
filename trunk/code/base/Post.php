@@ -10,11 +10,11 @@ class Post
 	 *
 	 * @var array
 	 */
-	private $post = array();
+	private $_post = array();
 	
 	public function __construct($post)
 	{
-		$this->post = $post;
+		$this->_post = $post;
 	}
 	
 	/**
@@ -26,22 +26,27 @@ class Post
 	{
 		if (is_array($data)) {
 			foreach ($data as $key => $value) {
-				$data[$key] = $this->__processPostData($pole);
+				$data[$key] = $this->_processPostData($value);
 			}
 		} else {
 			if (get_magic_quotes_gpc()) {
-				$data = stripslashes($dane);
+				$data = stripslashes($data);
 			}
-			$data = htmlspecialchars($dane);
-			return $data;
+			$data = htmlspecialchars($data);
+			return trim($data);
 		}
 	}
 	
-	public function __get($pole)
+	public function __get($key)
 	{
-		if (isset($this->post[$pole])) {
-			return $this->zabezpieczDaneZPosta($this->post[$pole]);
+		if (isset($this->_post[$key])) {
+			return $this->_processPostData($this->_post[$key]);
 		}
+	}
+	
+	public function getRawData($key)
+	{
+		return $this->_post[$key];
 	}
 	
 }

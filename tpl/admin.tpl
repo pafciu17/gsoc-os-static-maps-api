@@ -21,17 +21,24 @@
 </div>
 <div id="content">
 <div>
-	
+	{if count($info) > 0}
+	<div class="infoContener">
 	<ul class="info">
 	{foreach from=$info item=inf}
 		<li ">{$inf}</li>
 	{/foreach}
 	</ul>
+	</div>
+	{/if}
+	{if count($errors) > 0}
+	<div class="errorContener">
 	<ul class="errors">
 	{foreach from=$errors item=error}
 		<li>{$error}</li>
 	{/foreach}
 	</ul>
+	</div>
+	{/if}
 </div>
 	{include file="$content_file"}
 </div>

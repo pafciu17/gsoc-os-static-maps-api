@@ -1,6 +1,7 @@
 <h3>{$formHeader}</h3>
 <div>
 <form method="post">
+<fieldset>
 <table class="form">
 <tr>
 	<td><label for="">Login</label></td>
@@ -16,3 +17,4 @@
 <input type="submit" value="login" />
 </div>
 </form>
+</fieldset>

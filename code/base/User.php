@@ -27,7 +27,7 @@ class User
 	}
 	
 	private function _encryptPassword($password)
-	{
+	{	
 		return md5($password);
 	}
 	

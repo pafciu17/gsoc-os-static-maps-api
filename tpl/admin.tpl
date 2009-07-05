@@ -15,21 +15,21 @@
 </div>
 <div id="body"> 
 <div id="menu">
-{if $menu_file}
+{if isset($menu_file)}
 	{include file="$menu_file"}
 {/if}
 </div>
 <div id="content">
 <div>
 	
-	<ul>
+	<ul class="info">
 	{foreach from=$info item=inf}
-		<li class="info">{$inf}</li>
+		<li ">{$inf}</li>
 	{/foreach}
 	</ul>
-	<ul>
+	<ul class="errors">
 	{foreach from=$errors item=error}
-		<li class="error">{$error}</li>
+		<li>{$error}</li>
 	{/foreach}
 	</ul>
 </div>

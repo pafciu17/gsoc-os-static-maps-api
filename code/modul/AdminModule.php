@@ -5,9 +5,9 @@ class AdminModule extends Module
 
 	public function execute()
 	{
+		$this->_view->assign('menu_file', 'menu.tpl');
 		parent::execute();
 		$this->_view->display('admin.tpl');
-		$this->_view->assign('menu_file', 'menu.tpl');
 	}
 	
 	/**

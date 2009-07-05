@@ -64,3 +64,14 @@ div.formButtons {
 	text-align: left;
 	padding-left: 80px;
 }
+
+.info {
+	list-style-type: none;
+	color: #4fc462;
+	font-weight: bold;
+}
+.errors {
+	list-style-type: none;
+	color: #ed4e46;
+	font-weight: bold;
+}

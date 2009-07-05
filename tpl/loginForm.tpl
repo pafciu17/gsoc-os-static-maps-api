@@ -8,7 +8,7 @@
 </tr>
 <tr>
 	<td><label for="">Password</label></td>
-	<td><input type="text" value="" name="password" /></td>
+	<td><input type="password" value="" name="password" /></td>
 </tr>
 </table>
 <div class="formButtons">

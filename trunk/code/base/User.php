@@ -28,7 +28,6 @@ class User
 	
 	private function _encryptPassword($password)
 	{
-		echo '-p-' . $password . '-';
 		return md5($password);
 	}
 	

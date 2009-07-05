@@ -38,12 +38,13 @@ abstract class MapProcessor
 	 */
 	static public function factory(MapRequest $mapData)
 	{
+		$tileSource = new TileSource(DatabaseServer::getServer($mapData->getType()));
 		if (!is_null($mapData->getCenterPoint()) && !is_null($mapData->getWidth()) && !is_null($mapData->getHeight())) {
-			return new MapProcessorFromCenterPoint($mapData, TileSource::factory($mapData->getType()));
+			return new MapProcessorFromCenterPoint($mapData, $tileSource);
 		} else if (!is_null($mapData->getLeftUpCornerPoint()) && !is_null($mapData->getRightDownCornerPoint()) && !is_null($mapData->getZoom())) {
-			return new MapProcessorFromBoundaryBoxZoom($mapData, TileSource::factory($mapData->getType()));
+			return new MapProcessorFromBoundaryBoxZoom($mapData, $tileSource);
 		} else if (!is_null($mapData->getLeftUpCornerPoint()) && !is_null($mapData->getRightDownCornerPoint())) {
-			return new MapProcessorFromBoundaryBoxWidthHeight($mapData, TileSource::factory($mapData->getType()));
+			return new MapProcessorFromBoundaryBoxWidthHeight($mapData, $tileSource);
 		}
 		throw new NoMapProcessorException("No map processor has been choosen");
 	}

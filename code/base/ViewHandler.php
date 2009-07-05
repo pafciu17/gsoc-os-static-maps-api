@@ -14,6 +14,20 @@ abstract class ViewHandler
 	protected $_conf;
 	
 	/**
+	 * paths to dir which contains css files
+	 *
+	 * @var string
+	 */
+	protected $_cssDir;
+	
+	/**
+	 * array of paths to css files
+	 *
+	 * @var array
+	 */
+	protected $_cssFiles = array();
+	
+	/**
 	 * consturctor
 	 *
 	 * @param Conf $conf
@@ -21,6 +35,28 @@ abstract class ViewHandler
 	public function __construct($conf)
 	{
 		$this->_conf = $conf; 
+		$this->_cssDir = $conf->get('css_dir');
+		$this->_info = new Zend_Session_Namespace('View_Info');
+	}
+	
+	/**
+	 * add css file
+	 *
+	 * @param string $fileName
+	 */
+	public function addCss($fileName)
+	{
+		$this->_cssFiles[] = $this->_cssDir . '/' . $fileName;
+	}
+	
+	public function addInfo($info)
+	{
+		$inf = $this->_info->info;
+		if (is_null($inf) || !is_array($info)) {
+			$inf = array();
+		}
+		$inf[] = $info;
+		$this->_info->info = $inf;
 	}
 	
 	/**
@@ -36,6 +72,11 @@ abstract class ViewHandler
 	 *
 	 * @param string $tpl template 
 	 */
-	abstract public function display($tpl);
+	public function display($tpl)
+	{
+		$this->_view->assign('css_files', $this->_cssFiles);
+		$this->_view->assign('info', $this->_info->info);
+		$this->_info->info = array();
+	}
 	
 }

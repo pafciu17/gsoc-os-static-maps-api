@@ -7,15 +7,14 @@ class TileSourceException extends Exception
  * it defines interface for tile source classes
  *
  */
-abstract class TileSource
+class TileSource
 {
 	/**
 	 * tilesource configuration
 	 *
 	 * @var array
 	 */
-	protected $_configuration = array('tileWidth' => 256, 'tileHeight' => 256,
-		'sourceUrl' => '', 'minZoom' => 0, 'maxZoom' => 18);
+	protected $_configuration = array();
 	
 	/**
 	 * image handler for tiles
@@ -32,6 +31,13 @@ abstract class TileSource
 	protected $_tileCache;
 	
 	/**
+	 * url server
+	 *
+	 * @var ServerUrl
+	 */
+	protected $_serverUrl;
+	
+	/**
 	 * class map
 	 *
 	 * @var array
@@ -40,20 +46,17 @@ abstract class TileSource
 		'cycle' => 'TileSourceCycle',
 		'osmrender' => 'TileSourceOsmrender');
 	
-	/**
-	 * creates apprioprate TileSource
-	 *
-	 * @param string $type
-	 */
-	static public function factory($type)
+	public function __construct(DatabaseServer $server)
 	{
-		foreach (self::$_classMap as $key => $className) {
-			if ($key == $type) {
-				return new $className();
-			}
-		}
-		$defaultClass = reset(self::$_classMap);
-		return new $defaultClass();
+		$this->_configuration['tileWidth'] = $server->tileWidth;
+		$this->_configuration['tileHeight'] = $server->tileHeight;
+		$this->_configuration['minZoom'] = $server->minZoom;
+		$this->_configuration['maxZoom'] = $server->maxZoom;
+		$this->_configuration['cacheLimit'] = $server->cacheSize;
+		$this->_configuration['name'] = $server->name;
+		$this->_serverUrl = $server->getServerUrl();
+		$this->_imageHandler = new ImageHandlerPNG();
+		$this->_tileCache = new TileCache('./dynamic/' . $this->_configuration['name'], $this->_configuration['cacheLimit'] * 1048576, $this->_imageHandler);
 	}
 	
 	/**
@@ -113,7 +116,7 @@ abstract class TileSource
 	protected function _createUrl($x, $y, $zoom)
 	{
 		$this->_validateTileNumbers($x, $y, $zoom);
-		return $this->_configuration['sourceUrl'] . '/' . $zoom . '/' . $x . '/' . $y . '.' .$this->_imageHandler->getFileExtension();
+		return $this->_serverUrl->getUrl($zoom, $x, $y);
 	}
 	
 	
@@ -246,5 +249,8 @@ abstract class TileSource
 	 * @param int $zoom
 	 * @return WorldMap
 	 */
-	abstract public function getWorldMap($zoom);
+	public function getWorldMap($zoom)
+	{
+		return new WorldMapStandardMercator($zoom, $this);
+	}
 }

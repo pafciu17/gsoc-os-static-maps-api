@@ -1,6 +1,7 @@
 <h3>{$formHeader}</h3>
 <div>
 <form method="post">
+<fieldset>
 <table class="form">
 <tr>
 	<td><label for="">Name</label></td>
@@ -39,4 +40,5 @@
 <input type="hidden" name="send" value="true" />
 <input type="submit" value="save" />
 </div>
+</fieldset>
 </form>

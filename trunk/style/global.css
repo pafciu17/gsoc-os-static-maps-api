@@ -67,11 +67,25 @@ div.formButtons {
 
 .info {
 	list-style-type: none;
-	color: #4fc462;
+	color: #27ba27;
 	font-weight: bold;
+}
+div.infoContener {
+	background-color: #80ff80;
+	border-style: solid;
+	border-color: #27ba27;
+	padding: 5px;
+	margin: 5px;
 }
 .errors {
 	list-style-type: none;
-	color: #ed4e46;
+	color: #ca2727;
 	font-weight: bold;
+}
+div.errorContener {
+	background-color: #FF8080;
+	border-style: solid;
+	border-color: #ca2727;
+	padding: 5px;
+	margin: 5px;
 }

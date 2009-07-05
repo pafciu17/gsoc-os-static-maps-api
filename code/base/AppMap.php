@@ -22,6 +22,9 @@ class AppMap
 		if (array_key_exists($urlName, $this->_map)) {
 			return $this->_map[$urlName]['name'];
 		}
+		//return default module
+		$moduleMap = reset($this->_map);
+		return $moduleMap['name'];
 	}
 	
 	public function getModuleUrlName($moduleName)

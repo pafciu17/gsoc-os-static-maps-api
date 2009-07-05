@@ -23,8 +23,8 @@ class Conf
 		'database_password' => 'test',
 		'database_type' => 'Mysql');
 	
-	private $_appMap = array('map' => array('name' => 'MapModule'),
-		'home' => array('name' => 'PublicModule'),
+	private $_appMap = array('home' => array('name' => 'PublicModule'),
+		'map' => array('name' => 'MapModule'),
 		'admin' => array('name' => 'AdminModule', 
 			'servers' => 'ModuleActionServers',
 			'server' => 'ModuleActionEditServer',

@@ -48,10 +48,10 @@
 			<a href="http://dev.openstreetmap.org/~pafciu17/?module=map&bbox=-80,50,-67,15&width=500&points=-74,40.34,-82.3,23.1">http://dev.openstreetmap.org/~pafciu17/?module=map&bbox=-80,50,-67,15&width=500&points=-74,40.34,-82.3,23.1</a>
 			</li>
 			<li><b>paths</b>: coordinates of paths, paths are separeted by semi-colons. Sample:<br />
-			<a href="http://dev.openstreetmap.org/~pafciu17/?module=map&bbox=-100,45,-67,5&width=600&paths=-74,%2040.34,-82.3,23.1,-85,35,-87.2,32.12;-90,40,-80,40">http://dev.openstreetmap.org/~pafciu17/?module=map&bbox=-100,45,-67,5&width=600&paths=-74,%2040.34,-82.3,23.1,-85,35,-87.2,32.12;-90,40,-80,40</a>
+			<a href="http://dev.openstreetmap.org/~pafciu17/?module=map&bbox=-100,45,-67,5&width=600&paths=-74,40.34,-82.3,23.1,-85,35,-87.2,32.12;-90,40,-80,40">http://dev.openstreetmap.org/~pafciu17/?module=map&bbox=-100,45,-67,5&width=600&paths=-74,40.43,-82.3,23.1,-85,35,-87.2,32.12;-90,40,-80,40</a>
 			</li>
 			<li><b>color</b>: color of drawnings, given as 3 RPG coordinates. Sample:<br />
-			<a href="http://dev.openstreetmap.org/~pafciu17/?module=map&bbox=-80,50,-67,15&width=500&points=-74,%2040.34,-82.3,23.1&color=150,0,0">http://dev.openstreetmap.org/~pafciu17/?module=map&bbox=-80,50,-67,15&width=500&points=-74,%2040.34,-82.3,23.1&color=150,0,0</a>
+			<a href="http://dev.openstreetmap.org/~pafciu17/?module=map&bbox=-80,50,-67,15&width=500&points=-74,40.344,-82.3,23.1&color=150,0,0">http://dev.openstreetmap.org/~pafciu17/?module=map&bbox=-80,50,-67,15&width=500&points=-74,40.34,-82.3,23.1&color=150,0,0</a>
 			</li>
 		</ul>
 	</p>

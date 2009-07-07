@@ -31,6 +31,13 @@ abstract class MapProcessor
 	protected $_worldMap;
 	
 	/**
+	 * object which valid request map data
+	 *
+	 * @var RequestValidator
+	 */
+	protected $_requestValidator;
+	
+	/**
 	 * create appropriate MapProcessor
 	 *
 	 * @param MapRequest $mapData
@@ -56,6 +63,7 @@ abstract class MapProcessor
 		if (!is_null($this->_mapData->getZoom())) {
 			$this->_worldMap = $source->getWorldMap($this->_mapData->getZoom());
 		}
+		$this->_requestValidator->check();
 	}
 	
 	/**

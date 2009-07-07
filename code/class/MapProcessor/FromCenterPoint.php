@@ -5,6 +5,13 @@
  */
 class MapProcessorFromCenterPoint extends MapProcessor 
 {
+	
+	public function __construct(MapRequest $mapData, TileSource $source) 
+	{
+		$this->_requestValidator = new RequestValidatorFromCenterPoint($mapData, $source);
+		parent::__construct($mapData, $source);
+	}
+	
 	/**
 	 * return coordinates of the right down corner of the map
 	 *

@@ -1,5 +1,5 @@
 <?php
-abstract class WorldMap
+abstract class WorldMap extends BaseWorldMap 
 {
 	/**
 	 * map zoom
@@ -15,60 +15,11 @@ abstract class WorldMap
 	 */
 	protected $_tileSource;
 	
-	/**
-	 * top edge of the latitude
-	 *
-	 * @var float
-	 */
-	protected $_topEdge = 85.0511;
-	
-	/**
-	 * down edge of the latitude
-	 *
-	 * @var float
-	 */
-	protected $_downEdge = - 85.0511;
-	
 	public function __construct($zoom, TileSource $tileSource)
 	{
 		$this->_zoom = $zoom;
 		$this->_tileSource = $tileSource;
 	}
-	
-	/**
-	 * correct longitude if it is out of domain
-	 *
-	 * @param float $lon
-	 * @return float
-	 */
-	protected function _correctLon($lon)
-	{
-		if ($lon <= -180) {
-			$lon += 360;
-			$this->_correctLon($lon);
-		}
-		if ($lon > 180) {
-			$lon -= 360;
-			$this->_correctLon($lon);
-		}
-		return $lon;
-	}
-	
-	/**
-	 * correct latitude if it is out of domain
-	 *
-	 * @param float $lat
-	 * @return float
-	 */
-	protected function _correctLat($lat)
-	{
-		if ($lat > $this->_topEdge) {
-			$lat = $this->_topEdge;
-		} else if ($lat < $this->_downEdge) {
-			$lat = $this->_downEdge;
-		}
-		return $lat;
-	} 
 	
 	/**
 	 * create proper world for longitude distance between two given longitudes and given width of the map

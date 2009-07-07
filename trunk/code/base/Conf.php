@@ -21,7 +21,8 @@ class Conf
 		'database_name' => 'bialowieza6',
 		'database_username' => 'bialowieza6',
 		'database_password' => 'test',
-		'database_type' => 'Mysql');
+		'database_type' => 'Mysql',
+		'logo_layout' => 'logo_left_down_corner');
 	
 	private $_appMap = array('home' => array('name' => 'PublicModule'),
 		'map' => array('name' => 'MapModule'),

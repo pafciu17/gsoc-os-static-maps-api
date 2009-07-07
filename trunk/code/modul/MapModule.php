@@ -24,10 +24,14 @@ class MapModule extends Module
 			$drawRequest = new DrawRequest($mapRequest);
 			$drawRequest->setDefaultColor($this->_conf->get('default_drawnings_color'));
 			$drawHandle->draw($drawRequest);
-			$map->send();
+			$mapWithLogo = new LogoMap($map, $this->_conf);
+			$mapWithLogo->setLogoLayout(LogoLayout::factoryFromUrl($mapRequest->getLogoLayoutName()));
+			$mapWithLogo->send();
 			die;
 		} catch (NoMapProcessorException $e) {
 			echo 'Map cannot be created from given attributes';
+		} catch (WrongMapRequestDataException $e) {
+			$map = new Map();
 		}
 		/*
 		 header('Content-Type: image/png');

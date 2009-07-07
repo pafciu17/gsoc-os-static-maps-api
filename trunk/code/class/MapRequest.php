@@ -42,7 +42,8 @@ class MapRequest
 		'points' => 'points',
 		'bbox' => 'bbox',
 		'paths' => 'paths',
-		'color' => 'color'
+		'color' => 'color',
+		'logoPos' => 'logoLayout'
 	);
 	
 	/**
@@ -56,6 +57,16 @@ class MapRequest
 	}
 	
 	/**
+	 * return string which indicates how logo should be added to result map
+	 *
+	 * @return string
+	 */
+	public function getLogoLayoutName()
+	{
+		return $this->_mapData['logoLayout'];
+	}
+	
+	/**
 	 * return string which contains coordinates of paths points 
 	 *
 	 * @return string
@@ -63,6 +74,21 @@ class MapRequest
 	public function getPathPoints()
 	{
 		return $this->_mapData['paths'];
+	}
+	
+	/**
+	 * return array which describes map boundary box, it returns null if box is not define
+	 * array keys: left, top, right, bottom
+	 *
+	 * @return mixed
+	 */
+	public function getBBox()
+	{
+		$bbox = $this->_getBoundBox();
+		if (sizeof($bbox) != 4) {
+			return null;
+		}
+		return $bbox;
 	}
 	
 	/**
@@ -208,7 +234,7 @@ class MapRequest
 	public function getWidth()
 	{
 		if (isset($this->_mapData['width'])) {
-			return $this->_mapData['width'];
+			return (int)$this->_mapData['width'];
 		}
 	}
 	
@@ -220,7 +246,7 @@ class MapRequest
 	public function getHeight()
 	{
 		if (isset($this->_mapData['height'])) {
-			return $this->_mapData['height'];
+			return (int)$this->_mapData['height'];
 		}
 	}
 	
@@ -244,7 +270,7 @@ class MapRequest
 	public function getZoom()
 	{
 		if (isset($this->_mapData['zoom'])) {
-			return $this->_mapData['zoom'];
+			return (int)$this->_mapData['zoom'];
 		} 
 	}
 	

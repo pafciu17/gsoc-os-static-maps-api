@@ -11,7 +11,7 @@ abstract class ImageHandler
 	/**
 	 * it maps url values to image classes
 	 *
-	 * @var unknown_type
+	 * @var array
 	 */
 	protected static $_classMap = array('png' => 'ImageHandlerPNG',
 		'jpg' => 'ImageHandlerJPEG',

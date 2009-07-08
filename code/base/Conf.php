@@ -22,7 +22,8 @@ class Conf
 		'database_username' => 'bialowieza6',
 		'database_password' => 'test',
 		'database_type' => 'Mysql',
-		'logo_layout' => 'logo_left_down_corner');
+		'logo_layout' => 'logo_left_down_corner',
+		'logo_file' => './media/small_osm_logo_and_text.png');
 	
 	private $_appMap = array('home' => array('name' => 'PublicModule'),
 		'map' => array('name' => 'MapModule'),

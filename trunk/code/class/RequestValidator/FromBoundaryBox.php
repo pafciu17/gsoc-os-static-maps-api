@@ -22,5 +22,8 @@ abstract class RequestValidatorFromBoundaryBox extends RequestValidator
 		if (!$worldMap->isCorrectLat($bbox['top']) || !$worldMap->isCorrectLat($bbox['bottom'])) {
 			throw new WrongMapRequestDataException('Bbox has wrong parameters');
 		}
+		if ($bbox['bottom'] >= $bbox['top']) {
+			throw new WrongMapRequestDataException('Bbox has wrong parameters');
+		}
 	}
 }

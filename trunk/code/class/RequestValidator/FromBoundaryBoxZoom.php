@@ -8,6 +8,7 @@ class RequestValidatorFromBoundaryBoxZoom extends RequestValidatorFromBoundaryBo
 	 */
 	protected function _check()
 	{
+		parent::_check();
 		if (!$this->_checkZoom()) {
 			throw new WrongMapRequestDataException('Wrong zoom is given');
 		}

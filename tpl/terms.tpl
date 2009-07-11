@@ -1,5 +1,21 @@
+
+
 <h2>Test page</h2>
 {assign var=host value=http://dev.openstreetmap.org/~pafciu17}
+
+<div>
+<p>This is test page of GSoC 2009 project: <b>Static maps API</b>.
+Main idea of the project is to create an web application which 
+will provide an easy way of embeding maps into webpages.
+Application is going to be deeply configurable and easy to install
+by anyone on his server. It is being implemented in PHP5.</p>
+<p>
+During first month of work scaffold of application has been created with. Now it is 
+time for improvments and adding new features. I would be very grateful for any feedback about API.
+You can send comments, information about errors etc. to <b>osm.static.maps.api(at)gmail.com</b>.
+</p>
+</div>
+
 <div>
 	<h3>Conditions and terms of use</h3>
 	<ul>
@@ -7,7 +23,7 @@
 	<li>...</li>
 	</ul>
 	<div>
-		If you are using OSM static maps api it means that you read and accepted terms and conditions of use
+		If you are using OSM static maps API it means that you read and accepted terms and conditions of use
 	</div>
 </div>
 

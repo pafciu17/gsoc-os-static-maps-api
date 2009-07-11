@@ -17,8 +17,6 @@ class MapModule extends Module
 			// create map object
 			$map = $mapProcessor->createMap();
 			// send output image
-
-
 			$map->setImageHandler(ImageHandler::factory($mapRequest->getImageType()));
 			$drawHandle = new DrawHandle($map);
 			$drawRequest = new DrawRequest($mapRequest);
@@ -29,9 +27,16 @@ class MapModule extends Module
 			$mapWithLogo->send();
 			die;
 		} catch (NoMapProcessorException $e) {
-			echo 'Map cannot be created from given attributes';
+			$map = new WrongRequestMap($this->_conf->get('wrong_map_request_file'));
+			$map->send();
+			die;
 		} catch (WrongMapRequestDataException $e) {
-			$map = new Map();
+			echo $e->getMessage();
+			print_r($e);
+			die;
+			$map = new WrongRequestMap($this->_conf->get('wrong_map_request_file'));
+			$map->send();
+			die;
 		}
 		/*
 		 header('Content-Type: image/png');

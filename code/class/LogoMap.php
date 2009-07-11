@@ -1,8 +1,12 @@
 <?php
+/**
+ * class handles adding osm logo to the result map image
+ *
+ */
 class LogoMap extends Map
 {
 
-	private $_logoFile = './media/small_osm_logo_and_text.png';
+	private $_logoFile;
 
 	/**
 	 * app configuration object

@@ -58,9 +58,9 @@ class BaseWorldMap
 	public function _correctLat($lat)
 	{
 		if ($lat > self::$_topEdge) {
-			$lat = $this->_topEdge;
+			$lat = self::$_topEdge;
 		} else if ($lat < self::$_downEdge) {
-			$lat = $this->_downEdge;
+			$lat = self::$_downEdge;
 		}
 		return $lat;
 	} 

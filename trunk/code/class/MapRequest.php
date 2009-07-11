@@ -43,7 +43,8 @@ class MapRequest
 		'bbox' => 'bbox',
 		'paths' => 'paths',
 		'color' => 'color',
-		'logoPos' => 'logoLayout'
+		'logoPos' => 'logoLayout',
+		'center' => 'center'
 	);
 	
 	/**
@@ -220,7 +221,12 @@ class MapRequest
 	 */
 	public function getCenterPoint()
 	{
-		// @TODO maybe it would be good place to validate data ?
+		if (isset($this->_mapData['center'])) {
+			$coordinates = explode(',', $this->_mapData['center']);
+			if (isset($coordinates[0]) && isset($coordinates[1])) {
+				return array('lon' => $coordinates[0], 'lat' => $coordinates[1]);
+			}
+		}
 		if (isset($this->_mapData['centerLon']) && isset($this->_mapData['centerLat'])) {
 			return array('lon' => $this->_mapData['centerLon'], 'lat' => $this->_mapData['centerLat']);
 		}

@@ -16,7 +16,7 @@
 	<p>For that moment map can be build in 3 ways:
 		<ul>
 			<li>from given center point, width, height and zoom of the map:<br /> 
-			<a href="http://dev.openstreetmap.org/~pafciu17/?module=map&centerLon=0&centerLat=51&zoom=7&width=400&height=400">http://dev.openstreetmap.org/~pafciu17/?module=map&centerLon=0&centerLat=51&zoom=7&width=400&height=400</a></li>
+			<a href="http://dev.openstreetmap.org/~pafciu17/?module=map&center=0,51&zoom=7&width=400&height=400">http://dev.openstreetmap.org/~pafciu17/?module=map&center=0,51&zoom=7&width=400&height=400</a></li>
 			<li>from given bound box and zoom:<br /> 
 			<a href="http://dev.openstreetmap.org/~pafciu17/?module=map&bbox=0,70,40,50&zoom=4">http://dev.openstreetmap.org/~pafciu17/?module=map&bbox=0,70,40,50&zoom=4</a></li>
 			<li>from given bound box, width and/or height: <br>
@@ -35,8 +35,8 @@
 			<a href="http://dev.openstreetmap.org/~pafciu17/?module=map&bbox=-30,30,0,0&width=300&height=300&type=mapnik&imgType=gif">http://dev.openstreetmap.org/~pafciu17/?module=map&bbox=-30,30,0,0&width=300&height=300&type=mapnik&imgType=gif</a>
 			<a href="http://dev.openstreetmap.org/~pafciu17/?module=map&bbox=-30,30,0,0&width=300&height=300&type=mapnik&imgType=jpg">http://dev.openstreetmap.org/~pafciu17/?module=map&bbox=-30,30,0,0&width=300&height=300&type=mapnik&imgType=jpg</a>
 			</li>
-			<li><b>centerLon</b> and <b>centerLat</b>: centerLon (value from -180 to 180) and centerLat(from -85.0511 to 85.0511)  indicate coordinates of the center point of the map. Samples: <br />
-			<a href="http://dev.openstreetmap.org/~pafciu17/?module=map&centerLon=180&centerLat=20&zoom=2&width=1200&height=1200">http://dev.openstreetmap.org/~pafciu17/?module=map&centerLon=180&centerLat=20&zoom=2&width=1200&height=1200</a>
+			<li><b>center</b>: it describes two coordinates of center point separted by comma: longitude (value from -180 to 180) and latitude(from -85.0511 to 85.0511)  indicate coordinates of the center point of the map. Samples: <br />
+			<a href="http://dev.openstreetmap.org/~pafciu17/?module=map&center=180,20&zoom=2&width=1200&height=1200">http://dev.openstreetmap.org/~pafciu17/?module=map&center=180,20&zoom=2&width=1200&height=1200</a>
 			</li>
 			<li><b>zoom</b>: zoom of the map
 			</li>

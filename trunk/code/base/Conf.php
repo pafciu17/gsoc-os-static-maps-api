@@ -23,7 +23,8 @@ class Conf
 		'database_password' => 'test',
 		'database_type' => 'Mysql',
 		'logo_layout' => 'logo_left_down_corner',
-		'logo_file' => './media/small_osm_logo_and_text.png');
+		'logo_file' => './media/small_osm_logo_and_text.png',
+		'wrong_map_request_file' => './media/osm_wrong_map_request.png');
 	
 	private $_appMap = array('home' => array('name' => 'PublicModule'),
 		'map' => array('name' => 'MapModule'),

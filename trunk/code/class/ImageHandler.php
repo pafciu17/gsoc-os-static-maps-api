@@ -1,4 +1,8 @@
 <?php
+class ImageHandlerException extends Exception 
+{
+}
+
 abstract class ImageHandler
 {
 	/**
@@ -19,6 +23,16 @@ abstract class ImageHandler
 		'gif' => 'ImageHandlerGIF');
 	
 	/**
+	 * it maps file extensions to classes
+	 *
+	 * @var array
+	 */
+	protected static $_extensionToClassMap = array('png' => 'ImageHandlerPng',
+		'jpg' => 'ImageHandlerJPEG',
+		'jpeg' => 'ImageHandlerJPEG',
+		'gif' => 'ImageHandlerGIF');
+	
+	/**
 	 * create appropriate handler for given url name
 	 *
 	 * @param string $urlFileTypeName
@@ -27,7 +41,7 @@ abstract class ImageHandler
 	static public function factory($urlFileTypeName)
 	{
 		if (array_key_exists($urlFileTypeName, self::$_classMap)) {
-			return new self::$_classMap[$urlFileTypeName];
+			return new self::$_classMap[$urlFileTypeName]();
 		}
 		$defaultClass = reset(self::$_classMap);
 		return new $defaultClass();
@@ -74,5 +88,23 @@ abstract class ImageHandler
 	public function getFileExtension()
 	{
 		return $this->_fileExtension;
+	}
+	
+	/**
+	 * it creates apprioprate ImageHandler for given file, by checkin its extension
+	 *
+	 * @param string $fileName
+	 */
+	public static function createImageHandlerFromFileExtension($fileName)
+	{
+		$tab = explode('.', $fileName);
+		$lastIndex = sizeof($tab) - 1;
+		if (isset($tab[$lastIndex])) {//extension exists
+			$extension = $tab[$lastIndex];
+			if (array_key_exists($extension, self::$_extensionToClassMap)) {
+				return new self::$_extensionToClassMap[$extension]();
+			}
+		}
+		throw new ImageHandlerException("Such extension doesn't fit to any class");
 	}
 }

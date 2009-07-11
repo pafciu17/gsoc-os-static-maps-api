@@ -6,9 +6,15 @@
 class MapModule extends Module
 {
 
+	private function _configure()
+	{
+		TileCache::$daysToRemember = $this->_conf->get('tile_cache_days_of_memory');
+		TileCache::$numberOfFilesToDelete = $this->_conf->get('tile_cache_number_of_files_to_delete');
+	}
+	
 	public function execute()
 	{
-
+		$this->_configure();
 		try {
 			$mapRequest = new MapRequest($this->_get);
 			$leftUpCorner = $mapRequest->getLeftUpCornerPoint();
@@ -31,9 +37,6 @@ class MapModule extends Module
 			$map->send();
 			die;
 		} catch (WrongMapRequestDataException $e) {
-			echo $e->getMessage();
-			print_r($e);
-			die;
 			$map = new WrongRequestMap($this->_conf->get('wrong_map_request_file'));
 			$map->send();
 			die;

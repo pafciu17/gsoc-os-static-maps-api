@@ -24,7 +24,9 @@ class Conf
 		'database_type' => 'Mysql',
 		'logo_layout' => 'logo_left_down_corner',
 		'logo_file' => './media/small_osm_logo_and_text.png',
-		'wrong_map_request_file' => './media/osm_wrong_map_request.png');
+		'wrong_map_request_file' => './media/osm_wrong_map_request.png',
+		'tile_cache_days_of_memory' => 7,
+		'tile_cache_number_of_files_to_delete' => 10);
 	
 	private $_appMap = array('home' => array('name' => 'PublicModule'),
 		'map' => array('name' => 'MapModule'),

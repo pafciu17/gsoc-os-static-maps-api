@@ -33,9 +33,9 @@ class DatabaseServer extends DatabaseObject
 	static public function getServer($urlName)
 	{
 		self::setUpConnection();
-		$select = self::$db->select();
 		$sampleServer = new DatabaseServer();
 		if (!is_null($urlName)) {
+			$select = self::$db->select();
 			$data = $select->From($sampleServer->getTableName())->Where('urlName = ?', $urlName)->query()->fetch();
 			if ($data) {
 				$server = new DatabaseServer();
@@ -44,6 +44,7 @@ class DatabaseServer extends DatabaseObject
 			}
 		}
 		//return default server
+		$select = self::$db->select();
 		$data = $select->From($sampleServer->getTableName())->query()->fetch();
 		$server = new DatabaseServer();
 		$server->setData($data);

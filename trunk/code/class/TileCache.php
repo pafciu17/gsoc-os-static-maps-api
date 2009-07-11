@@ -1,5 +1,34 @@
 <?php
 /**
+ * support class
+ *
+ */
+class FileList 
+{
+	
+	private $_files = array();
+	
+	public function add($fileName)
+	{
+		$this->_files[$fileName] = filemtime($fileName);	
+	}
+	
+	public function deleteOldest($number)
+	{
+		asort($this->_files);
+		$count = 0;
+		foreach ($this->_files as $fileName => $fileTime) {
+			if ($count >= $number) {
+				break;
+			}
+			unlink($fileName);
+			$count++;
+		}
+	}
+	
+}
+
+/**
  * it handles cache for tiles 
  *
  */
@@ -25,6 +54,20 @@ class TileCache
 	 * @var int
 	 */
 	protected $_cacheSize;
+	
+	/**
+	 * how many files should be deleted in one clean operation
+	 *
+	 * @var int
+	 */
+	public static $numberOfFilesToDelete = 10;
+	
+	/**
+	 * it sets after how many days tile will be deleted from cache
+	 *
+	 * @var int
+	 */
+	public static $daysToRemember = 7;
 	
 	/**
 	 * 
@@ -58,7 +101,7 @@ class TileCache
 	}
 	
 	/**
-	 * it checks if there is such tile image in cache
+	 * it checks if there is such valid tile image in cache
 	 *
 	 * @param int $x
 	 * @param int $y
@@ -67,7 +110,17 @@ class TileCache
 	 */
 	public function hasTile($x, $y, $zoom)
 	{
-		return file_exists($this->_getFileName($x, $y, $zoom));
+		$fileName = $this->_getFileName($x, $y, $zoom);
+		$actualTime = new Zend_Date();
+		if (file_exists($fileName)) {
+			$fileTime = new Zend_Date();
+			$fileTime->setTimestamp(filemtime($this->_getFileName($x, $y, $zoom)));
+			$fileTime->addDay(self::$daysToRemember);
+			if ($fileTime->isLater($actualTime)) {
+				return true;
+			}
+		}
+		return false;
 	}
 	
 	/**
@@ -93,11 +146,13 @@ class TileCache
 	private function _cleanCache()
 	{
 		$dir = opendir($this->_path);
+		$fileList = new FileList();
 		while (false !== ($fileName = readdir($dir))) {
 			if ($fileName != '.' && $fileName != '..') {
-				unlink($this->_path. '/' . $fileName);
+				$fileList->add($this->_path . '/' . $fileName);
 			}
 		}
+		$fileList->deleteOldest(self::$numberOfFilesToDelete);
 	}
 	
 	/**

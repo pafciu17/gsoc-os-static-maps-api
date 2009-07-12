@@ -10,6 +10,7 @@ class MapModule extends Module
 	{
 		TileCache::$daysToRemember = $this->_conf->get('tile_cache_days_of_memory');
 		TileCache::$numberOfFilesToDelete = $this->_conf->get('tile_cache_number_of_files_to_delete');
+		TilesGetter::$limitOfTiles = $this->_conf->get('max_number_of_tiles_per_map');
 	}
 	
 	public function execute()

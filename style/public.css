@@ -1,0 +1,12 @@
+@CHARSET "UTF-8";
+
+#termsBanner {
+	background-image: url("../media/osm_sma_logo.png");
+	background-repeat: no-repeat;
+	background-position: center;
+	height: 120px;
+}
+
+#termsBody div {
+	text-align: left;
+}

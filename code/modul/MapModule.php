@@ -22,7 +22,7 @@ class MapModule extends Module
 			$mapProcessor = MapProcessor::factory($mapRequest);
 			// create map object
 			$map = $mapProcessor->createMap();
-			// send output image
+		
 			$map->setImageHandler(ImageHandler::factory($mapRequest->getImageType()));
 			$drawHandle = new DrawHandle($map);
 			$drawRequest = new DrawRequest($mapRequest);
@@ -30,6 +30,7 @@ class MapModule extends Module
 			$drawHandle->draw($drawRequest);
 			$mapWithLogo = new LogoMap($map, $this->_conf);
 			$mapWithLogo->setLogoLayout(LogoLayout::factoryFromUrl($mapRequest->getLogoLayoutName()));
+			// send output image
 			$mapWithLogo->send();
 			die;
 		} catch (NoMapProcessorException $e) {

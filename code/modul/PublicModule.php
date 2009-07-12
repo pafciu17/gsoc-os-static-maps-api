@@ -8,6 +8,7 @@ class PublicModule extends Module
 	
 	private function _displayTerms()
 	{
+		$this->_view->addCss('public.css');
 		$this->_view->display('terms.tpl');
 	}
 }

@@ -94,6 +94,7 @@ abstract class ImageHandler
 	 * it creates apprioprate ImageHandler for given file, by checkin its extension
 	 *
 	 * @param string $fileName
+	 * @return ImageHandler
 	 */
 	public static function createImageHandlerFromFileExtension($fileName)
 	{

@@ -38,6 +38,13 @@ class TileSource
 	protected $_serverUrl;
 	
 	/**
+	 * if it is set to false then all tiles are taken from server, and not from cache
+	 *
+	 * @var bool
+	 */
+	protected $_useCache = true;
+	
+	/**
 	 * class map
 	 *
 	 * @var array
@@ -58,6 +65,17 @@ class TileSource
 		$this->_imageHandler = new ImageHandlerPNG();
 		$this->_tileCache = new TileCache('./dynamic/' . $this->_configuration['name'], $this->_configuration['cacheLimit'] * 1048576, $this->_imageHandler);
 	}
+	
+	/**
+	 * is sets if tiles will be load also from tile cache
+	 *
+	 * @param bool $value
+	 */
+	public function useCache($value)
+	{
+		$this->_useCache = $value;
+	}
+	
 	
 	/**
 	 * return image handler for tile source
@@ -82,13 +100,18 @@ class TileSource
 		$tx = $x;
 		$ty = $y;
 		$this->_validateTileNumbers($tx, $ty, $zoom);
-		if ($this->_tileCache->hasTile($tx, $ty, $zoom)) {//if tile image is in cache, take it from there
+		if ($this->_useCache && $this->_tileCache->hasTile($tx, $ty, $zoom)) {//if tile image is in cache, take it from there
 			$image = $this->_tileCache->getTile($tx, $ty, $zoom);
+			$tile = new Tile($image);
 		} else {
 			$image = $this->_loadImage($this->_createUrl($tx, $ty, $zoom));
-			$this->_tileCache->addTile($image, $tx, $ty, $zoom);
+			if ($image === false) {//when loading an image failed
+				$tile = new EmptyTile($this->getTileWidth(), $this->getTileHeight(), $this->_imageHandler);
+			} else {
+				$this->_tileCache->addTile($image, $tx, $ty, $zoom);
+				$tile = new Tile($image);
+			}
 		}
-		$tile = new Tile($image);
 		$tile->setWorldMap($this->getWorldMap($zoom));
 		$tile->setTileData($x, $y, $zoom);
 		$tile->setImageHandler($this->_imageHandler);
@@ -99,6 +122,7 @@ class TileSource
 	 * load image
 	 *
 	 * @param string $url
+	 * @return resource or false in case of error
 	 */
 	protected function _loadImage($url)
 	{

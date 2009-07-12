@@ -24,11 +24,11 @@ class ImageHandlerPNG extends ImageHandler
 	 * load image from given url
 	 *
 	 * @param string $url
-	 * @return resource
+	 * @return resource , in case of problems it retrun false
 	 */
 	public function loadImage($url)
 	{
-		return imagecreatefrompng($url);
+		return @imagecreatefrompng($url);
 	}
 	
 	/**

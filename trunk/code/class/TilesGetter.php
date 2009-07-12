@@ -30,6 +30,13 @@ class TilesGetter
 	private $_worldMap;
 	
 	/**
+	 * maximal number of tiles that can be used to build up map
+	 * 
+	 * @var int
+	 */
+	public static $limitOfTiles = 25;
+	
+	/**
 	 * tile getters objects
 	 *
 	 * @var array
@@ -47,18 +54,23 @@ class TilesGetter
 	
 	private function _createTileGettersTable()
 	{
+		$numberOfTilesToLoad = 0;
 		for($y = $this->_leftUpTileNumbers['y']; $y <= $this->_rightDownTileNumbers['y']; $y++) {
 			$row = array();
 			$x = $this->_leftUpTileNumbers['x'];
 			while (true) {
 				$tileGetter = new StandardTileGetter($this->_tileSource, $x, $y, $this->_worldMap->getZoom());
 				$row[] = $tileGetter;
+				$numberOfTilesToLoad++;
 				if ($x == $this->_rightDownTileNumbers['x']) {
 					break;
 				}
 				$x++;
 			}
 			$this->_tileGetters[] = $row;
+		}
+		if ($numberOfTilesToLoad > self::$limitOfTiles) {
+			throw new WrongMapRequestDataException('Too many tiles to load');
 		}
 	}
 	

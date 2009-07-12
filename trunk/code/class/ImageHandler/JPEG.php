@@ -28,7 +28,7 @@ class ImageHandlerJPEG extends ImageHandler
 	 */
 	public function loadImage($url)
 	{
-		return imagecreatefromjpeg($url);
+		return @imagecreatefromjpeg($url);
 	}
 	
 	/**

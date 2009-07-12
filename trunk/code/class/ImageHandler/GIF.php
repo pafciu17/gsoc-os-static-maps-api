@@ -28,7 +28,7 @@ class ImageHandlerGIF extends ImageHandler
 	 */
 	public function loadImage($url)
 	{
-		return imagecreatefromgif($url);
+		return @imagecreatefromgif($url);
 	}
 	
 	/**

@@ -44,8 +44,23 @@ class MapRequest
 		'paths' => 'paths',
 		'color' => 'color',
 		'logoPos' => 'logoLayout',
-		'center' => 'center'
+		'center' => 'center',
+		'reload' => 'reload'
 	);
+	
+	
+	/**
+	 * return true if isset reload param
+	 *
+	 * @return bool
+	 */
+	public function issetReloadParam()
+	{
+		if (!is_null($this->_mapData['reload'])) {
+			return true;
+		}
+		return false;
+	}
 	
 	/**
 	 * return string which contains coordinates of points to draw

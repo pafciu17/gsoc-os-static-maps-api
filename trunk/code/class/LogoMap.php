@@ -49,8 +49,8 @@ class LogoMap extends Map
 	 */
 	public function send()
 	{
-		//@todo it should work also for file diffrent then png
-		$logoImage = imagecreatefrompng($this->_logoFile);
+		$logoImageHandler = ImageHandler::createImageHandlerFromFileExtension($this->_logoFile);
+		$logoImage = $logoImageHandler->loadImage($this->_logoFile);
 		$this->_img = $this->_logoLayout->putLogo($this->_img, $logoImage);	
 		parent::send();
 	}

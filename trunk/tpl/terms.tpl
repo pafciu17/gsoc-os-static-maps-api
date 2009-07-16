@@ -66,7 +66,6 @@ You can send comments, information about errors etc. to <b>osm.static.maps.api(a
 		<p>
 		There has been set up limit of tiles per map, so each map can be build from no more than 30 tiles.
 		</p>
-		
 		Supported url attributes:
 		<ul>
 			<li><b>type</b>: it indicates which tile server should be used to build up map. Possible values: mapnik, cycle, osmrender. Mapnik is a default value. Samples:
@@ -78,8 +77,12 @@ You can send comments, information about errors etc. to <b>osm.static.maps.api(a
 			<a href="{$host}/?module=map&bbox=-30,30,0,0&width=300&height=300&type=mapnik&imgType=gif">{$host}/?module=map&bbox=-30,30,0,0&width=300&height=300&type=mapnik&imgType=gif</a><br />
 			<a href="{$host}/?module=map&bbox=-30,30,0,0&width=300&height=300&type=mapnik&imgType=jpg">{$host}/?module=map&bbox=-30,30,0,0&width=300&height=300&type=mapnik&imgType=jpg</a>
 			</li>
-			<li><b>center</b>: it describes two coordinates of center point separeted by comma: longitude (value from -180 to 180) and latitude(from -85.0511 to 85.0511)  indicate coordinates of the center point of the map. Samples: <br />
+			<li><b>center</b>: it describes two coordinates of center point separeted by comma: longitude and latitude. Sample: <br />
 			<a href="{$host}/?module=map&center=180,20&zoom=2&width=1200&height=1200">{$host}/?module=map&center=180,20&zoom=2&width=1200&height=1200</a>
+			</li>
+			<li><b>lon</b> and <b>lat</b>: it is another way to indicate center point of the map, <b>lon</b> represents longitude and <b>lat</b> refers to latitude. Sample: <br />
+			<a href="{$host}/?module=map&lon=180&lat=20&zoom=2&width=1200&height=1200">{$host}/?module=map&lon=180&lat=20&zoom=2&width=1200&height=1200</a>
+			
 			</li>
 			<li><b>zoom</b>: zoom of the map
 			</li>
@@ -109,7 +112,10 @@ You can send comments, information about errors etc. to <b>osm.static.maps.api(a
 			</li>
 		</ul>
 	</p>
-	
+	<p>
+	Range of longitude values: from -180 to 180 <br />
+	Range of latitude values: from -85.0511 to 85.0511 <br />
+	</p>
 </div>
 </div>
 </body>

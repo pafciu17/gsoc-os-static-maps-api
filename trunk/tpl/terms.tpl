@@ -71,7 +71,7 @@ You can send comments, information about errors etc. to <b>osm.static.maps.api(a
 			<li><b>type</b>: it indicates which tile server should be used to build up map. Possible values: mapnik, cycle, osmrender. Mapnik is a default value. Samples:
 			<br /><a href="{$host}/?module=map&bbox=0,70,40,50&width=300&height=300&type=mapnik">{$host}/?module=map&bbox=0,70,40,50&width=300&height=300&type=mapnik</a><br />
 			<a href="{$host}/?module=map&bbox=0,70,40,50&width=300&height=300&type=cycle">{$host}/?module=map&bbox=0,70,40,50&width=300&height=300&type=cycle</a> <br />
-			<a href="{$host}/?module=map&bbox=0,70,40,50&width=300&height=300&type=osmrender">{$host}/?module=map&bbox=0,70,40,50&width=300&height=300&type=osmrender</a> <br />
+			<a href="{$host}/?module=map&bbox=0,70,40,50&width=300&height=300&type=osmarender">{$host}/?module=map&bbox=0,70,40,50&width=300&height=300&type=osmarender</a> <br />
 			</li>
 			<li><b>imgType</b>: image type of result image. Possible values: png, gif, jpg. Default value is png. Samples:<br />
 			<a href="{$host}/?module=map&bbox=-30,30,0,0&width=300&height=300&type=mapnik&imgType=gif">{$host}/?module=map&bbox=-30,30,0,0&width=300&height=300&type=mapnik&imgType=gif</a><br />

@@ -24,8 +24,8 @@ class MapRequest
 	 *
 	 * @var array
 	 */
-	static private $_urlParametersNames = array('centerLon' => 'centerLon',
-		'centerLat' => 'centerLat',
+	static private $_urlParametersNames = array('lon' => 'centerLon',
+		'lat' => 'centerLat',
 		'leftUpLon' => 'leftUpLon',
 		'leftUpLat' => 'leftUpLat',
 		'rightDownLon' => 'rightDownLon',
@@ -45,7 +45,7 @@ class MapRequest
 		'color' => 'color',
 		'logoPos' => 'logoLayout',
 		'center' => 'center',
-		'reload' => 'reload'
+		'reload' => 'reload',
 	);
 	
 	

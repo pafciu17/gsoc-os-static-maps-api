@@ -9,7 +9,7 @@ class ModuleActionAdminLogout extends ModuleAction
 			$this->_session->user->logout();
 			$this->_view->addInfo('You have been logged out');
 		}
-		$this->_redirect->toModuleAction('AdminModule');
+		$this->_redirect->toModuleAction('AdminModule', 'AdminLogin');
 		die;
 	}
 

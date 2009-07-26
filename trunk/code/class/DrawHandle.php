@@ -23,11 +23,13 @@ class DrawHandle
 	{
 		$drawings = $request->getDrawings();
 		foreach ($drawings as $drawing) {
-			$drawing->setColor($request->getColor());
+			if (!$drawing->hasColor()) {//if color is not set, default color will be used
+				$drawing->setColor($request->getColor());
+			}
+			if ($drawing instanceof DrawLine && !$drawing->hasThickness()) {
+				$drawing->setThickness($request->getThickness());
+			} 
 			$drawing->draw($this->_map);
 		}
-	}
-	
+	}	
 }
-
-?>

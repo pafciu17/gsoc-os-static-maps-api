@@ -11,6 +11,10 @@ class MapModule extends Module
 		TileCache::$daysToRemember = $this->_conf->get('tile_cache_days_of_memory');
 		TileCache::$numberOfFilesToDelete = $this->_conf->get('tile_cache_number_of_files_to_delete');
 		TilesGetter::$limitOfTiles = $this->_conf->get('max_number_of_tiles_per_map');
+		$defaultColor = new Color();
+		$defaultColor->setColor($this->_conf->get('default_drawnings_color'));
+		DrawRequest::$defaultColor = $defaultColor;
+		DrawRequest::$defaultThickness = new ParamThickness($this->_conf->get('default_path_thickness'));
 	}
 	
 	public function execute()
@@ -27,10 +31,10 @@ class MapModule extends Module
 			$map->setImageHandler(ImageHandler::factory($mapRequest->getImageType()));
 			$drawHandle = new DrawHandle($map);
 			$drawRequest = new DrawRequest($mapRequest);
-			$drawRequest->setDefaultColor($this->_conf->get('default_drawnings_color'));
 			$drawHandle->draw($drawRequest);
 			$mapWithLogo = new LogoMap($map, $this->_conf);
 			$mapWithLogo->setLogoLayout(LogoLayout::factoryFromUrl($mapRequest->getLogoLayoutName()));
+	
 			// send output image
 			$mapWithLogo->send();
 			die;

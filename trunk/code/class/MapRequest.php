@@ -46,8 +46,18 @@ class MapRequest
 		'logoPos' => 'logoLayout',
 		'center' => 'center',
 		'reload' => 'reload',
+		'thickness' => 'thickness'
 	);
 	
+	/**
+	 * it returns string which describes thickness of the line
+	 *
+	 * @return unknown
+	 */
+	public function getThickness()
+	{
+		return $this->_mapData['thickness'];
+	}
 	
 	/**
 	 * return true if isset reload param

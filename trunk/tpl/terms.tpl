@@ -102,7 +102,7 @@ You can send comments, information about errors etc. to <b>osm.static.maps.api(a
 			<li><b>reload</b>: it force application to load all tiles from tile server, in that case cache will not be used<br />
 			<a href="{$host}/?module=map&center=23.78677,52.751256,&zoom=10&width=500&height=500">{$host}/?module=map&center=23.78677,52.751256,&zoom=10&width=500&height=500</a>
 			</li>
-			<li><b>logoPos</b>: it defines in which part of the map osm logo is putted, 4 possible values are supported : leftUpCorner, leftDownCorne, rightUpCorner, rightDownCorner. Default value is leftDownCorner. 
+			<li><b>logoPos</b>: it defines in which part of the map osm logo is put, 4 possible values are supported : leftUpCorner, leftDownCorne, rightUpCorner, rightDownCorner. Default value is leftDownCorner. 
 			Samples:<br />
 			<a href="{$host}?module=map&center=-120,50&zoom=5&width=300&height=300&logoPos=leftUpCorner">{$host}?module=map&center=-120,50&zoom=5&width=300&height=300&logoPos=leftUpCorner</a><br />
 			<a href="{$host}?module=map&center=-120,50&zoom=5&width=300&height=300&logoPos=leftDownCorner">{$host}?module=map&center=-120,50&zoom=5&width=300&height=300&logoPos=leftDownCorner</a><br />

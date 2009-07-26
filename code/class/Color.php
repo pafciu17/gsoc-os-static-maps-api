@@ -9,11 +9,18 @@ class Color
 	private $_green = 0;
 	private $_blue = 0;
 	
-	public function __construct($red, $green, $blue)
+	public function __construct($red = 0, $green = 0, $blue = 0)
 	{
-		$this->_red = $red;
-		$this->_green = $green;
-		$this->_blue = $blue;
+		$this->setR($red);
+		$this->setB($blue);
+		$this->setG($green);
+	}
+	
+	public function setColor($color)
+	{
+		$this->setR($color['r']);
+		$this->setG($color['g']);
+		$this->setB($color['b']);
 	}
 	
 	private function _validColor($color)

@@ -8,27 +8,79 @@ class DrawRequest
 	 * @var MapRequest
 	 */
 	private $_mapRequest;
-	
+
 	/**
 	 * color of drawnings
 	 *
 	 * @var Color
 	 */
 	private $_color;
+
+	/**
+	 * thicknes of lines
+	 *
+	 * @var ParamThickness
+	 */
+	private $_thickness;
 	
+		
 	/**
 	 * color which is used when normal color is not set
 	 *
 	 * @var Color
 	 */
-	private $_defaultColor;
+	public static $defaultColor;
+	
+	/**
+	 * default thickness
+	 *
+	 * @var ParamThickness
+	 */
+	public static $defaultThickness;
 	
 	public function __construct(MapRequest $mapRequest)
 	{
 		$this->_mapRequest= $mapRequest;
 		$this->_setColor();
+		$this->_setThickness();
 	}
 
+	/**
+	 * baseing on map request it sets global thicknes of all paths
+	 *
+	 */
+	private function _setThickness()
+	{
+		$thickness = $this->_mapRequest->getThickness();
+		if (!is_null($thickness)) {
+			$this->_thickness = new ParamThickness((int)$thickness);
+		}
+	}
+	
+	/**
+	 * method returns thickness
+	 *
+	 * @return ParamThickness
+	 */
+	public function getThickness()
+	{
+		if (!is_null($this->_thickness)) {
+			return $this->_thickness;
+		} else {
+			return self::$defaultThickness;
+		}
+	}
+	
+	/**
+	 * set thickness
+	 *
+	 * @param int $thickness 
+	 */
+	public function setThickness($thickness)
+	{
+		$this->_thickness = new ParamThickness($thickness);
+	}
+	
 	/**
 	 * method sets color for drawings
 	 *
@@ -41,19 +93,8 @@ class DrawRequest
 			$this->_color = new Color($rgb[0], $rgb[1], $rgb[2]);
 		}
 	}
-	
-	/**
-	 * it sets default color for drawings, this color is used when normaln color is not defined
-	 *
-	 * @param array $colorArray
-	 */
-	public function setDefaultColor($colorArray)
-	{
-		if (isset($colorArray['r']) && isset($colorArray['g']) && isset($colorArray['b'])) {
-			$this->_defaultColor = new Color($colorArray['r'], $colorArray['g'], $colorArray['b']);
-		}
-	}
-	
+
+
 	/**
 	 * return color
 	 *
@@ -64,10 +105,10 @@ class DrawRequest
 		if (!is_null($this->_color)) {
 			return $this->_color;
 		} else {
-			return $this->_defaultColor;
+			return self::$defaultColor;
 		}
 	}
-	
+
 	/**
 	 * it sets color
 	 *
@@ -77,7 +118,7 @@ class DrawRequest
 	{
 		$this->_color = $color;
 	}
-	
+
 	/**
 	 * return if color is set
 	 *
@@ -87,7 +128,7 @@ class DrawRequest
 	{
 		return isset($this->_color);
 	}
-	
+
 	/**
 	 * get all drawable objects
 	 *
@@ -98,8 +139,6 @@ class DrawRequest
 		return array_merge($this->getMarkPoints(), $this->getPaths());
 	}
 
-	
-	
 	/**
 	 * return array of drawning paths
 	 *
@@ -111,18 +150,22 @@ class DrawRequest
 		$coordinatesStrings = explode(';', $this->_mapRequest->getPathPoints());
 		foreach ($coordinatesStrings as $coordinatesString) {
 			$coordinates = explode(',', $coordinatesString);
-			$points = array();
+			$path = new DrawPath();
 			$i = 0;
-			foreach ($coordinates as $pointCoordinate) {
-				if ($i == 0) {
-					$lon = $pointCoordinate;
+			foreach ($coordinates as $coordinate) {
+				if ($i == 0 && is_numeric($coordinate)) {
+					$lon = $coordinate;
 					$i++;
-				} else {
-					$points[] = new DrawMarkPoint($lon, $pointCoordinate);
+				} else if (is_numeric($coordinate)) {
+					$addPoint = new DrawMarkPoint($lon, $coordinate);
+					$path->addPoint($addPoint);
 					$i = 0;
+				} else {
+					$param = ParamFactory::create($coordinate);
+					$path->setParam($param);
 				}
 			}
-			$paths[] = new DrawPath($points);
+			$paths[] = $path;
 		}
 		return $paths;
 	}
@@ -139,14 +182,19 @@ class DrawRequest
 		$coordinates = explode(',', $coordinatesString);
 		$i = 0;
 		foreach ($coordinates as $coordinate) {
-			if ($i == 0) {
+			if ($i == 0 && is_numeric($coordinate)) {
 				$lon = $coordinate;
 				$i++;
-			} else {
-				$points[] = new DrawMarkPoint($lon, $coordinate);
+			} else if (is_numeric($coordinate)) {
+				$addPoint = new DrawMarkPoint($lon, $coordinate);
+				$points[] = $addPoint;
 				$i = 0;
+			} else if (isset($addPoint)) {
+				$param = ParamFactory::create($coordinate);
+				$addPoint->setParam($param);
 			}
 		}
 		return $points;
 	}
+	
 }

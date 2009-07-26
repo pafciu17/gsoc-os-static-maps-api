@@ -1,5 +1,5 @@
 <?php
-class DrawPath extends Draw
+class DrawPath extends DrawLine
 {
 	
 	/**
@@ -9,7 +9,7 @@ class DrawPath extends Draw
 	 */
 	private $_points;
 	
-	public function __construct(array $points)
+	public function __construct(array $points = array())
 	{
 		$this->_points = $points;
 	}
@@ -23,16 +23,36 @@ class DrawPath extends Draw
 	{
 		$previousPoint = null;
 		foreach ($this->_points as $point) {
-			$point->setColor($this->_color);
-			$point->draw($map);
 			if (!is_null($previousPoint)) {
 				$line = new DrawLine($previousPoint, $point);
 				$line->setColor($this->_color);
+				$line->setThickness($this->_thickness);
 				$line->draw($map);
 			}
 			$previousPoint = $point;
 		}
 	}
 	
+	/**
+	 * add point
+	 *
+	 * @param DrawMarkPoint $point
+	 */
+	public function addPoint(DrawMarkPoint $point)
+	{
+		$this->_points[] = $point;
+	}
+	
+	/**
+	 * set additional options 
+	 *
+	 * @param mixed $param
+	 */
+	public function setParam($param) 
+	{
+		parent::setParam($param);
+		if ($param instanceof ParamThickness) {
+			$this->setThickness($param);
+		}
+	}
 }
-?>

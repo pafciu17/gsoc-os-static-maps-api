@@ -29,6 +29,9 @@ class DrawHandle
 			if ($drawing instanceof DrawLine && !$drawing->hasThickness()) {
 				$drawing->setThickness($request->getThickness());
 			} 
+			if (!$drawing->hasTransparency()) {
+				$drawing->setTransparency($request->getTransparency());
+			}
 			$drawing->draw($this->_map);
 		}
 	}	

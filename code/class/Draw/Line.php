@@ -57,7 +57,7 @@ class DrawLine extends Draw
 	private function _drawLine($image, $x1, $y1, $x2, $y2)
 	{
 		$thick = $this->_thickness->getThickness();
-		$color = imagecolorallocate($image, $this->_color->getR(), $this->_color->getG(), $this->_color->getB());
+		$color = $this->_getDrawColor($image);
 		if ($thick == 1) {
 			return imageline($image, $x1, $y1, $x2, $y2, $color);
 		}

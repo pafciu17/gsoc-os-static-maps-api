@@ -7,7 +7,7 @@ class DrawPath extends DrawLine
 	 *
 	 * @var array
 	 */
-	private $_points;
+	protected $_points;
 	
 	public function __construct(array $points = array())
 	{
@@ -24,13 +24,26 @@ class DrawPath extends DrawLine
 		$previousPoint = null;
 		foreach ($this->_points as $point) {
 			if (!is_null($previousPoint)) {
-				$line = new DrawLine($previousPoint, $point);
-				$line->setColor($this->_color);
-				$line->setThickness($this->_thickness);
-				$line->draw($map);
+				$this->_drawLineBetweenPoints($map, $point, $previousPoint);
 			}
 			$previousPoint = $point;
 		}
+	}
+	
+	/**
+	 * it draws line beetween two points
+	 *
+	 * @param Map $map
+	 * @param DrawMarkPoint $point1
+	 * @param DrawMarkPoint $point2
+	 */
+	protected function _drawLineBetweenPoints(Map $map, DrawMarkPoint $point1, DrawMarkPoint $point2)
+	{
+		$line = new DrawLine($point1, $point2);
+		$line->setColor($this->_color);
+		$line->setThickness($this->_thickness);
+		$line->setTransparency($this->_transparency);
+		$line->draw($map);
 	}
 	
 	/**

@@ -10,7 +10,7 @@ class DrawRequest
 	private $_mapRequest;
 
 	/**
-	 * color of drawnings
+	 * color of drawings
 	 *
 	 * @var Color
 	 */
@@ -23,6 +23,12 @@ class DrawRequest
 	 */
 	private $_thickness;
 	
+	/**
+	 * transparency of drawnings
+	 * 
+	 * @var ParamTransparency
+	 */
+	private $_transparency;
 		
 	/**
 	 * color which is used when normal color is not set
@@ -38,13 +44,33 @@ class DrawRequest
 	 */
 	public static $defaultThickness;
 	
+	/**
+	 * default transparency of the drawings
+	 *
+	 * @var unknown_type
+	 */
+	public static $defaultTransparency;
+	
 	public function __construct(MapRequest $mapRequest)
 	{
 		$this->_mapRequest= $mapRequest;
 		$this->_setColor();
 		$this->_setThickness();
+		$this->_setTransparency();
 	}
 
+	/**
+	 * baseing on map request it sets global transparency of all drawings
+	 *
+	 */
+	private function _setTransparency()
+	{
+		$transparency = $this->_mapRequest->getTransparency();
+		if (!is_null($transparency)) {
+			$this->_transparency = new ParamTransparency((int)$transparency);
+		}
+	}
+	
 	/**
 	 * baseing on map request it sets global thicknes of all paths
 	 *
@@ -94,7 +120,6 @@ class DrawRequest
 		}
 	}
 
-
 	/**
 	 * return color
 	 *
@@ -109,6 +134,20 @@ class DrawRequest
 		}
 	}
 
+	/**
+	 * return transparency
+	 *
+	 * @return ParamTransparecy
+	 */
+	public function getTransparency()
+	{
+		if (!is_null($this->_transparency)) {
+			return $this->_transparency;
+		} else {
+			return self::$defaultTransparency;
+		}
+	}
+	
 	/**
 	 * it sets color
 	 *
@@ -136,18 +175,23 @@ class DrawRequest
 	 */
 	public function getDrawings()
 	{
-		return array_merge($this->getMarkPoints(), $this->getPaths());
+		return array_merge($this->getMarkPoints(), $this->getPaths(), 
+		$this->getPolygons(), $this->getFilledPolygons());
 	}
 
 	/**
-	 * return array of drawning paths
+	 * return array of drawing paths
 	 *
 	 * @return array
 	 */
 	public function getPaths()
 	{
 		$paths = array();
-		$coordinatesStrings = explode(';', $this->_mapRequest->getPathPoints());
+		$string =  $this->_mapRequest->getPathPoints();
+		if (is_null($string)) {
+			return array();
+		}
+		$coordinatesStrings = explode(';', $string);
 		foreach ($coordinatesStrings as $coordinatesString) {
 			$coordinates = explode(',', $coordinatesString);
 			$path = new DrawPath();
@@ -169,6 +213,76 @@ class DrawRequest
 		}
 		return $paths;
 	}
+	
+	/**
+	 * return array of polygons to draw
+	 *
+	 * @return array
+	 */
+	public function getPolygons()
+	{
+		$polygons = array();
+		$string =  $this->_mapRequest->getPolygonsPoints();
+		if (is_null($string)) {
+			return array();
+		}
+		$coordinatesStrings = explode(';', $string);
+		foreach ($coordinatesStrings as $coordinatesString) {
+			$coordinates = explode(',', $coordinatesString);
+			$polygon = new DrawPolygon();
+			$i = 0;
+			foreach ($coordinates as $coordinate) {
+				if ($i == 0 && is_numeric($coordinate)) {
+					$lon = $coordinate;
+					$i++;
+				} else if (is_numeric($coordinate)) {
+					$addPoint = new DrawMarkPoint($lon, $coordinate);
+					$polygon->addPoint($addPoint);
+					$i = 0;
+				} else {
+					$param = ParamFactory::create($coordinate);
+					$polygon->setParam($param);
+				}
+			}
+			$polygons[] = $polygon;
+		}
+		return $polygons;
+	}
+	
+	/**
+	 * return array of filled polygons to draw
+	 *
+	 * @return array
+	 */
+	public function getFilledPolygons()
+	{
+		$polygons = array();
+		$string =  $this->_mapRequest->getFilledPolygons();
+		if (is_null($string)) {
+			return array();
+		}
+		$coordinatesStrings = explode(';', $string);
+		foreach ($coordinatesStrings as $coordinatesString) {
+			$coordinates = explode(',', $coordinatesString);
+			$polygon = new DrawFilledPolygon();
+			$i = 0;
+			foreach ($coordinates as $coordinate) {
+				if ($i == 0 && is_numeric($coordinate)) {
+					$lon = $coordinate;
+					$i++;
+				} else if (is_numeric($coordinate)) {
+					$addPoint = new DrawMarkPoint($lon, $coordinate);
+					$polygon->addPoint($addPoint);
+					$i = 0;
+				} else {
+					$param = ParamFactory::create($coordinate);
+					$polygon->setParam($param);
+				}
+			}
+			$polygons[] = $polygon;
+		}
+		return $polygons;
+	}
 
 	/**
 	 * return array of MarkPoints objects
@@ -178,8 +292,11 @@ class DrawRequest
 	public function getMarkPoints()
 	{
 		$points = array();
-		$coordinatesString = $this->_mapRequest->getMarkPoints();
-		$coordinates = explode(',', $coordinatesString);
+		$string =  $this->_mapRequest->getMarkPoints();
+		if (is_null($string)) {
+			return array();
+		}
+		$coordinates = explode(',', $string);
 		$i = 0;
 		foreach ($coordinates as $coordinate) {
 			if ($i == 0 && is_numeric($coordinate)) {

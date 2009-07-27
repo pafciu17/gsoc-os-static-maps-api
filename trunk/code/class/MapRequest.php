@@ -46,13 +46,46 @@ class MapRequest
 		'logoPos' => 'logoLayout',
 		'center' => 'center',
 		'reload' => 'reload',
-		'thickness' => 'thickness'
+		'thickness' => 'thickness',
+		'transparency' => 'transparency',
+		'polygons' => 'polygons',
+		'filledPolygons' => 'filledPolygons'
 	);
+	
+	/**
+	 * return string which represents filled polygons to draw
+	 *
+	 * @return string
+	 */
+	public function getFilledPolygons()
+	{
+		return $this->_mapData['filledPolygons'];
+	}
+	
+	/**
+	 * it returns string which represents polygons to draw
+	 *
+	 * @return string
+	 */
+	public function getPolygonsPoints()
+	{
+		return $this->_mapData['polygons'];
+	}
+	
+	/**
+	 * it returns string which describes transparency of the line
+	 *
+	 * @return string
+	 */
+	public function getTransparency()
+	{
+		return $this->_mapData['transparency'];
+	}
 	
 	/**
 	 * it returns string which describes thickness of the line
 	 *
-	 * @return unknown
+	 * @return int
 	 */
 	public function getThickness()
 	{

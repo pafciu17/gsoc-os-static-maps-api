@@ -21,10 +21,10 @@ class DrawPoint extends Draw
 	public function draw(Map $map)
 	{
 		$image = $map->getImage();
+		$color = $this->_getDrawColor($image);
 		$pointInPixels = $map->getPixelPointFromCoordinates($this->_coordinates['lon'],
 		$this->_coordinates['lat']);
-		imagesetpixel($image, $pointInPixels['x'], $pointInPixels['y'], imagecolorallocate($image, 
-		$this->_color->getR(), $this->_color->getG(), $this->_color->getB()));
+		imagesetpixel($image, $pointInPixels['x'], $pointInPixels['y'], $color);
 	}
 	
 	/**

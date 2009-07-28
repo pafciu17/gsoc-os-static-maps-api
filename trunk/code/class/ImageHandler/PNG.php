@@ -21,10 +21,10 @@ class ImageHandlerPNG extends ImageHandler
 	}
 	
 	/**
-	 * load image from given url
+	 * load image from given url, return false on erros
 	 *
 	 * @param string $url
-	 * @return resource , in case of problems it retrun false
+	 * @return resource
 	 */
 	public function loadImage($url)
 	{

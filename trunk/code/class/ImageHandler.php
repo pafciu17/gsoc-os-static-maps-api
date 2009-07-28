@@ -65,7 +65,7 @@ abstract class ImageHandler
 	abstract public function sendImage($image);
 	
 	/**
-	 * load image from given url
+	 * load image from given url, return false on erros
 	 *
 	 * @param string $url
 	 * @return resource

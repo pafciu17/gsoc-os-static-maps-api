@@ -155,4 +155,22 @@ class Map
 	{
 		return $this->_imageHandler;
 	}
+	
+	/**
+	 * it puts given image on given place of them map, places is defined by longitude and latitude
+	 *
+	 * @param resource $image
+	 * @param float $lon
+	 * @param float $lat
+	 */
+	public function putImage($image, $lon, $lat)
+	{
+		$pixelCoordinates = $this->getPixelPointFromCoordinates($lon, $lat);
+		$sizeX = imagesx($image);
+		$sizeY = imagesy($image);
+		$x = round($sizeX / 2);
+		$y = round($sizeY / 2);
+		imagecopy($this->_img, $image, $pixelCoordinates['x'] - $x, $pixelCoordinates['y'] - $y, 
+		0, 0, $sizeX, $sizeY);
+	}
 }

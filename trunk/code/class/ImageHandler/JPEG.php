@@ -21,7 +21,7 @@ class ImageHandlerJPEG extends ImageHandler
 	}
 	
 	/**
-	 * load image from given url
+	 * load image from given url, return false on erros
 	 *
 	 * @param string $url
 	 * @return resource

@@ -3,11 +3,11 @@ class DrawMarkPoint extends DrawPoint
 {
 	/**
 	 * url to image which can be used to draw point
-	 * 
+	 *
 	 * @var string
 	 */
 	private $_imageUrl = 'http://127.0.0.1/static_maps_api/media/osm_logo_cc.png';
-	
+
 	/**
 	 * draw point on map
 	 *
@@ -15,13 +15,19 @@ class DrawMarkPoint extends DrawPoint
 	 */
 	public function draw(Map $map)
 	{
-		//@todo implement puting an image given by url 
-		//$ImageHandler = ImageHandler::createImageHandlerFromFileExtension($this->_imageUrl);
+		//@todo implement puting an image given by url
 		$image = $map->getImage();
-		$color = $this->_getDrawColor($image); 
-		$point = $map->getPixelPointFromCoordinates($this->getLon(), $this->getLat());
-		$vertices = array($point['x'], $point['y'],
+		$color = $this->_getDrawColor($image);
+		$imageHandler = ImageHandler::createImageHandlerFromFileExtension($this->_imageUrl);
+		$pointImage = $imageHandler->loadImage($this->_imageUrl);
+		if ($pointImage !== false) {
+			$map->putImage($pointImage, $this->getLon(), $this->getLat());
+		} else {
+			$color = $this->_getDrawColor($image);
+			$point = $map->getPixelPointFromCoordinates($this->getLon(), $this->getLat());
+			$vertices = array($point['x'], $point['y'],
 			$point['x'] - 10, $point['y'] - 20, $point['x'] + 10, $point['y'] - 20);
-		imagefilledpolygon ($map->getImage() , $vertices , 3, $color);
+			imagefilledpolygon ($map->getImage() , $vertices , 3, $color);
+		}
 	}
 }

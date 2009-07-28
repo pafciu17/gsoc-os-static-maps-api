@@ -35,7 +35,7 @@ class MapModule extends Module
 			$drawHandle->draw($drawRequest);
 			$mapWithLogo = new LogoMap($map, $this->_conf);
 			$mapWithLogo->setLogoLayout(LogoLayout::factoryFromUrl($mapRequest->getLogoLayoutName()));
-			
+
 			// send output image
 			$mapWithLogo->send();
 			die;

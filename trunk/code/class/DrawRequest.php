@@ -22,34 +22,48 @@ class DrawRequest
 	 * @var ParamThickness
 	 */
 	private $_thickness;
-	
+
 	/**
 	 * transparency of drawnings
-	 * 
+	 *
 	 * @var ParamTransparency
 	 */
 	private $_transparency;
-		
+
 	/**
 	 * color which is used when normal color is not set
 	 *
 	 * @var Color
 	 */
 	public static $defaultColor;
-	
+
 	/**
 	 * default thickness
 	 *
 	 * @var ParamThickness
 	 */
 	public static $defaultThickness;
-	
+
 	/**
 	 * default transparency of the drawings
 	 *
 	 * @var unknown_type
 	 */
 	public static $defaultTransparency;
+	
+	/**
+	 * object delimeter used in request string
+	 *
+	 * @var char
+	 */
+	public static $drawObjectDelimeter = ';';
+
+	/**
+	 * param delimeter used in request string
+	 *
+	 * @var char
+	 */
+	public static $paramDelimeter = ',';
 	
 	public function __construct(MapRequest $mapRequest)
 	{
@@ -70,7 +84,7 @@ class DrawRequest
 			$this->_transparency = new ParamTransparency((int)$transparency);
 		}
 	}
-	
+
 	/**
 	 * baseing on map request it sets global thicknes of all paths
 	 *
@@ -82,7 +96,7 @@ class DrawRequest
 			$this->_thickness = new ParamThickness((int)$thickness);
 		}
 	}
-	
+
 	/**
 	 * method returns thickness
 	 *
@@ -96,17 +110,17 @@ class DrawRequest
 			return self::$defaultThickness;
 		}
 	}
-	
+
 	/**
 	 * set thickness
 	 *
-	 * @param int $thickness 
+	 * @param int $thickness
 	 */
 	public function setThickness($thickness)
 	{
 		$this->_thickness = new ParamThickness($thickness);
 	}
-	
+
 	/**
 	 * method sets color for drawings
 	 *
@@ -114,7 +128,7 @@ class DrawRequest
 	private function _setColor()
 	{
 		$colorString = $this->_mapRequest->getColor();
-		$rgb = explode(',', $colorString);
+		$rgb = explode(self::$paramDelimeter, $colorString);
 		if (isset($rgb[0]) && isset($rgb[1]) && isset($rgb[2])) {
 			$this->_color = new Color($rgb[0], $rgb[1], $rgb[2]);
 		}
@@ -147,7 +161,7 @@ class DrawRequest
 			return self::$defaultTransparency;
 		}
 	}
-	
+
 	/**
 	 * it sets color
 	 *
@@ -175,7 +189,7 @@ class DrawRequest
 	 */
 	public function getDrawings()
 	{
-		return array_merge($this->getMarkPoints(), $this->getPaths(), 
+		return array_merge($this->getMarkPoints(), $this->getPaths(),
 		$this->getPolygons(), $this->getFilledPolygons());
 	}
 
@@ -191,9 +205,9 @@ class DrawRequest
 		if (is_null($string)) {
 			return array();
 		}
-		$coordinatesStrings = explode(';', $string);
+		$coordinatesStrings = explode(self::$drawObjectDelimeter, $string);
 		foreach ($coordinatesStrings as $coordinatesString) {
-			$coordinates = explode(',', $coordinatesString);
+			$coordinates = explode(self::$paramDelimeter, $coordinatesString);
 			$path = new DrawPath();
 			$i = 0;
 			foreach ($coordinates as $coordinate) {
@@ -213,7 +227,7 @@ class DrawRequest
 		}
 		return $paths;
 	}
-	
+
 	/**
 	 * return array of polygons to draw
 	 *
@@ -226,9 +240,9 @@ class DrawRequest
 		if (is_null($string)) {
 			return array();
 		}
-		$coordinatesStrings = explode(';', $string);
+		$coordinatesStrings = explode(self::$drawObjectDelimeter, $string);
 		foreach ($coordinatesStrings as $coordinatesString) {
-			$coordinates = explode(',', $coordinatesString);
+			$coordinates = explode(self::$paramDelimeter, $coordinatesString);
 			$polygon = new DrawPolygon();
 			$i = 0;
 			foreach ($coordinates as $coordinate) {
@@ -248,7 +262,7 @@ class DrawRequest
 		}
 		return $polygons;
 	}
-	
+
 	/**
 	 * return array of filled polygons to draw
 	 *
@@ -261,9 +275,9 @@ class DrawRequest
 		if (is_null($string)) {
 			return array();
 		}
-		$coordinatesStrings = explode(';', $string);
+		$coordinatesStrings = explode(self::$drawObjectDelimeter, $string);
 		foreach ($coordinatesStrings as $coordinatesString) {
-			$coordinates = explode(',', $coordinatesString);
+			$coordinates = explode(self::$paramDelimeter, $coordinatesString);
 			$polygon = new DrawFilledPolygon();
 			$i = 0;
 			foreach ($coordinates as $coordinate) {
@@ -296,22 +310,25 @@ class DrawRequest
 		if (is_null($string)) {
 			return array();
 		}
-		$coordinates = explode(',', $string);
-		$i = 0;
-		foreach ($coordinates as $coordinate) {
-			if ($i == 0 && is_numeric($coordinate)) {
-				$lon = $coordinate;
-				$i++;
-			} else if (is_numeric($coordinate)) {
-				$addPoint = new DrawMarkPoint($lon, $coordinate);
-				$points[] = $addPoint;
-				$i = 0;
-			} else if (isset($addPoint)) {
-				$param = ParamFactory::create($coordinate);
-				$addPoint->setParam($param);
+		$pointsString = explode(self::$drawObjectDelimeter, $string);
+		foreach ($pointsString as $pointString) {
+			$coordinates = explode(self::$paramDelimeter, $pointString);
+			$i = 0;
+			foreach ($coordinates as $value) {
+				if ($i == 0 && is_numeric($value)) {
+					$lon = $value;
+					$i++;
+				} else if (is_numeric($value)) {
+					$addPoint = new DrawMarkPoint($lon, $value);
+					$points[] = $addPoint;
+					$i = 0;
+				} else if (isset($addPoint)) {
+					$param = ParamFactory::create($value);
+					$addPoint->setParam($param);
+				}
 			}
 		}
 		return $points;
 	}
-	
+
 }

@@ -4,9 +4,9 @@ class DrawMarkPoint extends DrawPoint
 	/**
 	 * url to image which can be used to draw point
 	 *
-	 * @var string
+	 * @var ParamUrl
 	 */
-	private $_imageUrl = 'http://127.0.0.1/static_maps_api/media/osm_logo_cc.png';
+	private $_imageUrl;
 
 	/**
 	 * draw point on map
@@ -15,11 +15,13 @@ class DrawMarkPoint extends DrawPoint
 	 */
 	public function draw(Map $map)
 	{
-		//@todo implement puting an image given by url
 		$image = $map->getImage();
 		$color = $this->_getDrawColor($image);
-		$imageHandler = ImageHandler::createImageHandlerFromFileExtension($this->_imageUrl);
-		$pointImage = $imageHandler->loadImage($this->_imageUrl);
+		$pointImage = false;
+		if ($this->hasImageUrl()) {
+			$imageHandler = ImageHandler::createImageHandlerFromFileExtension($this->_imageUrl->getUrl());
+			$pointImage = $imageHandler->loadImage($this->_imageUrl->getUrl());
+		}
 		if ($pointImage !== false) {
 			$map->putImage($pointImage, $this->getLon(), $this->getLat());
 		} else {
@@ -28,6 +30,41 @@ class DrawMarkPoint extends DrawPoint
 			$vertices = array($point['x'], $point['y'],
 			$point['x'] - 10, $point['y'] - 20, $point['x'] + 10, $point['y'] - 20);
 			imagefilledpolygon ($map->getImage() , $vertices , 3, $color);
+		}
+	}
+	
+	/**
+	 * return if objects has already set url to image
+	 *
+	 * @return bool
+	 */
+	public function hasImageUrl()
+	{
+		return !is_null($this->_imageUrl);
+	}
+	
+	/**
+	 * method sets url
+	 *
+	 * @param ParamUrl $url
+	 */
+	public function setImageUrl($url)
+	{
+		$this->_imageUrl = $url;
+	}
+	
+	/**
+	 * set additional options 
+	 *
+	 * @param mixed $param
+	 */
+	public function setParam($param) 
+	{
+		parent::setParam($param);
+		if ($param instanceof ParamPatternUrl && $param->hasUrl()) {
+			$this->setImageUrl($param);
+		} else if ($param instanceof ParamUrl) {
+			$this->setImageUrl($param);
 		}
 	}
 }

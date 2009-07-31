@@ -1,12 +1,9 @@
 <?php
-class LogoLayoutException
-{
-}
 
-abstract class LogoLayout 
+abstract class ScaleBarLayout 
 {
 	
-	private static $_classMap = array('no_logo' => 'LayoutWithout',
+	private static $_classMap = array('without' => 'LayoutWithout',
 		'logo_left_up_corner' => 'LayoutLeftUpCorner',
 		'logo_left_down_corner' => 'LayoutLeftDownCorner',
 		'logo_right_up_corner' => 'LayoutRightUpCorner',
@@ -15,7 +12,8 @@ abstract class LogoLayout
 	private static $_urlClassMap = array('leftUpCorner' => 'LayoutLeftUpCorner',
 		'leftDownCorner' => 'LayoutLeftDownCorner',
 		'rightUpCorner' => 'LayoutRightUpCorner',
-		'rightDownCorner' => 'LayoutRightDownCorner');
+		'rightDownCorner' => 'LayoutRightDownCorner',
+		'without' => 'LayoutWithout');
 	
 	/**
 	 * it creates logo layout object from its conf name

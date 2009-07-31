@@ -63,11 +63,11 @@ class MapProcessorFromCenterPoint extends MapProcessor
 	}
 	
 	/**
-	 * it sets coordinates of the left up corner of the result map
+	 * it sets coordinates of the left up and right down corners of the result map
 	 * 
 	 * @param Map $resultMap
 	 */
-	protected function _setUpResultMapLeftUpCornerPoint(Map $resultMap)
+	protected function _setUpResultMapCorners(Map $resultMap)
 	{
 		$centerPoint = $this->_mapData->getCenterPoint();
 		$centerPointInPixels = $this->_worldMap->getPixelXY($centerPoint['lon'], $centerPoint['lat']);
@@ -75,6 +75,10 @@ class MapProcessorFromCenterPoint extends MapProcessor
 		'y' => $centerPointInPixels['y'] - round($this->_mapData->getHeight() / 2));
 		$resultMap->setLeftUpCorner($this->_worldMap->getLon($leftUpPointInPixels['x']),
 		$this->_worldMap->getLat($leftUpPointInPixels['y']));	
+		$rightDownPointInPixels = array('x' => $centerPointInPixels['x'] + round($this->_mapData->getWidth() / 2),
+		'y' => $centerPointInPixels['y'] + round($this->_mapData->getHeight() / 2));
+		$resultMap->setRightDownCorner($this->_worldMap->getLon($rightDownPointInPixels['x']),
+		$this->_worldMap->getLat($rightDownPointInPixels['y']));
 	}
 	
 }

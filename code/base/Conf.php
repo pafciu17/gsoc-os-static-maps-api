@@ -25,11 +25,14 @@ class Conf
 		'database_password' => 'test',
 		'database_type' => 'Mysql', // possible values dependent on databases which are supported by Zend clases
 		'logo_layout' => 'logo_left_down_corner',
+		'scale_bar_layout' => 'without',
 		'logo_file' => './media/osm_logo_cc.png',
 		'wrong_map_request_file' => './media/osm_wrong_map_request.png',
 		'tile_cache_days_of_memory' => 7,
 		'tile_cache_number_of_files_to_delete' => 10,
-		'max_number_of_tiles_per_map' => 30);
+		'max_number_of_tiles_per_map' => 30,
+		'pattern_point_image_map' => array('sight' => 'http://127.0.0.1/static_maps_api/media/sight_point.png')
+	);
 	
 	/**
 	 * map of action and modules of application

@@ -5,7 +5,11 @@
  */
 class LogoMap extends Map
 {
-
+	/**
+	 * path to url image
+	 *
+	 * @var string
+	 */
 	private $_logoFile;
 
 	/**
@@ -18,7 +22,7 @@ class LogoMap extends Map
 	/**
 	 * logo layout
 	 *
-	 * @var LogoLayout
+	 * @var Layout
 	 */
 	private $_logoLayout;
 	
@@ -27,13 +31,18 @@ class LogoMap extends Map
 		$this->setImageHandler($map->getImageHandler());
 		$this->_logoLayout = LogoLayout::factory($conf->get('logo_layout'));
 		$this->_logoFile = $conf->get('logo_file');
+		$this->setWorldMap($map->getWorldMap());
+		$leftUpCorner = $map->getLeftUpCorner();
+		$this->setLeftUpCorner($leftUpCorner['lon'], $leftUpCorner['lat']);
+		$rightDownCorner = $map->getRightDownCorner();
+		$this->setRightDownCorner($rightDownCorner['lon'], $rightDownCorner['lat']);
 		parent::__construct($map->getImage());
 	}
 	
 	/**
 	 * it sets logo layout, which defines how logo will be put onto map
 	 *
-	 * @param LogoLayout $layout
+	 * @param Layout $layout
 	 */
 	public function setLogoLayout($layout)
 	{
@@ -51,7 +60,7 @@ class LogoMap extends Map
 	{
 		$logoImageHandler = ImageHandler::createImageHandlerFromFileExtension($this->_logoFile);
 		$logoImage = $logoImageHandler->loadImage($this->_logoFile);
-		$this->_img = $this->_logoLayout->putLogo($this->_img, $logoImage);	
+		$this->_img = $this->_logoLayout->putImage($this->_img, $logoImage);	
 		parent::send();
 	}
 	

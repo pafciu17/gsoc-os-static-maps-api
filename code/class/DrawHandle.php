@@ -32,6 +32,9 @@ class DrawHandle
 			if (!$drawing->hasTransparency()) {
 				$drawing->setTransparency($request->getTransparency());
 			}
+			if ($drawing instanceof DrawMarkPoint && !$drawing->hasImageUrl()) {
+				$drawing->setImageUrl($request->getPointImageUrl());
+			}
 			$drawing->draw($this->_map);
 		}
 	}	

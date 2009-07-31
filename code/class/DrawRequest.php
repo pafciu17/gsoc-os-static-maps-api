@@ -31,6 +31,13 @@ class DrawRequest
 	private $_transparency;
 
 	/**
+	 * objects which contains url to mark point image
+	 *
+	 * @var ParamUrl
+	 */
+	private $_pointImageUrl;
+	
+	/**
 	 * color which is used when normal color is not set
 	 *
 	 * @var Color
@@ -71,6 +78,27 @@ class DrawRequest
 		$this->_setColor();
 		$this->_setThickness();
 		$this->_setTransparency();
+		$this->_setPointImageUrl();
+	}
+	
+	/**
+	 * method bases on map request object and sets the url to image which is used for drawing points
+	 *
+	 */
+	private function _setPointImageUrl()
+	{
+		$url = $this->_mapRequest->getUrlToPointImage();
+		if (!is_null($url)) {
+			$this->_pointImageUrl = new ParamUrl($url);
+		} else {
+			$patternName = $this->_mapRequest->getPointImagePatternName();
+			if (!is_null($patternName)) {
+				$paramUrl = new ParamPatternUrl($patternName);
+				if ($paramUrl->hasUrl()) {
+					$this->_pointImageUrl = $paramUrl;
+				}
+			}
+		}
 	}
 
 	/**
@@ -97,6 +125,16 @@ class DrawRequest
 		}
 	}
 
+	/**
+	 * it returns objects which encapsulates url to mark point image
+	 *
+	 * @return ParamUrl
+	 */
+	public function getPointImageUrl()
+	{
+		return $this->_pointImageUrl;
+	}
+	
 	/**
 	 * method returns thickness
 	 *

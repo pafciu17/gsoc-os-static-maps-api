@@ -66,25 +66,57 @@ class ScaleBar
 		$equatorPixelsPerKm = $widthPx / self::$earthCircumference;
 		$scale = $this->_calculateScale();
 		$label = $this->_findOutWhichLabel($scale, $equatorPixelsPerKm);
-		$this->_putOnMap($label, $this->_calculateLengthOfScaleBar($label, $scale, $equatorPixelsPerKm));
+		$this->_layout->putImage($this->_map, $this->_createScaleBarMap($label, 
+		$this->_calculateLengthOfScaleBar($label, $scale, $equatorPixelsPerKm)));
 	}
 	
-	private function _calculateLengthOfScaleBar($label, $scale, $equatorPixelsPerKm)
+	
+	private function _getLengthUnit()
 	{
-		return $label * $scale * $equatorPixelsPerKm * self::$unitLength['km'];
+		return 'km';
+	}
+	
+	private function _createScaleBarMap($label, $length)
+	{
+		$font = 1;
+		$fullLabel = $label . ' ' . $this->_getLengthUnit();
+		$stringWidth = imagefontwidth($font) * strlen($fullLabel);
+		if ($stringWidth > $length) {
+			$width = $stringWidth;
+		} else {
+			$width = $length;
+		}
+		$width += 20;
+		$height = imagefontheight($font) + 20;
+		$scaleBarImage = imagecreatetruecolor($width, $height);
+	
+		
+    	$backgroundColor = imagecolorallocatealpha($scaleBarImage, 0, 0, 0, 127);
+    	imagefill($scaleBarImage, 0, 0, $backgroundColor);
+    	
+		$barPosX = round(($width - $length) / 2);
+		$barPosY = $height - 5;
+		$color = imagecolorallocate($scaleBarImage, 0, 0, 0);
+		imageline($scaleBarImage, $barPosX, $barPosY, $barPosX + $length, $barPosY, $color);
+		imageline($scaleBarImage, $barPosX, $barPosY - 3, $barPosX, $barPosY + 3, $color);
+		imageline($scaleBarImage, $barPosX + $length, $barPosY - 3, $barPosX + $length, $barPosY + 3, $color);
+		$stringPosX = round(($width - $stringWidth) / 2);
+		$stringPoxY = 10;
+		imagestring($scaleBarImage, $font, $stringPosX, $stringPoxY, $fullLabel, $color);
+		return $scaleBarImage;
 	}
 	
 	/**
-	 * 
+	 * calculates length of of scale bar in pixels
 	 *
 	 * @param float $label
+	 * @param float $scale
+	 * @param float $equatorPixelsPerKm
+	 * @return int
 	 */
-	private function _putOnMap($label, $lengthOfBar)
+	private function _calculateLengthOfScaleBar($label, $scale, $equatorPixelsPerKm)
 	{
-		imagestring($this->_map->getImage(), 1, 30,30, $label . ' km', imagecolorallocate($this->_map->getImage(),
-		0,0,0));
-		return imageline($this->_map->getImage(), 30, 30, 30 + $lengthOfBar, 30, imagecolorallocate($this->_map->getImage(),
-		0,0,0));
+		return round($label * $scale * $equatorPixelsPerKm * self::$unitLength['km']);
 	}
 	
 	/**

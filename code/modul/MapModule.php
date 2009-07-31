@@ -37,10 +37,10 @@ class MapModule extends Module
 	
 			$mapWithLogo = new LogoMap($map, $this->_conf);
 			$mapWithLogo->setLogoLayout(LogoLayout::factoryFromUrl($mapRequest->getLogoLayoutName()));
-
+			
 			$scaleBar = new ScaleBar($mapWithLogo, $this->_conf);
 			$scaleBar->putOnMap(ScaleBarLayout::factoryFromUrl($mapRequest->getScaleBarLayoutName()));
-			
+	
 			// send output image
 			$mapWithLogo->send();
 			die;

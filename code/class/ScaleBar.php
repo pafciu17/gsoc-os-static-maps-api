@@ -73,7 +73,7 @@ class ScaleBar
 	
 	private function _getLengthUnit()
 	{
-		return 'km';
+		return 'mil';
 	}
 	
 	private function _createScaleBarMap($label, $length)
@@ -116,7 +116,7 @@ class ScaleBar
 	 */
 	private function _calculateLengthOfScaleBar($label, $scale, $equatorPixelsPerKm)
 	{
-		return round($label * $scale * $equatorPixelsPerKm * self::$unitLength['km']);
+		return round($label * $scale * $equatorPixelsPerKm * self::$unitLength['mil']);
 	}
 	
 	/**

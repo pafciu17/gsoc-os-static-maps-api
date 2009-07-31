@@ -4,15 +4,15 @@ abstract class ScaleBarLayout
 {
 	
 	private static $_classMap = array('without' => 'LayoutWithout',
-		'logo_left_up_corner' => 'LayoutLeftUpCorner',
-		'logo_left_down_corner' => 'LayoutLeftDownCorner',
-		'logo_right_up_corner' => 'LayoutRightUpCorner',
-		'logo_right_down_corner' => 'LayoutRightDownCorner');
+		'logo_left_up_corner' => 'LayoutLeftUpCornerScaleBar',
+		'logo_left_down_corner' => 'LayoutLeftDownCornerScaleBar',
+		'logo_right_up_corner' => 'LayoutRightUpCornerScaleBar',
+		'logo_right_down_corner' => 'LayoutRightDownCornerScaleBar');
 	
-	private static $_urlClassMap = array('leftUpCorner' => 'LayoutLeftUpCorner',
-		'leftDownCorner' => 'LayoutLeftDownCorner',
-		'rightUpCorner' => 'LayoutRightUpCorner',
-		'rightDownCorner' => 'LayoutRightDownCorner',
+	private static $_urlClassMap = array('leftUpCorner' => 'LayoutLeftUpCornerScaleBar',
+		'leftDownCorner' => 'LayoutLeftDownCornerScaleBar',
+		'rightUpCorner' => 'LayoutRightUpCornerScaleBar',
+		'rightDownCorner' => 'LayoutRightDownCornerScaleBar',
 		'without' => 'LayoutWithout');
 	
 	/**

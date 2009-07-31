@@ -52,6 +52,16 @@ class LogoMap extends Map
 	}
 	
 	/**
+	 * return logo layout
+	 *
+	 * @return Layout
+	 */
+	public function getLogoLayout()
+	{
+		return $this->_logoLayout;
+	}
+	
+	/**
 	 * send image to the browser
 	 *
 	 * @return bool
@@ -60,8 +70,19 @@ class LogoMap extends Map
 	{
 		$logoImageHandler = ImageHandler::createImageHandlerFromFileExtension($this->_logoFile);
 		$logoImage = $logoImageHandler->loadImage($this->_logoFile);
-		$this->_img = $this->_logoLayout->putImage($this->_img, $logoImage);	
+		$this->_logoLayout->putImage($this, $logoImage);	
 		parent::send();
+	}
+	
+	/**
+	 * return a logo image, or false if image can't be loaded
+	 *
+	 * @return resource
+	 */
+	public function getLogoImage()
+	{
+		$logoImageHandler = ImageHandler::createImageHandlerFromFileExtension($this->_logoFile);
+		return $logoImageHandler->loadImage($this->_logoFile);
 	}
 	
 }

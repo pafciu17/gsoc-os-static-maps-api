@@ -53,14 +53,16 @@ abstract class MapProcessorFromBoundaryBox extends MapProcessor
 	}
 	
 	/**
-	 * it sets coordinates of the left up corner of the result map
+	 * it sets coordinates of the left up and right down corners of the result map
 	 * 
 	 * @param Map $resultMap
 	 */
-	protected function _setUpResultMapLeftUpCornerPoint(Map $resultMap)
+	protected function _setUpResultMapCorners(Map $resultMap)
 	{
 		$leftUpCorner = $this->_mapData->getLeftUpCornerPoint();
 		$resultMap->setLeftUpCorner($leftUpCorner['lon'], $leftUpCorner['lat']);
+		$rightDownCorner = $this->_mapData->getRightDownCornerPoint();
+		$resultMap->setRightDownCorner($rightDownCorner['lon'], $rightDownCorner['lat']);
 	}
 	
 	/**

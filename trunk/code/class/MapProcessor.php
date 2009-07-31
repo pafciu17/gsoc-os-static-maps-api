@@ -151,7 +151,7 @@ abstract class MapProcessor
 		$outputMapLeftUpInPixels = $this->_getLeftUpCornerForCutingResultMap($map);
 		$resultMap = new Map($this->_createResultMapImage($image, $outputMapLeftUpInPixels['x'],
 		$outputMapLeftUpInPixels['y'], $this->_mapData->getWidth(), $this->_mapData->getHeight()));
-		$this->_setUpResultMapLeftUpCornerPoint($resultMap);
+		$this->_setUpResultMapCorners($resultMap);
 		$resultMap->setWorldMap($this->_worldMap);
 		$resultMap->setImageHandler($this->_tileSource->getImageHandler());
 		return $resultMap;
@@ -190,11 +190,11 @@ abstract class MapProcessor
 	abstract protected function _getLeftUpCornerForCutingResultMap(Map $map);
 	
 	/**
-	 * it sets coordinates of the left up corner of the result map
+	 * it sets coordinates of the left up and right down corners of the result map
 	 * 
 	 * @param Map $resultMap
 	 */
-	abstract protected function _setUpResultMapLeftUpCornerPoint(Map $resultMap);
+	abstract protected function _setUpResultMapCorners(Map $resultMap);
 	
 	/**
 	 * create result image from given temporary image

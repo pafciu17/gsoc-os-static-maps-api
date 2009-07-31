@@ -16,6 +16,7 @@ class MapModule extends Module
 		DrawRequest::$defaultColor = $defaultColor;
 		DrawRequest::$defaultThickness = new ParamThickness($this->_conf->get('default_path_thickness'));
 		DrawRequest::$defaultTransparency = new ParamTransparency($this->_conf->get('default_drawings_transparency'));
+		ParamPatternUrl::$patternMap = $this->_conf->get('pattern_point_image_map');
 	}
 	
 	public function execute()
@@ -33,9 +34,13 @@ class MapModule extends Module
 			$drawHandle = new DrawHandle($map);
 			$drawRequest = new DrawRequest($mapRequest);
 			$drawHandle->draw($drawRequest);
+	
 			$mapWithLogo = new LogoMap($map, $this->_conf);
 			$mapWithLogo->setLogoLayout(LogoLayout::factoryFromUrl($mapRequest->getLogoLayoutName()));
 
+			$scaleBar = new ScaleBar($mapWithLogo, $this->_conf);
+			$scaleBar->putOnMap(ScaleBarLayout::factoryFromUrl($mapRequest->getScaleBarLayoutName()));
+			
 			// send output image
 			$mapWithLogo->send();
 			die;

@@ -13,6 +13,10 @@ abstract class ParamFactory
 			return new ParamThickness((int) $tab[1]);
 		} else if (isset($tab[0]) && strtolower($tab[0]) == 'transparency' && isset($tab[1])) {
 			return new ParamTransparency((int) $tab[1]);
+		} else if (isset($tab[0]) && strtolower($tab[0]) == 'pointimageurl' && isset($tab[1])) {
+			return new ParamUrl($tab[1]);
+		} else if (isset($tab[0]) && strtolower($tab[0]) ==  'pointimagepattern' && isset($tab[1])) {
+			return new ParamPatternUrl($tab[1]);
 		}
 	}
 }

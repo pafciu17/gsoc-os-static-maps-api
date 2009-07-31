@@ -49,8 +49,39 @@ class MapRequest
 		'thickness' => 'thickness',
 		'transparency' => 'transparency',
 		'polygons' => 'polygons',
-		'filledPolygons' => 'filledPolygons'
+		'filledPolygons' => 'filledPolygons',
+		'pointImageUrl' => 'pointImage',
+		'pointImagePattern' => 'pointImagePattern'
 	);
+	
+	/**
+	 * 
+	 *
+	 */
+	public function getScaleBarLayoutName()
+	{
+		return null;
+	}
+	
+	/**
+	 * return name of the pattern url to point image
+	 *
+	 * @return string
+	 */
+	public function getPointImagePatternName()
+	{
+		return $this->_mapData['pointImagePattern'];
+	}
+	
+	/**
+	 * return url to an image which is used as url image
+	 *
+	 * @return string
+	 */
+	public function getUrlToPointImage()
+	{
+		return $this->_mapData['pointImage'];
+	}
 	
 	/**
 	 * return string which represents filled polygons to draw

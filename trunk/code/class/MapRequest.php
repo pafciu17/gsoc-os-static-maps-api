@@ -52,8 +52,19 @@ class MapRequest
 		'filledPolygons' => 'filledPolygons',
 		'pointImageUrl' => 'pointImage',
 		'pointImagePattern' => 'pointImagePattern',
-		'scaleBar' => 'scaleBar'
+		'scaleBar' => 'scaleBar',
+		'scaleBarUnit' => 'scaleBarUnit'
 	);
+	
+	/**
+	 * return
+	 *
+	 * @return unknown
+	 */
+	public function getScaleBarUnit()
+	{
+		return $this->_mapData['scaleBarUnit'];
+	}
 	
 	/**
 	 * return the url name of scale bar layout

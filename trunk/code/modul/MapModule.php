@@ -41,7 +41,7 @@ class MapModule extends Module
 			$scaleBar = new ScaleBar($mapWithLogo, $this->_conf);
 			$scaleBar->setUnit($mapRequest->getScaleBarUnit());
 			$scaleBar->putOnMap(ScaleBarLayout::factoryFromUrl($mapRequest->getScaleBarLayoutName()));
-
+			
 			// send output image
 			$mapWithLogo->send();
 			die;

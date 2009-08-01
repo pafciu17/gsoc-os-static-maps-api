@@ -52,8 +52,9 @@ class MapRequest
 		'filledPolygons' => 'filledPolygons',
 		'pointImageUrl' => 'pointImage',
 		'pointImagePattern' => 'pointImagePattern',
-		'scaleBar' => 'scaleBar',
-		'scaleBarUnit' => 'scaleBarUnit'
+		'scaleBarPos' => 'scaleBar',
+		'scaleBarUnit' => 'scaleBarUnit',
+		'paramFileUrl' => 'paramFileUrl'
 	);
 	
 	/**
@@ -220,13 +221,16 @@ class MapRequest
 		return $this->_mapData['imgType'];		
 	}
 	
-	private function _setUpMapData(GET $get)
+	private function _setUpMapData($get)
 	{
 		foreach (self::$_urlParametersNames as $urlName => $appName) {
 			$parameter = $get->$urlName;
-			if (!is_null($parameter)) {
+			if (!is_null($parameter) && $appName == 'paramFileUrl') {
+				$requestFileReader = new RequestFileReader($parameter);
+				$this->_setUpMapData($requestFileReader);
+			} else if (!is_null($parameter) ) {
 				$this->_mapData[$appName] = $parameter;
-			} else {
+			} else if (!array_key_exists($appName, $this->_mapData)) {
 				$this->_mapData[$appName] = null;
 			}
 		}

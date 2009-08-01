@@ -31,7 +31,9 @@ class Conf
 		'tile_cache_days_of_memory' => 7,
 		'tile_cache_number_of_files_to_delete' => 10,
 		'max_number_of_tiles_per_map' => 30,
-		'pattern_point_image_map' => array('sight' => 'http://dev.openstreetmap.org/~pafciu17/static_maps_api/media/sight_point.png')
+		'pattern_point_image_map' => array('sight' => 'http://dev.openstreetmap.org/~pafciu17/media/sight_point.png',
+		'cursor' => 'http://dev.openstreetmap.org/~pafciu17/media/cursor.png')
+							
 	);
 	
 	/**

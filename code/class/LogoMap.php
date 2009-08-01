@@ -6,12 +6,12 @@
 class LogoMap extends Map
 {
 	/**
-	 * path to url image
+	 * array of paths to url image
 	 *
 	 * @var string
 	 */
-	private $_logoFile;
-
+	private $_logoFiles;
+	
 	/**
 	 * app configuration object
 	 *
@@ -30,7 +30,7 @@ class LogoMap extends Map
 	{
 		$this->setImageHandler($map->getImageHandler());
 		$this->_logoLayout = LogoLayout::factory($conf->get('logo_layout'));
-		$this->_logoFile = $conf->get('logo_file');
+		$this->_logoFiles = $conf->get('logo_files');
 		$this->setWorldMap($map->getWorldMap());
 		$leftUpCorner = $map->getLeftUpCorner();
 		$this->setLeftUpCorner($leftUpCorner['lon'], $leftUpCorner['lat']);
@@ -60,6 +60,27 @@ class LogoMap extends Map
 	{
 		return $this->_logoLayout;
 	}
+
+	/**
+	 * return the logo image which fits the best to the size of the map
+	 *
+	 * @return resource
+	 */
+	private function _chooseLogoFile()
+	{
+		$mapWidth = imagesx($this->_img);
+		$mapHeight = imagesy($this->_img);
+		foreach ($this->_logoFiles as $logoFile) {
+			$logoImageHandler = ImageHandler::createImageHandlerFromFileExtension($logoFile);
+			$logoImage = $logoImageHandler->loadImage($logoFile);
+			$logoWidth = imagesx($logoImage);
+			$logoHeight = imagesy($logoImage);
+			if ($logoWidth < $mapWidth && $logoHeight < $mapHeight) {
+				return $logoImage;
+			}
+		}
+		return $logoImage;
+	}
 	
 	/**
 	 * send image to the browser
@@ -68,8 +89,7 @@ class LogoMap extends Map
 	 */
 	public function send()
 	{
-		$logoImageHandler = ImageHandler::createImageHandlerFromFileExtension($this->_logoFile);
-		$logoImage = $logoImageHandler->loadImage($this->_logoFile);
+		$logoImage = $this->_chooseLogoFile();
 		$this->_logoLayout->putImage($this, $logoImage);	
 		parent::send();
 	}
@@ -81,8 +101,7 @@ class LogoMap extends Map
 	 */
 	public function getLogoImage()
 	{
-		$logoImageHandler = ImageHandler::createImageHandlerFromFileExtension($this->_logoFile);
-		return $logoImageHandler->loadImage($this->_logoFile);
+		return $this->_chooseLogoFile();
 	}
 	
 }

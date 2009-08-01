@@ -9,6 +9,13 @@ class DrawMarkPoint extends DrawPoint
 	private $_imageUrl;
 
 	/**
+	 * maximal (bytes) size of image which represents point
+	 *
+	 * @var int
+	 */
+	public static $maxSizeOfPointImage = 25600;
+	
+	/**
 	 * draw point on map
 	 *
 	 * @param Map $map
@@ -19,8 +26,11 @@ class DrawMarkPoint extends DrawPoint
 		$color = $this->_getDrawColor($image);
 		$pointImage = false;
 		if ($this->hasImageUrl()) {
-			$imageHandler = ImageHandler::createImageHandlerFromFileExtension($this->_imageUrl->getUrl());
-			$pointImage = $imageHandler->loadImage($this->_imageUrl->getUrl());
+			$size = HelpClass::getSizeOfRemoteFile($this->_imageUrl->getUrl());
+			if ($size <= self::$maxSizeOfPointImage) {
+				$imageHandler = ImageHandler::createImageHandlerFromFileExtension($this->_imageUrl->getUrl());
+				$pointImage = $imageHandler->loadImage($this->_imageUrl->getUrl());
+			}
 		}
 		if ($pointImage !== false) {
 			$map->putImage($pointImage, $this->getLon(), $this->getLat());

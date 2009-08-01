@@ -107,15 +107,17 @@ class ScaleBar
 		}
 		$width += 20;
 		$height = imagefontheight($font) + 20;
-		$scaleBarImage = imagecreatetruecolor($width, $height);
-	
 		
-    	$backgroundColor = imagecolorallocatealpha($scaleBarImage, 0, 0, 0, 127);
-    	imagefill($scaleBarImage, 0, 0, $backgroundColor);
-    	
+		//@todo drawing of scalebar not work proper for some version GD, rememer to fix it
+		$scaleBarImage = imagecreatetruecolor($width, $height);
+		$transparentColor = imagecolorat($scaleBarImage, 0, 0);
+		imagecolortransparent($scaleBarImage, $transparentColor);
+		$transparent = imagecolorallocatealpha($scaleBarImage, 0, 0, 0, 127);
+	   	imagefilledrectangle($scaleBarImage, 0, 0, $width, $height, $transparent);
+
 		$barPosX = round(($width - $length) / 2);
 		$barPosY = $height - 5;
-		$color = imagecolorallocate($scaleBarImage, 0, 0, 0);
+		$color = imagecolorallocate($scaleBarImage, 1, 0, 0);
 		imageline($scaleBarImage, $barPosX, $barPosY, $barPosX + $length, $barPosY, $color);
 		imageline($scaleBarImage, $barPosX, $barPosY - 3, $barPosX, $barPosY + 3, $color);
 		imageline($scaleBarImage, $barPosX + $length, $barPosY - 3, $barPosX + $length, $barPosY + 3, $color);
@@ -148,10 +150,7 @@ class ScaleBar
 	{
 		$mapWidth = imagesx($this->_map->getImage());
 		$maxLenghtOfScaleBar = $mapWidth / 4;
-		//echo 'max length ' . $maxLenghtOfScaleBar . '<br />'; 
 		foreach (self::$possibleLables as $label) {
-		//	echo $this->_calculateLengthOfScaleBar($label, $scale, $equatorPixelsPerKm);
-		//	echo '<br />';
 			if ($this->_calculateLengthOfScaleBar($label, $scale, $equatorPixelsPerKm) < $maxLenghtOfScaleBar) {
 				return $label;
 			}

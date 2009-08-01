@@ -25,7 +25,7 @@ class Conf
 		'database_password' => 'test',
 		'database_type' => 'Mysql', // possible values dependent on databases which are supported by Zend clases
 		'logo_layout' => 'logo_left_down_corner',
-		'scale_bar_layout' => 'without',
+		'scale_bar_layout' => 'left_up_corner',
 		'logo_file' => './media/osm_logo_cc.png',
 		'wrong_map_request_file' => './media/osm_wrong_map_request.png',
 		'tile_cache_days_of_memory' => 7,

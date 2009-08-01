@@ -28,7 +28,7 @@ class ScaleBar
 	 *
 	 * @var array
 	 */
-	public static $unitLength = array('km' => 1, 'mil' => 1.609344);
+	public static $unitLength = array('km' => 1, 'mi' => 1.609344);
 	
 	/**
 	 * possible labels of scalbar
@@ -42,6 +42,13 @@ class ScaleBar
 	0.5, 0.2, 0.1);
 	
 	/**
+	 * unit of distance
+	 *
+	 * @var string
+	 */
+	private $_unit = 'km';
+	
+	/**
 	 * 
 	 *
 	 * @param Map $map
@@ -51,6 +58,18 @@ class ScaleBar
 	{
 		$this->_map = $map;
 		$this->_layout = ScaleBarLayout::factory($conf->get('scale_bar_layout'));
+	}
+	
+	/**
+	 * it sets an unit of the scaleBar
+	 *
+	 * @param string $unitName
+	 */
+	public function setUnit($unitName)
+	{
+		if (!is_null($unitName) && array_key_exists($unitName, self::$unitLength)) {
+			$this->_unit = $unitName; 
+		}
 	}
 	
 	/**
@@ -73,7 +92,7 @@ class ScaleBar
 	
 	private function _getLengthUnit()
 	{
-		return 'mil';
+		return $this->_unit;
 	}
 	
 	private function _createScaleBarMap($label, $length)
@@ -116,7 +135,7 @@ class ScaleBar
 	 */
 	private function _calculateLengthOfScaleBar($label, $scale, $equatorPixelsPerKm)
 	{
-		return round($label * $scale * $equatorPixelsPerKm * self::$unitLength['mil']);
+		return round($label * $scale * $equatorPixelsPerKm * self::$unitLength[$this->_unit]);
 	}
 	
 	/**

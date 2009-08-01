@@ -4,10 +4,10 @@ abstract class ScaleBarLayout
 {
 	
 	private static $_classMap = array('without' => 'LayoutWithout',
-		'logo_left_up_corner' => 'LayoutLeftUpCornerScaleBar',
-		'logo_left_down_corner' => 'LayoutLeftDownCornerScaleBar',
-		'logo_right_up_corner' => 'LayoutRightUpCornerScaleBar',
-		'logo_right_down_corner' => 'LayoutRightDownCornerScaleBar');
+		'left_up_corner' => 'LayoutLeftUpCornerScaleBar',
+		'left_down_corner' => 'LayoutLeftDownCornerScaleBar',
+		'right_up_corner' => 'LayoutRightUpCornerScaleBar',
+		'right_down_corner' => 'LayoutRightDownCornerScaleBar');
 	
 	private static $_urlClassMap = array('leftUpCorner' => 'LayoutLeftUpCornerScaleBar',
 		'leftDownCorner' => 'LayoutLeftDownCornerScaleBar',

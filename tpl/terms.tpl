@@ -68,7 +68,7 @@ You can send comments, information about errors etc. to <b>osm.static.maps.api(a
 		</p>
 		Supported url attributes:
 		<ul>
-			<li><b>type</b>: it indicates which tile server should be used to build up map. Possible values: mapnik, cycle, osmrender. Mapnik is a default value. Samples:
+			<li><b>type</b>: it indicates which tile server should be used to build up map. Possible values: mapnik, cycle, osmarender. Mapnik is a default value. Samples:
 			<br /><a href="{$host}/?module=map&bbox=0,70,40,50&width=300&height=300&type=mapnik">{$host}/?module=map&bbox=0,70,40,50&width=300&height=300&type=mapnik</a><br />
 			<a href="{$host}/?module=map&bbox=0,70,40,50&width=300&height=300&type=cycle">{$host}/?module=map&bbox=0,70,40,50&width=300&height=300&type=cycle</a> <br />
 			<a href="{$host}/?module=map&bbox=0,70,40,50&width=300&height=300&type=osmarender">{$host}/?module=map&bbox=0,70,40,50&width=300&height=300&type=osmarender</a> <br />
@@ -84,14 +84,14 @@ You can send comments, information about errors etc. to <b>osm.static.maps.api(a
 			<a href="{$host}/?module=map&lon=180&lat=20&zoom=2&width=1200&height=1200">{$host}/?module=map&lon=180&lat=20&zoom=2&width=1200&height=1200</a>
 			
 			</li>
-			<li><b>zoom</b>: zoom of the map
+			<li><b>zoom</b>: zoom of the map, possible values depend on map type. Usually it could be from 0 to 18.
 			</li>
 			<li><b>bbox</b>: it indicates the bound box of the map. It is given as 4 numbers: longitude of the left bound, latitude of the top bound, longitude of the right bound, latitude of bottom edge.  Sample:<br />
 			<a href="{$host}/?module=map&bbox=-80,50,-50,10&width=300">{$host}/?module=map&bbox=-80,50,-50,10&width=300</a>
 			</li>
 			<li><b>width</b> and <b>height</b> size of the return map (in pixels).</li
 			<li><b>points</b>: coordinates of the points which will be drawn on the map. Points are separated by semicolons. Each points has two coordinates: longitude and latitude. Sample:<br />
-			<a href="{$host}/?module=map&bbox=-80,50,-67,15&width=500&points=-74,40.34;-82.3,23.1">{$host}/?module=map&bbox=-80,50,-67,15&width=500&points=-74,40.34;-82.3,23.1</a> </br>
+			<a href="{$host}/?module=map&bbox=-80,50,-67,15&width=500&points=-74,40.34;-82.3,23.1">{$host}/?module=map&bbox=-80,50,-67,15&width=500&points=-74,40.34;-82.3,23.1</a> <br />
 			Each point can also have specifed: transparency(0 - 127), color (RPG coordinates), pointImageUrl (url to image which will be put in point), pointImagePattern (indicates what pattern image will be used, now 2 values are supported: sight, cursor). Samples: <br/>
 			<a href="{$host}/?module=map&bbox=-80,50,-67,15&width=500&points=-74,40.34,color:0:20:0,transparency:80;-82.3,23.1,pointImageUrl:dev.openstreetmap.org/~pafciu17/media/sight_point.png">{$host}/?module=map&bbox=-80,50,-67,15&width=500&points=-74,40.34,color:0:20:0,transparency:80;-82.3,23.1,pointImageUrl:dev.openstreetmap.org/~pafciu17/media/sight_point.png</a> </br>
 			<a href="{$host}/?module=map&bbox=-80,50,-67,15&width=500&points=-74,40.34,pointImagePattern:cursor;-82.3,23.1,pointImagePattern:sight">{$host}/?module=map&bbox=-80,50,-67,15&width=500&points=-74,40.34,pointImagePattern:cursor;-82.3,23.1,pointImagePattern:sight</a> </br>
@@ -119,7 +119,7 @@ You can send comments, information about errors etc. to <b>osm.static.maps.api(a
 			<a href="{$host}/?module=map&center=12,52&zoom=4&width=500&height=400&paths=2.35,48.5,13.40,52.5,0,51.5;16.35,48.19,13.4,52.5,30.5,50.45&transparency=100&thickness=3">{$host}/?module=map&center=12,52&zoom=4&width=500&height=400&paths=2.35,48.5,13.40,52.5,0,51.5;16.35,48.19,13.4,52.5,30.5,50.45&transparency=100&thickness=3</a>
 			</li>
 			<li><b>reload</b>: it force application to load all tiles from tile server, in that case cache will not be used<br />
-			<a href="{$host}/?module=map&center=23.78677,52.751256,&zoom=10&width=500&height=500">{$host}/?module=map&center=23.78677,52.751256,&zoom=10&width=500&height=500</a>
+			<a href="{$host}/?module=map&center=23.78677,52.751256,&zoom=10&width=500&height=500&reload=true">{$host}/?module=map&center=23.78677,52.751256,&zoom=10&width=500&height=500&reload=true</a>
 			</li>
 			<li><b>logoPos</b>: it defines in which part of the map osm logo is put, 4 possible values are supported : leftUpCorner, leftDownCorne, rightUpCorner, rightDownCorner. Default value is leftDownCorner. 
 			Samples:<br />

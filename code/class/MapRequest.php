@@ -228,8 +228,10 @@ class MapRequest
 			if (!is_null($parameter) && $appName == 'paramFileUrl') {
 				$requestFileReader = new RequestFileReader($parameter);
 				$this->_setUpMapData($requestFileReader);
-			} else if (!is_null($parameter) ) {
-				$this->_mapData[$appName] = $parameter;
+			} else if (!is_null($parameter)) {
+				if (!array_key_exists($appName, $this->_mapData) || is_null($this->_mapData[$appName])) {
+					$this->_mapData[$appName] = $parameter;
+				}
 			} else if (!array_key_exists($appName, $this->_mapData)) {
 				$this->_mapData[$appName] = null;
 			}

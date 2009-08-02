@@ -90,14 +90,25 @@ You can send comments, information about errors etc. to <b>osm.static.maps.api(a
 			<a href="{$host}/?module=map&bbox=-80,50,-50,10&width=300">{$host}/?module=map&bbox=-80,50,-50,10&width=300</a>
 			</li>
 			<li><b>width</b> and <b>height</b> size of the return map (in pixels).</li
-			<li><b>points</b>: coordinates of the points which will be drawn on the map. Each points has two coordinates: longitude and latitude. Sample:<br />
-			<a href="{$host}/?module=map&bbox=-80,50,-67,15&width=500&points=-74,40.34,-82.3,23.1">{$host}/?module=map&bbox=-80,50,-67,15&width=500&points=-74,40.34,-82.3,23.1</a>
+			<li><b>points</b>: coordinates of the points which will be drawn on the map. Points are separated by semicolons. Each points has two coordinates: longitude and latitude. Sample:<br />
+			<a href="{$host}/?module=map&bbox=-80,50,-67,15&width=500&points=-74,40.34;-82.3,23.1">{$host}/?module=map&bbox=-80,50,-67,15&width=500&points=-74,40.34;-82.3,23.1</a> </br>
+			Each point can also have specifed: transparency(0 - 127), color (RPG coordinates), pointImageUrl (url to image which will be put in point), pointImagePattern (indicates what pattern image will be used, now 2 values are supported: sight, cursor). Samples: <br/>
+			<a href="{$host}/?module=map&bbox=-80,50,-67,15&width=500&points=-74,40.34,color:0:20:0,transparency:80;-82.3,23.1,pointImageUrl:dev.openstreetmap.org/~pafciu17/media/sight_point.png">{$host}/?module=map&bbox=-80,50,-67,15&width=500&points=-74,40.34,color:0:20:0,transparency:80;-82.3,23.1,pointImageUrl:dev.openstreetmap.org/~pafciu17/media/sight_point.png</a> </br>
+			<a href="{$host}/?module=map&bbox=-80,50,-67,15&width=500&points=-74,40.34,pointImagePattern:cursor;-82.3,23.1,pointImagePattern:sight">{$host}/?module=map&bbox=-80,50,-67,15&width=500&points=-74,40.34,pointImagePattern:cursor;-82.3,23.1,pointImagePattern:sight</a> </br>
 			</li>
-			<li><b>paths</b>: coordinates of paths, paths are separated by semi-colons. Sample:<br />
-			<a href="{$host}/?module=map&bbox=-100,45,-67,5&width=600&paths=-74,40.34,-82.3,23.1,-85,35,-87.2,32.12;-90,40,-80,40">{$host}/?module=map&bbox=-100,45,-67,5&width=600&paths=-74,40.43,-82.3,23.1,-85,35,-87.2,32.12;-90,40,-80,40</a>
+			<li><b>paths</b>: coordinates of paths, paths are separated by semicolons. Sample:<br />
+			<a href="{$host}/?module=map&bbox=-100,45,-67,5&width=600&paths=-74,40.34,-82.3,23.1,-85,35,-87.2,32.12;-90,40,-80,40">{$host}/?module=map&bbox=-100,45,-67,5&width=600&paths=-74,40.43,-82.3,23.1,-85,35,-87.2,32.12;-90,40,-80,40</a><br />
+			Path attributes: color (RPG coordinates), transparency(0 - 127), thickness(1 - 5), sample:<br />
+			<a href="{$host}/?module=map&bbox=-100,45,-67,5&width=600&paths=-74,40.43,-82.3,23.1,-85,35,-87.2,32.12,thickness:5,transparency:100;-90,40,-80,40,color:0:255:0">{$host}/?module=map&bbox=-100,45,-67,5&width=600&paths=-74,40.43,-82.3,23.1,-85,35,-87.2,32.12,thickness:5,transparency:100;-90,40,-80,40,color:0:255:0</a><br />
 			</li>
-			<li><b>color</b>: color of drawings, given as 3 RPG coordinates. Sample:<br />
+			<li><b>color</b>: color of drawings, given as 3 RPG coordinates. That Color is used for all objects which don't have specifed color. Sample:<br />
 			<a href="{$host}/?module=map&bbox=-80,50,-67,15&width=500&points=-74,40.344,-82.3,23.1&color=150,0,0">{$host}/?module=map&bbox=-80,50,-67,15&width=500&points=-74,40.34,-82.3,23.1&color=150,0,0</a>
+			</li>
+			<li><b>thickness</b>: thickness of paths, given as int number (value: 1 - 5). Sample<br />
+			<a href="{$host}/?module=map&center=12,52&zoom=4&width=500&height=400&paths=2.35,48.5,13.40,52.5,0,51.5;16.35,48.19,13.4,52.5,30.5,50.45&thickness=3">{$host}/?module=map&center=12,52&zoom=4&width=500&height=400&paths=2.35,48.5,13.40,52.5,0,51.5;16.35,48.19,13.4,52.5,30.5,50.45&thickness=3</a>
+			</li>
+			<li><b>transparency</b>: transparency, given as int number (value: 0 - 127). Sample<br />
+			<a href="{$host}/?module=map&center=12,52&zoom=4&width=500&height=400&paths=2.35,48.5,13.40,52.5,0,51.5;16.35,48.19,13.4,52.5,30.5,50.45&transparency=100&thickness=3">{$host}/?module=map&center=12,52&zoom=4&width=500&height=400&paths=2.35,48.5,13.40,52.5,0,51.5;16.35,48.19,13.4,52.5,30.5,50.45&transparency=100&thickness=3</a>
 			</li>
 			<li><b>reload</b>: it force application to load all tiles from tile server, in that case cache will not be used<br />
 			<a href="{$host}/?module=map&center=23.78677,52.751256,&zoom=10&width=500&height=500">{$host}/?module=map&center=23.78677,52.751256,&zoom=10&width=500&height=500</a>

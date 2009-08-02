@@ -101,10 +101,18 @@ You can send comments, information about errors etc. to <b>osm.static.maps.api(a
 			Path attributes: color (RPG coordinates), transparency(0 - 127), thickness(1 - 5), sample:<br />
 			<a href="{$host}/?module=map&bbox=-100,45,-67,5&width=600&paths=-74,40.43,-82.3,23.1,-85,35,-87.2,32.12,thickness:5,transparency:100;-90,40,-80,40,color:0:255:0">{$host}/?module=map&bbox=-100,45,-67,5&width=600&paths=-74,40.43,-82.3,23.1,-85,35,-87.2,32.12,thickness:5,transparency:100;-90,40,-80,40,color:0:255:0</a><br />
 			</li>
+			<li><b>polygons</b>: coordinates of vertices of polygons, polygons are separated by semicolons. Sample:<br />
+			<a href="{$host}/?module=map&bbox=-100,45,-67,5&width=600&polygons=-74,40.43,-82.3,23.1,-85,35,-87.2,32.12,thickness:5,transparency:100;-90,40,-80,40,-95.45,39,color:0:255:0">{$host}/?module=map&bbox=-100,45,-67,5&width=600&polygons=-74,40.43,-82.3,23.1,-85,35,-87.2,32.12,thickness:5,transparency:100;-90,40,-80,40,-95.45,39,color:0:255:0</a><br />
+			Polygons has the same attributes as paths (so transparency, thickness, color).
+			</li>
+			<li><b>filledPolygons</b>: coordinates of vertices of polygons. Similar to polygons tag, but this time polygons are filled with given color. Sample: <br />
+			<a href="{$host}/?module=map&center=12,52&zoom=4&width=500&height=400&filledPolygons=2.35,48.5,13.40,52.5,0,51.5,color:0:255:0;16.35,48.19,13.4,52.5,30.5,50.45&transparency=100">{$host}/?module=map&center=12,52&zoom=4&width=500&height=400&filledPolygons=2.35,48.5,13.40,52.5,0,51.5,color:0:255:0;16.35,48.19,13.4,52.5,30.5,50.45&transparency=100</a>
+			attributes: transparency, color.
+			</li>
 			<li><b>color</b>: color of drawings, given as 3 RPG coordinates. That Color is used for all objects which don't have specifed color. Sample:<br />
 			<a href="{$host}/?module=map&bbox=-80,50,-67,15&width=500&points=-74,40.344,-82.3,23.1&color=150,0,0">{$host}/?module=map&bbox=-80,50,-67,15&width=500&points=-74,40.34,-82.3,23.1&color=150,0,0</a>
 			</li>
-			<li><b>thickness</b>: thickness of paths, given as int number (value: 1 - 5). Sample<br />
+			<li><b>thickness</b>: thickness of paths, polygons, given as number (value: 1 - 5). Sample<br />
 			<a href="{$host}/?module=map&center=12,52&zoom=4&width=500&height=400&paths=2.35,48.5,13.40,52.5,0,51.5;16.35,48.19,13.4,52.5,30.5,50.45&thickness=3">{$host}/?module=map&center=12,52&zoom=4&width=500&height=400&paths=2.35,48.5,13.40,52.5,0,51.5;16.35,48.19,13.4,52.5,30.5,50.45&thickness=3</a>
 			</li>
 			<li><b>transparency</b>: transparency, given as int number (value: 0 - 127). Sample<br />
@@ -115,12 +123,27 @@ You can send comments, information about errors etc. to <b>osm.static.maps.api(a
 			</li>
 			<li><b>logoPos</b>: it defines in which part of the map osm logo is put, 4 possible values are supported : leftUpCorner, leftDownCorne, rightUpCorner, rightDownCorner. Default value is leftDownCorner. 
 			Samples:<br />
-			<a href="{$host}?module=map&center=-120,50&zoom=5&width=300&height=300&logoPos=leftUpCorner">{$host}?module=map&center=-120,50&zoom=5&width=300&height=300&logoPos=leftUpCorner</a><br />
-			<a href="{$host}?module=map&center=-120,50&zoom=5&width=300&height=300&logoPos=leftDownCorner">{$host}?module=map&center=-120,50&zoom=5&width=300&height=300&logoPos=leftDownCorner</a><br />
-			<a href="{$host}?module=map&center=-120,50&zoom=5&width=300&height=300&logoPos=rightUpCorner">{$host}?module=map&center=-120,50&zoom=5&width=300&height=300&logoPos=rightUpCorner</a><br />
-			<a href="{$host}?module=map&center=-120,50&zoom=5&width=300&height=300&logoPos=rightDownCorner">{$host}?module=map&center=-120,50&zoom=5&width=300&height=300&logoPos=rightDownCorner</a><br />
-			<a href="{$host}?module=map&center=-120,50&zoom=5&width=300&height=300&">{$host}?module=map&center=-120,50&zoom=5&width=300&height=300</a><br />
+			<a href="{$host}/?module=map&center=-120,50&zoom=5&width=300&height=300&logoPos=leftUpCorner">{$host}/?module=map&center=-120,50&zoom=5&width=300&height=300&logoPos=leftUpCorner</a><br />
+			<a href="{$host}/?module=map&center=-120,50&zoom=5&width=300&height=300&logoPos=leftDownCorner">{$host}/?module=map&center=-120,50&zoom=5&width=300&height=300&logoPos=leftDownCorner</a><br />
+			<a href="{$host}/?module=map&center=-120,50&zoom=5&width=300&height=300&logoPos=rightUpCorner">{$host}/?module=map&center=-120,50&zoom=5&width=300&height=300&logoPos=rightUpCorner</a><br />
+			<a href="{$host}/?module=map&center=-120,50&zoom=5&width=300&height=300&logoPos=rightDownCorner">{$host}/?module=map&center=-120,50&zoom=5&width=300&height=300&logoPos=rightDownCorner</a><br />
+			<a href="{$host}/?module=map&center=-120,50&zoom=5&width=300&height=300&">{$host}/?module=map&center=-120,50&zoom=5&width=300&height=300</a><br />
 			</li>
+			<li><b>scaleBarPos</b> and <b>scaleBarUnit</b>, These parameters define how scale bar will be displayed. <b>scaleBarPos</b> defines where scale bar will be put 
+			(values: leftUpCorner, rightUpCorner, rightDownCorner, leftDownCorner, without) and
+			<b>scaleBarUnit</b> sets what distance unit will be used (mi for miles, km for kilometers, km is a default value). Samples: <br />
+			<a href="{$host}/?module=map&center=0,51&zoom=4&width=400&height=400">{$host}/?module=map&center=0,51&zoom=4&width=400&height=400</a><br />
+			<a href="{$host}/?module=map&center=0,51&zoom=4&width=400&height=400&scaleBarPos=rightDownCorner">{$host}/?module=map&center=0,51&zoom=4&width=400&height=400&scaleBarPos=rightDownCorner</a><br />
+			<a href="{$host}/?module=map&center=0,51&zoom=4&width=400&height=400&scaleBarPos=leftDownCorner">{$host}/?module=map&center=0,51&zoom=4&width=400&height=400&scaleBarPos=leftDownCorner</a><br />
+			<a href="{$host}/?module=map&center=0,51&zoom=4&width=400&height=400&scaleBarUnit=mi">{$host}/?module=map&center=0,51&zoom=4&width=400&height=400&scaleBarPos=scaleBarUnit=mi</a><br />
+			</li>
+			<li><b>paramFileUrl</b> the url which indicates file with map request data. Sometimes there is too many of given parameters and url becomes too complicated, in such case it is better to put them
+			in file, and in request just give the url to that file. Url parameters have higher priority, so in case of conflicts url parameters are taken into account instead of those from file. Samples: <br />
+			<a href="{$host}/?module=map&paramFileUrl=http://dev.openstreetmap.org/~pafciu17/samples/sample_map_request.txt">{$host}/?module=map&paramFileUrl=http://dev.openstreetmap.org/~pafciu17/samples/sample_map_request.txt</a><br />
+			<a href="{$host}/?module=map&paramFileUrl=http://dev.openstreetmap.org/~pafciu17/samples/sample_map_request.txt">{$host}/?module=map&zoom=4&paramFileUrl=http://dev.openstreetmap.org/~pafciu17/samples/sample_map_request.txt</a><br />
+			</li>
+			Structure of the file: each attribute is given in one line. Line starts with name of parameter and after the char "=" goes the value.
+			Sample: <a href="http://dev.openstreetmap.org/~pafciu17/samples/sample_map_request.txt">sample file</a>
 		</ul>
 	</p>
 	<p>

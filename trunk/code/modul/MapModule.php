@@ -28,8 +28,15 @@ class MapModule extends Module
 			$rightDownCorner = $mapRequest->getRightDownCornerPoint();
 			$mapProcessor = MapProcessor::factory($mapRequest);
 			// create map object
-			$map = $mapProcessor->createMap();
-		
+			$bboxRespons = BboxRespons::factory($mapRequest->getBboxReturnType());
+			$mapProcessor->getTileSource()->useImages($bboxRespons == null);
+			$map = $mapProcessor->createMap($bboxRespons);
+			if ($bboxRespons != null) {
+				$bboxRespons->setData($map);
+				$bboxRespons->send();
+				die;
+			}
+			
 			$map->setImageHandler(ImageHandler::factory($mapRequest->getImageType()));
 			$drawHandle = new DrawHandle($map);
 			$drawRequest = new DrawRequest($mapRequest);

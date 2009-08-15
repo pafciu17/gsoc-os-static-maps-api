@@ -24,7 +24,8 @@ class MapRequest
 	 *
 	 * @var array
 	 */
-	static private $_urlParametersNames = array('lon' => 'centerLon',
+	static private $_urlParametersNames = array(
+		'lon' => 'centerLon',
 		'lat' => 'centerLat',
 		'leftUpLon' => 'leftUpLon',
 		'leftUpLat' => 'leftUpLat',
@@ -54,7 +55,8 @@ class MapRequest
 		'pointImagePattern' => 'pointImagePattern',
 		'scaleBarPos' => 'scaleBar',
 		'scaleBarUnit' => 'scaleBarUnit',
-		'paramFileUrl' => 'paramFileUrl'
+		'paramFileUrl' => 'paramFileUrl',
+		'bboxReturnFormat' => 'bboxReturnFormat'
 	);
 	
 	/**
@@ -383,8 +385,8 @@ class MapRequest
 	 */
 	public function getBboxReturnType() 
 	{
-		if (isset($this->_mapData['bbox_return_format'])) {
-			return $this->_mapData['bbox_return_format'];
+		if (isset($this->_mapData['bboxReturnFormat'])) {
+			return $this->_mapData['bboxReturnFormat'];
 		}
 	}
 	

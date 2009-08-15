@@ -377,6 +377,18 @@ class MapRequest
 	}
 	
 	/**
+	 * return in what format should be send data about boundary box of the map
+	 *
+	 * @return string
+	 */
+	public function getBboxReturnType() 
+	{
+		if (isset($this->_mapData['bbox_return_format'])) {
+			return $this->_mapData['bbox_return_format'];
+		}
+	}
+	
+	/**
 	 * return zoom of the map
 	 *
 	 * @return int

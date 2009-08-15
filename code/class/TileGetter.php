@@ -26,4 +26,3 @@ interface TileGetter
 	 */
 	public function getTile();
 }
-?>

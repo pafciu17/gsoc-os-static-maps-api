@@ -46,6 +46,9 @@ abstract class MapProcessor
 	static public function factory(MapRequest $mapData)
 	{
 		$tileSource = new TileSource(DatabaseServer::getServer($mapData->getType()));
+		if ($mapData->getBboxReturnType()) {
+			$tileSource->loadTileImages($map->data);
+		}
 		$tileSource->useCache(!$mapData->issetReloadParam());
 		if (!is_null($mapData->getCenterPoint()) && !is_null($mapData->getWidth()) && !is_null($mapData->getHeight())) {
 			return new MapProcessorFromCenterPoint($mapData, $tileSource);

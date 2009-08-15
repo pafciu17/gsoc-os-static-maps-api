@@ -45,6 +45,13 @@ class TileSource
 	protected $_useCache = true;
 	
 	/**
+	 * it sets if true tile image are used, if it is set to false, only blank images are used
+	 *
+	 * @var bool
+	 */
+	protected $_useTileImage = true;
+	
+	/**
 	 * class map
 	 *
 	 * @var array
@@ -76,6 +83,15 @@ class TileSource
 		$this->_useCache = $value;
 	}
 	
+	/**
+	 * method sets if object is using load true tiles, if fals is given the class will use blank images instead true tiles images.
+	 *
+	 * @param bool $value
+	 */
+	public function useImages($value) {
+		$this->_useTileImage = $value;
+	}
+	
 	
 	/**
 	 * return image handler for tile source
@@ -100,7 +116,9 @@ class TileSource
 		$tx = $x;
 		$ty = $y;
 		$this->_validateTileNumbers($tx, $ty, $zoom);
-		if ($this->_useCache && $this->_tileCache->hasTile($tx, $ty, $zoom)) {//if tile image is in cache, take it from there
+		if (!$this->_useTileImage) {
+			$tile = new EmptyTile($this->getTileWidth(), $this->getTileHeight(), $this->_imageHandler);
+		} else if ($this->_useCache && $this->_tileCache->hasTile($tx, $ty, $zoom)) {//if tile image is in cache, take it from there
 			$image = $this->_tileCache->getTile($tx, $ty, $zoom);
 			$tile = new Tile($image);
 		} else {

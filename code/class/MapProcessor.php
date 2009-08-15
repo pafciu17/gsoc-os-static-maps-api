@@ -38,6 +38,13 @@ abstract class MapProcessor
 	protected $_requestValidator;
 	
 	/**
+	 * object which controls the format in which  data about are returned
+	 *
+	 * @var BboxRespons
+	 */
+	protected $_bbox_respons;
+	
+	/**
 	 * create appropriate MapProcessor
 	 *
 	 * @param MapRequest $mapData
@@ -46,9 +53,6 @@ abstract class MapProcessor
 	static public function factory(MapRequest $mapData)
 	{
 		$tileSource = new TileSource(DatabaseServer::getServer($mapData->getType()));
-		if ($mapData->getBboxReturnType()) {
-			$tileSource->loadTileImages($map->data);
-		}
 		$tileSource->useCache(!$mapData->issetReloadParam());
 		if (!is_null($mapData->getCenterPoint()) && !is_null($mapData->getWidth()) && !is_null($mapData->getHeight())) {
 			return new MapProcessorFromCenterPoint($mapData, $tileSource);
@@ -90,6 +94,16 @@ abstract class MapProcessor
 		}
 		return $tilesGetter->getTiles();
 
+	}
+	
+	/**
+	 * method returns tile source which is used by processor
+	 *
+	 * @return TileSource
+	 */
+	public function getTileSource()
+	{
+		return $this->_tileSource;
 	}
 	
 	/**

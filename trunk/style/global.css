@@ -89,3 +89,7 @@ div.errorContener {
 	padding: 5px;
 	margin: 5px;
 }
+
+img {
+	border-style: none;
+}

@@ -37,7 +37,7 @@ class Redirect
 	public function toModuleAction($moduleName, $actionName)
 	{
 		header('Location: ' . $this->_getUrlToModule($moduleName) . '&' . $this->_conf->get('action_url_variable_name') . '=' .
-		$actionName);
+		$this->_appMap->getModuleActionUrlName($moduleName, $actionName));
 	}
 	
 }

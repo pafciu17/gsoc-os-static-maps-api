@@ -1,5 +1,8 @@
 <?php
-
+/**
+ * login action
+ *
+ */
 class ModuleActionAdminLogin extends ModuleAction
 {
 

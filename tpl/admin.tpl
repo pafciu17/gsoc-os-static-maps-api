@@ -11,7 +11,7 @@
 <div id="all">
 <div id="top">
 	<img src="media/osm_logo.png" />
-	<b>OSM static maps API - prototype 0.1</b>
+	<b>OSM static maps API</b>
 </div>
 <div id="body"> 
 <div id="menu">

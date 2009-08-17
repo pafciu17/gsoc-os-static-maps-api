@@ -52,7 +52,8 @@
 			{$server->maxZoom}
 		</td>
 		<td>
-			<a href="?{$conf->get('module_url_variable_name')}={$appMap->getModuleUrlName('AdminModule')}&page={$appMap->getModuleActionUrlName('AdminModule', 'ModuleActionEditServer')}&id={$server->id}">edit</a>
+			<a href="?{$conf->get('module_url_variable_name')}={$appMap->getModuleUrlName('AdminModule')}&page={$appMap->getModuleActionUrlName('AdminModule', 'ModuleActionEditServer')}&id={$server->id}"><img src="media/edit.png" /></a>
+			<a href="?{$conf->get('module_url_variable_name')}={$appMap->getModuleUrlName('AdminModule')}&page={$appMap->getModuleActionUrlName('AdminModule', 'ModuleActionServers')}&delId={$server->id}"><img src="media/del.png" /></a>
 		</td>
 	</tr>
 {/foreach}

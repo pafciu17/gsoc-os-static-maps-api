@@ -12,20 +12,17 @@
 	
 </div>
 <div id="termsBody">
-<h2>Test page</h2>
+<h2>OSM Static maps API</h2>
 {assign var=host value=http://dev.openstreetmap.org/~pafciu17}
-
 <div>
 <p>
-This is test page of GSoC 2009 project: Static maps API. 
 Main idea of the project is to create an web application which will provide an easy way of embedding maps into web pages.
 Application is going to be deeply configurable and easy to install by anyone on his server. 
 It is being implemented in PHP5.
 </p>
 <p>
-During first month of work scaffold of application has been created with its basic functionality. 
-Now it is time for improvements and adding new features. 
-I would be very grateful for any feedback about API. 
+Application is development all the time, and I am looking forward for any feedback about API
+I would be very grateful for it.
 You can send comments, information about errors etc. to <b>osm.static.maps.api(at)gmail.com</b>.
 </p>
 <h2>Sample maps</h2>
@@ -42,7 +39,7 @@ You can send comments, information about errors etc. to <b>osm.static.maps.api(a
 <div>
 	<h3>Conditions and terms of use</h3>
 	<ul>
-	<li>Some information, conditions of use, etc</li>
+	<li>I am not sure how it should look like, I am waiting for suggetions.</li>
 	<li>...</li>
 	</ul>
 	<div>

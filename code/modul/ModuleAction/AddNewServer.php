@@ -1,5 +1,8 @@
 <?php
-
+/**
+ * class implements action fo adding new server to database
+ *
+ */
 class ModuleActionAddNewServer extends ModuleAction
 {
 

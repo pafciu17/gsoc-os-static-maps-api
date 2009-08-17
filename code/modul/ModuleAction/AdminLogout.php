@@ -1,5 +1,8 @@
 <?php
-
+/**
+ * logout action
+ *
+ */
 class ModuleActionAdminLogout extends ModuleAction
 {
 

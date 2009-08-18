@@ -93,6 +93,9 @@ You can send comments, information about errors etc. to <b>osm.static.maps.api(a
 			<a href="{$host}/?module=map&bbox=-80,50,-67,15&width=500&points=-74,40.34,color:0:20:0,transparency:80;-82.3,23.1,pointImageUrl:dev.openstreetmap.org/~pafciu17/media/sight_point.png">{$host}/?module=map&bbox=-80,50,-67,15&width=500&points=-74,40.34,color:0:20:0,transparency:80;-82.3,23.1,pointImageUrl:dev.openstreetmap.org/~pafciu17/media/sight_point.png</a> </br>
 			<a href="{$host}/?module=map&bbox=-80,50,-67,15&width=500&points=-74,40.34,pointImagePattern:cursor;-82.3,23.1,pointImagePattern:sight">{$host}/?module=map&bbox=-80,50,-67,15&width=500&points=-74,40.34,pointImagePattern:cursor;-82.3,23.1,pointImagePattern:sight</a> </br>
 			</li>
+			<li><b>pointImagePattern</b> indicates image patter for all points, values: sight, cursor.
+			http://dev.openstreetmap.org/~pafciu17/?module=map&bbox=-80,50,-67,15&width=500&points=-74,40.34;-82.3,23.1&pointImagePattern=cursor
+			</li>
 			<li><b>paths</b>: coordinates of paths, paths are separated by semicolons. Sample:<br />
 			<a href="{$host}/?module=map&bbox=-100,45,-67,5&width=600&paths=-74,40.34,-82.3,23.1,-85,35,-87.2,32.12;-90,40,-80,40">{$host}/?module=map&bbox=-100,45,-67,5&width=600&paths=-74,40.43,-82.3,23.1,-85,35,-87.2,32.12;-90,40,-80,40</a><br />
 			Path attributes: color (RPG coordinates), transparency(0 - 127), thickness(1 - 5), sample:<br />
@@ -138,8 +141,8 @@ You can send comments, information about errors etc. to <b>osm.static.maps.api(a
 			in file, and in request just give the url to that file. Url parameters have higher priority, so in case of conflicts url parameters are taken into account instead of those from file. Samples: <br />
 			<a href="{$host}/?module=map&paramFileUrl=http://dev.openstreetmap.org/~pafciu17/samples/sample_map_request.txt">{$host}/?module=map&paramFileUrl=http://dev.openstreetmap.org/~pafciu17/samples/sample_map_request.txt</a><br />
 			<a href="{$host}/?module=map&paramFileUrl=http://dev.openstreetmap.org/~pafciu17/samples/sample_map_request.txt">{$host}/?module=map&zoom=4&paramFileUrl=http://dev.openstreetmap.org/~pafciu17/samples/sample_map_request.txt</a><br />
-			</li>
 			Structure of the file: each attribute is given in one line. Line starts with name of parameter and after the char "=" goes the value.
+			</li>
 			Sample: <a href="http://dev.openstreetmap.org/~pafciu17/samples/sample_map_request.txt">sample file</a>
 		</ul>
 	</p>

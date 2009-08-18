@@ -22,7 +22,7 @@ class ModuleActionAddNewServer extends ModuleAction
 				$this->_view->assign('server', $server);
 			}
 		}
-		$this->_view->assign('formHeader', 'Adding new server');
+		$this->_view->assign('formHeader', 'Add new server');
 		$this->_view->assign('content_file', 'serverForm.tpl');
 	}
 

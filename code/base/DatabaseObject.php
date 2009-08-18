@@ -44,6 +44,7 @@ abstract class DatabaseObject extends Database
 
 	private function loadData($id)
 	{
+		self::setUpConnection();
 		$select = self::$db->select();
 		$data = $select->From($this->_tableName)->Where('id = ?', $id)->query()->fetch();
 		if ($data) {
@@ -77,6 +78,7 @@ abstract class DatabaseObject extends Database
 	 */
 	public function save()
 	{
+		self::setUpConnection();
 		$this->_validator->validate($this);
 		if (isset($this->_data['id']) && is_numeric($this->_data['id'])) {
 			$this->update();

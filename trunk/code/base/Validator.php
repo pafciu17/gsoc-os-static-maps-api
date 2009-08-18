@@ -3,7 +3,7 @@ class ValidatorException extends Exception
 {
 }
 
-abstract class Validator
+class Validator
 {
 	
 	protected $_errors = array();
@@ -14,7 +14,10 @@ abstract class Validator
 	 * @param DatabaseObject $object
 	 * @throws ValidatorException it is thrown if objects data are wrong
 	 */
-	abstract public function validate($object);
+	public function validate($object)
+	{
+		
+	}
 
 	/**
 	 * it handles exception
@@ -22,7 +25,10 @@ abstract class Validator
 	 * @param Exception/ $e
 	 * @return bool return true if exception has been handled by this method
 	 */
-	abstract public function handleException(Exception $e);
+	public function handleException(Exception $e)
+	{
+		
+	}
 	
 	
 	public function getErrors()

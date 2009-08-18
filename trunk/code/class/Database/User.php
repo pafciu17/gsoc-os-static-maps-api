@@ -18,6 +18,12 @@ class DatabaseUser extends DatabaseObject
 	protected $_fields = array('id', 'login', 'password');
 	
 	
+	public function __construct($id = null)
+	{
+		parent::__construct($id);
+		$this->_validator = new Validator();
+	}
+	
 	public static function getUser($login)
 	{
 		self::setUpConnection();

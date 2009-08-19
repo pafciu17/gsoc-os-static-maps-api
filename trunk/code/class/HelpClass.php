@@ -15,8 +15,8 @@ class HelpClass
 	 */
 	public static function getSizeOfRemoteFile($url)
 	{
-		$headers = get_headers($url, 1);
-		if (is_array($headers) && isset($headers['Content-Length'])) {
+		$headers = @get_headers($url, 1);
+		if ($headers !== false && is_array($headers) && isset($headers['Content-Length'])) {
 			return $headers['Content-Length'];
 		}
 		return false;

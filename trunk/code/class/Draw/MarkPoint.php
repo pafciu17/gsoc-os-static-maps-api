@@ -28,8 +28,11 @@ class DrawMarkPoint extends DrawPoint
 		if ($this->hasImageUrl()) {
 			$size = HelpClass::getSizeOfRemoteFile($this->_imageUrl->getUrl());
 			if ($size <= self::$maxSizeOfPointImage) {
-				$imageHandler = ImageHandler::createImageHandlerFromFileExtension($this->_imageUrl->getUrl());
-				$pointImage = $imageHandler->loadImage($this->_imageUrl->getUrl());
+				try {
+					$imageHandler = ImageHandler::createImageHandlerFromFileExtension($this->_imageUrl->getUrl());
+					$pointImage = $imageHandler->loadImage($this->_imageUrl->getUrl());
+				} catch (ImageHandlerException $e) {
+				}
 			}
 		}
 		if ($pointImage !== false) {

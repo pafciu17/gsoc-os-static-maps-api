@@ -93,6 +93,9 @@ You can send comments, information about errors etc. to <b>osm.static.maps.api(a
 			<a href="{$host}/?module=map&bbox=-80,50,-67,15&width=500&points=-74,40.34,color:0:20:0,transparency:80;-82.3,23.1,pointImageUrl:dev.openstreetmap.org/~pafciu17/media/sight_point.png">{$host}/?module=map&bbox=-80,50,-67,15&width=500&points=-74,40.34,color:0:20:0,transparency:80;-82.3,23.1,pointImageUrl:dev.openstreetmap.org/~pafciu17/media/sight_point.png</a> </br>
 			<a href="{$host}/?module=map&bbox=-80,50,-67,15&width=500&points=-74,40.34,pointImagePattern:cursor;-82.3,23.1,pointImagePattern:sight">{$host}/?module=map&bbox=-80,50,-67,15&width=500&points=-74,40.34,pointImagePattern:cursor;-82.3,23.1,pointImagePattern:sight</a> </br>
 			</li>
+			<li><b>pointImageUrl</b> url to image which is used to mark points
+			<a href="{$host}//?module=map&bbox=-80,50,-67,15&width=500&points=-74,40.34;-82.3,23.1,pointImagePattern:sight">{$host}/?module=map&bbox=-80,50,-67,15&width=500&points=-74,40.34;-82.3,23.1,pointImagePattern:sight</a>
+			</li>
 			<li><b>pointImagePattern</b> indicates image patter for all points, values: sight, cursor.
 			http://dev.openstreetmap.org/~pafciu17/?module=map&bbox=-80,50,-67,15&width=500&points=-74,40.34;-82.3,23.1&pointImagePattern=cursor
 			</li>

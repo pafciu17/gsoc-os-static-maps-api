@@ -27,11 +27,11 @@ You can send comments, information about errors etc. to <b>osm.static.maps.api(a
 </p>
 <h2>Sample maps</h2>
 <div id="sampleMaps">
-<p><b>{$host}?module=map&center=55.027084,24.999439&zoom=10&type=mapnik&width=400&height=200</b><br/>
-<img class="sampleMap" src="{$host}?module=map&center=55.027084,24.999439&zoom=10&type=mapnik&width=400&height=200" />
+<p><b>{$host}/?module=map&center=55.027084,24.999439&zoom=10&type=mapnik&width=400&height=200&points=54.99,25.01,pointImagePattern:greenP;55.05,25.039,pointImagePattern:redI</b><br/>
+<img class="sampleMap" src="{$host}/?module=map&center=55.027084,24.999439&zoom=10&type=mapnik&width=400&height=200&points=54.99,25.01,pointImagePattern:greenP;55.05,25.039,pointImagePattern:redI" />
 </p>
-<p><b>{$host}?module=map&bbox=69.2,-47.2,71,-50&width=400&height=250</b><br />
-<img class="sampleMap" src="{$host}?module=map&bbox=69.2,-47.2,71,-50&width=400&height=250" />
+<p><b>{$host}/?module=map&bbox=69.2,-47.2,71,-50&width=400&height=250</b><br />
+<img class="sampleMap" src="{$host}/?module=map&bbox=69.2,-47.2,71,-50&width=400&height=250" />
 </p>
 </div>
 </div>

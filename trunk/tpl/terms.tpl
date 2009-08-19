@@ -89,15 +89,16 @@ You can send comments, information about errors etc. to <b>osm.static.maps.api(a
 			<li><b>width</b> and <b>height</b> size of the return map (in pixels).</li
 			<li><b>points</b>: coordinates of the points which will be drawn on the map. Points are separated by semicolons. Each points has two coordinates: longitude and latitude. Sample:<br />
 			<a href="{$host}/?module=map&bbox=-80,50,-67,15&width=500&points=-74,40.34;-82.3,23.1">{$host}/?module=map&bbox=-80,50,-67,15&width=500&points=-74,40.34;-82.3,23.1</a> <br />
-			Each point can also have specifed: transparency(0 - 127), color (RPG coordinates), pointImageUrl (url to image which will be put in point), pointImagePattern (indicates what pattern image will be used, now 2 values are supported: sight, cursor). Samples: <br/>
+			Each point can also have specifed: transparency(0 - 127), color (RPG coordinates), pointImageUrl (url to image which will be put in point), pointImagePattern (indicates what pattern image will be used). Samples: <br/>
 			<a href="{$host}/?module=map&bbox=-80,50,-67,15&width=500&points=-74,40.34,color:0:20:0,transparency:80;-82.3,23.1,pointImageUrl:dev.openstreetmap.org/~pafciu17/media/sight_point.png">{$host}/?module=map&bbox=-80,50,-67,15&width=500&points=-74,40.34,color:0:20:0,transparency:80;-82.3,23.1,pointImageUrl:dev.openstreetmap.org/~pafciu17/media/sight_point.png</a> </br>
 			<a href="{$host}/?module=map&bbox=-80,50,-67,15&width=500&points=-74,40.34,pointImagePattern:cursor;-82.3,23.1,pointImagePattern:sight">{$host}/?module=map&bbox=-80,50,-67,15&width=500&points=-74,40.34,pointImagePattern:cursor;-82.3,23.1,pointImagePattern:sight</a> </br>
 			</li>
 			<li><b>pointImageUrl</b> url to image which is used to mark points
-			<a href="{$host}//?module=map&bbox=-80,50,-67,15&width=500&points=-74,40.34;-82.3,23.1,pointImagePattern:sight">{$host}/?module=map&bbox=-80,50,-67,15&width=500&points=-74,40.34;-82.3,23.1,pointImagePattern:sight</a>
+			<a href="{$host}/?module=map&bbox=-80,50,-67,15&width=500&points=-74,40.34;-82.3,23.1,pointImagePattern:sight">{$host}/?module=map&bbox=-80,50,-67,15&width=500&points=-74,40.34;-82.3,23.1,pointImagePattern:sight</a>
 			</li>
-			<li><b>pointImagePattern</b> indicates image patter for all points, values: sight, cursor.
-			http://dev.openstreetmap.org/~pafciu17/?module=map&bbox=-80,50,-67,15&width=500&points=-74,40.34;-82.3,23.1&pointImagePattern=cursor
+			<li><b>pointImagePattern</b> indicates image pattern for all points, values: sight, cursor , redA, redB ..., redZ, red0, red1 ... red9, greenA, ... blueA, ... <br />
+			<a href="{$host}/?module=map&bbox=-80,50,-67,15&width=500&points=-74,40.34;-82.3,23.1&pointImagePattern=sight">{$host}/?module=map&bbox=-80,50,-67,15&width=500&points=-74,40.34;-82.3,23.1&pointImagePattern=sight</a><br />
+			<a href="{$host}/?module=map&bbox=-80,50,-67,15&width=500&points=-74,40.34;-82.3,23.1&pointImagePattern=redA">{$host}/?module=map&bbox=-80,50,-67,15&width=500&points=-74,40.34;-82.3,23.1&pointImagePattern=redA</a><br />
 			</li>
 			<li><b>paths</b>: coordinates of paths, paths are separated by semicolons. Sample:<br />
 			<a href="{$host}/?module=map&bbox=-100,45,-67,5&width=600&paths=-74,40.34,-82.3,23.1,-85,35,-87.2,32.12;-90,40,-80,40">{$host}/?module=map&bbox=-100,45,-67,5&width=600&paths=-74,40.43,-82.3,23.1,-85,35,-87.2,32.12;-90,40,-80,40</a><br />

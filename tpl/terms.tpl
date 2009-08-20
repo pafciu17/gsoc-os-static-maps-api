@@ -28,7 +28,7 @@ You can send comments, information about errors etc. to <b>osm.static.maps.api(a
 <h2>Sample maps</h2>
 <div id="sampleMaps">
 <p><b>{$host}/?module=map&center=55.027084,24.999439&zoom=10&type=mapnik&width=400&height=200&points=54.99,25.01,pointImagePattern:greenP;55.05,25.039,pointImagePattern:redI</b><br/>
-<img class="sampleMap" src="{$host}/?module=map&center=55.027084,24.999439&zoom=10&type=mapnik&width=400&height=200&points=54.99,25.01,pointImagePattern:greenP;55.05,25.039,pointImagePattern:redI" />
+<img class="sampleMap" src="{$host}/?module=map&center=55.027084,24.999439&zoom=10&type=mapnik&width=400&height=200&points=54.99,25.01,pointImagePattern:greenP;55.05,25.039,pointImagePattern:blue" />
 </p>
 <p><b>{$host}/?module=map&bbox=69.2,-47.2,71,-50&width=400&height=250</b><br />
 <img class="sampleMap" src="{$host}/?module=map&bbox=69.2,-47.2,71,-50&width=400&height=250" />
@@ -90,11 +90,11 @@ You can send comments, information about errors etc. to <b>osm.static.maps.api(a
 			<li><b>points</b>: coordinates of the points which will be drawn on the map. Points are separated by semicolons. Each points has two coordinates: longitude and latitude. Sample:<br />
 			<a href="{$host}/?module=map&bbox=-80,50,-67,15&width=500&points=-74,40.34;-82.3,23.1">{$host}/?module=map&bbox=-80,50,-67,15&width=500&points=-74,40.34;-82.3,23.1</a> <br />
 			Each point can also have specifed: transparency(0 - 127), color (RPG coordinates), pointImageUrl (url to image which will be put in point), pointImagePattern (indicates what pattern image will be used). Samples: <br/>
-			<a href="{$host}/?module=map&bbox=-80,50,-67,15&width=500&points=-74,40.34,color:0:20:0,transparency:80;-82.3,23.1,pointImageUrl:dev.openstreetmap.org/~pafciu17/media/sight_point.png">{$host}/?module=map&bbox=-80,50,-67,15&width=500&points=-74,40.34,color:0:20:0,transparency:80;-82.3,23.1,pointImageUrl:dev.openstreetmap.org/~pafciu17/media/sight_point.png</a> </br>
-			<a href="{$host}/?module=map&bbox=-80,50,-67,15&width=500&points=-74,40.34,pointImagePattern:cursor;-82.3,23.1,pointImagePattern:sight">{$host}/?module=map&bbox=-80,50,-67,15&width=500&points=-74,40.34,pointImagePattern:cursor;-82.3,23.1,pointImagePattern:sight</a> </br>
+			<a href="{$host}/?module=map&bbox=-80,50,-67,15&width=500&points=-74,40.34,color:0:20:0,transparency:80;-82.3,23.1,pointImageUrl:dev.openstreetmap.org/~pafciu17/media/sight_point.png">{$host}/?module=map&bbox=-80,50,-67,15&width=500&points=-74,40.34,color:0:20:0,transparency:80;-82.3,23.1,pointImageUrl:dev.openstreetmap.org/~pafciu17/media/sight_point.png</a> <br />
+			<a href="{$host}/?module=map&bbox=-80,50,-67,15&width=500&points=-74,40.34,pointImagePattern:cursor;-82.3,23.1,pointImagePattern:sight">{$host}/?module=map&bbox=-80,50,-67,15&width=500&points=-74,40.34,pointImagePattern:cursor;-82.3,23.1,pointImagePattern:sight</a> <br />
 			</li>
 			<li><b>pointImageUrl</b> url to image which is used to mark points
-			<a href="{$host}/?module=map&bbox=-80,50,-67,15&width=500&points=-74,40.34;-82.3,23.1,pointImagePattern:sight">{$host}/?module=map&bbox=-80,50,-67,15&width=500&points=-74,40.34;-82.3,23.1,pointImagePattern:sight</a>
+			<a href="{$host}/?module=map&bbox=-80,50,-67,15&width=500&points=-74,40.34;-82.3,23.1&pointImageUrl=dev.openstreetmap.org/~pafciu17/media/pointer/sight_point.png">{$host}/?module=map&bbox=-80,50,-67,15&width=500&points=-74,40.34;-82.3,23.1&pointImageUrl=dev.openstreetmap.org/~pafciu17/media/pointer/sight_point.png</a>
 			</li>
 			<li><b>pointImagePattern</b> indicates image pattern for all points, values: sight, cursor , redA, redB ..., redZ, red0, red1 ... red9, greenA, ... blueA, ... <br />
 			<a href="{$host}/?module=map&bbox=-80,50,-67,15&width=500&points=-74,40.34;-82.3,23.1&pointImagePattern=sight">{$host}/?module=map&bbox=-80,50,-67,15&width=500&points=-74,40.34;-82.3,23.1&pointImagePattern=sight</a><br />

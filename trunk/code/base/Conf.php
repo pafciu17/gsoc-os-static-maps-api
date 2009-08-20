@@ -143,6 +143,13 @@ class Conf
 		'blue8' => 'http://dev.openstreetmap.org/~pafciu17/media/pointer/blue8.png',
 		'blue9' => 'http://dev.openstreetmap.org/~pafciu17/media/pointer/blue9.png',
 		'blue0' => 'http://dev.openstreetmap.org/~pafciu17/media/pointer/blue0.png',
+	
+		'red' => 'http://dev.openstreetmap.org/~pafciu17/media/pointer/red.png',
+		'blue' => 'http://dev.openstreetmap.org/~pafciu17/media/pointer/blue.png',
+		'green' => 'http://dev.openstreetmap.org/~pafciu17/media/pointer/green.png',
+		'yellow' => 'http://dev.openstreetmap.org/~pafciu17/media/pointer/yellow.png',
+		'black' => 'http://dev.openstreetmap.org/~pafciu17/media/pointer/black.png',
+		'white' => 'http://dev.openstreetmap.org/~pafciu17/media/pointer/white.png',
 		)
 							
 	);

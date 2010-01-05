@@ -90,11 +90,11 @@ You can send comments, information about errors etc. to <b>osm.static.maps.api(a
 			<li><b>points</b>: coordinates of the points which will be drawn on the map. Points are separated by semicolons. Each points has two coordinates: longitude and latitude. Sample:<br />
 			<a href="{$host}/?module=map&bbox=-80,50,-67,15&width=500&points=-74,40.34;-82.3,23.1">{$host}/?module=map&bbox=-80,50,-67,15&width=500&points=-74,40.34;-82.3,23.1</a> <br />
 			Each point can also have specifed: transparency(0 - 127), color (RPG coordinates), pointImageUrl (url to image which will be put in point), pointImagePattern (indicates what pattern image will be used). Samples: <br/>
-			<a href="{$host}/?module=map&bbox=-80,50,-67,15&width=500&points=-74,40.34,color:0:20:0,transparency:80;-82.3,23.1,pointImageUrl:dev.openstreetmap.org/~pafciu17/media/sight_point.png">{$host}/?module=map&bbox=-80,50,-67,15&width=500&points=-74,40.34,color:0:20:0,transparency:80;-82.3,23.1,pointImageUrl:dev.openstreetmap.org/~pafciu17/media/sight_point.png</a> <br />
+			<a href="{$host}/?module=map&bbox=-80,50,-67,15&width=500&points=-74,40.34,color:0:20:0,transparency:80;-82.3,23.1,pointImageUrl:pafciu17.dev.openstreetmap.org/media/pointer/sight_point.png">{$host}/?module=map&bbox=-80,50,-67,15&width=500&points=-74,40.34,color:0:20:0,transparency:80;-82.3,23.1,pointImageUrl:pafciu17.dev.openstreetmap.org/media/pointer/sight_point.png</a> <br />
 			<a href="{$host}/?module=map&bbox=-80,50,-67,15&width=500&points=-74,40.34,pointImagePattern:cursor;-82.3,23.1,pointImagePattern:sight">{$host}/?module=map&bbox=-80,50,-67,15&width=500&points=-74,40.34,pointImagePattern:cursor;-82.3,23.1,pointImagePattern:sight</a> <br />
 			</li>
 			<li><b>pointImageUrl</b> url to image which is used to mark points
-			<a href="{$host}/?module=map&bbox=-80,50,-67,15&width=500&points=-74,40.34;-82.3,23.1&pointImageUrl=dev.openstreetmap.org/~pafciu17/media/pointer/sight_point.png">{$host}/?module=map&bbox=-80,50,-67,15&width=500&points=-74,40.34;-82.3,23.1&pointImageUrl=dev.openstreetmap.org/~pafciu17/media/pointer/sight_point.png</a>
+			<a href="{$host}/?module=map&bbox=-80,50,-67,15&width=500&points=-74,40.34;-82.3,23.1&pointImageUrl=pafciu17.dev.openstreetmap.org/media/pointer/sight_point.png">{$host}/?module=map&bbox=-80,50,-67,15&width=500&points=-74,40.34;-82.3,23.1&pointImageUrl=pafciu17.dev.openstreetmap.org/media/pointer/sight_point.png</a>
 			</li>
 			<li><b>pointImagePattern</b> indicates image pattern for all points, values: sight, cursor , redA, redB ..., redZ, red0, red1 ... red9, greenA, ... blueA, ... <br />
 			<a href="{$host}/?module=map&bbox=-80,50,-67,15&width=500&points=-74,40.34;-82.3,23.1&pointImagePattern=sight">{$host}/?module=map&bbox=-80,50,-67,15&width=500&points=-74,40.34;-82.3,23.1&pointImagePattern=sight</a><br />
@@ -143,11 +143,11 @@ You can send comments, information about errors etc. to <b>osm.static.maps.api(a
 			</li>
 			<li><b>paramFileUrl</b> the url which indicates file with map request data. Sometimes there is too many of given parameters and url becomes too complicated, in such case it is better to put them
 			in file, and in request just give the url to that file. Url parameters have higher priority, so in case of conflicts url parameters are taken into account instead of those from file. Samples: <br />
-			<a href="{$host}/?module=map&paramFileUrl=http://dev.openstreetmap.org/~pafciu17/samples/sample_map_request.txt">{$host}/?module=map&paramFileUrl=http://dev.openstreetmap.org/~pafciu17/samples/sample_map_request.txt</a><br />
-			<a href="{$host}/?module=map&paramFileUrl=http://dev.openstreetmap.org/~pafciu17/samples/sample_map_request.txt">{$host}/?module=map&zoom=4&paramFileUrl=http://dev.openstreetmap.org/~pafciu17/samples/sample_map_request.txt</a><br />
+			<a href="{$host}/?module=map&paramFileUrl=http://pafciu17.dev.openstreetmap.org/samples/sample_map_request.txt">{$host}/?module=map&paramFileUrl=http://pafciu17.dev.openstreetmap.org/samples/sample_map_request.txt</a><br />
+			<a href="{$host}/?module=map&paramFileUrl=http://pafciu17.dev.openstreetmap.org/samples/sample_map_request.txt">{$host}/?module=map&zoom=4&paramFileUrl=http://pafciu17.dev.openstreetmap.org/samples/sample_map_request.txt</a><br />
 			Structure of the file: each attribute is given in one line. Line starts with name of parameter and after the char "=" goes the value.
 			</li>
-			Sample: <a href="http://dev.openstreetmap.org/~pafciu17/samples/sample_map_request.txt">sample file</a>
+			Sample: <a href="http://pafciu17.dev.openstreetmap.org/samples/sample_map_request.txt">sample file</a>
 		</ul>
 	</p>
 	<p>

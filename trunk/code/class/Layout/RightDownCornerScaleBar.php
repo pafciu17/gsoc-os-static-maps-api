@@ -16,14 +16,12 @@ class LayoutRightDownCornerScaleBar extends LayoutRightDownCorner
 			$layout = $map->getLogoLayout();
 			$logoImage = $map->getLogoImage();
 			if ($logoImage !== false && $layout instanceof  LayoutRightDownCorner) {
-				$width = imagesx($imageToPut);
-				$height = imagesy($imageToPut);
 				$logoHeight = imagesy($logoImage);
-				imagecopy($mapImage, $imageToPut, imagesx($mapImage) - $width, imagesy($mapImage) - $height - $logoHeight, 0, 0, $width, $height);
+				imagecopymerge($mapImage, $imageToPut, imagesx($mapImage) - $width, imagesy($mapImage) - $height - $logoHeight, 0, 0, $width, $height, 100);
 				return;
 			}
 		}
-		parent::putImage($map, $imageToPut);
+		imagecopymerge($mapImage, $imageToPut, imagesx($mapImage) - $width, imagesy($mapImage) - $height, 0, 0, $width, $height, 100);
 	}
 
 }

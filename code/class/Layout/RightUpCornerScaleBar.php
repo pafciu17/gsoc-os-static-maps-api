@@ -16,14 +16,12 @@ class LayoutRightUpCornerScaleBar extends LayoutRightUpCorner
 			$layout = $map->getLogoLayout();
 			$logoImage = $map->getLogoImage();
 			if ($logoImage !== false && $layout instanceof  LayoutRightUpCorner) {
-				$width = imagesx($imageToPut);
-				$height = imagesy($imageToPut);
 				$logoHeight = imagesy($logoImage);
-				imagecopy($mapImage, $imageToPut, imagesx($mapImage) - $width, $logoHeight, 0, 0, $width, $height);
+				imagecopymerge($mapImage, $imageToPut, imagesx($mapImage) - $width, $logoHeight, 0, 0, $width, $height, 100);
 				return;
 			}
 		}
-		parent::putImage($map, $imageToPut);
+		imagecopymerge($mapImage, $imageToPut, imagesx($mapImage) - $width, 0, 0, 0, $width, $height, 100);
 	}
 
 }

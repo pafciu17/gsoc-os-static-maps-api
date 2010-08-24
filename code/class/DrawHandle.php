@@ -22,6 +22,7 @@ class DrawHandle
 	public function draw(DrawRequest $request)
 	{
 		$drawings = $request->getDrawings();
+		// first draw all drawings that are not DrawMarkPoints
 		foreach ($drawings as $drawing) {
 			if (!$drawing->hasColor()) {//if color is not set, default color will be used
 				$drawing->setColor($request->getColor());
@@ -32,10 +33,18 @@ class DrawHandle
 			if (!$drawing->hasTransparency()) {
 				$drawing->setTransparency($request->getTransparency());
 			}
-			if ($drawing instanceof DrawMarkPoint && !$drawing->hasImageUrl()) {
-				$drawing->setImageUrl($request->getPointImageUrl());
+			if (!($drawing instanceof DrawMarkPoint)) {
+				$drawing->draw($this->_map);
 			}
-			$drawing->draw($this->_map);
+		}
+		// then draw the DrawMarkPoints on top
+		foreach ($drawings as $drawing) {
+			if ($drawing instanceof DrawMarkPoint) {
+				if(!$drawing->hasImageUrl()) {
+					$drawing->setImageUrl($request->getPointImageUrl());
+				}
+				$drawing->draw($this->_map);
+			}
 		}
 	}	
 }

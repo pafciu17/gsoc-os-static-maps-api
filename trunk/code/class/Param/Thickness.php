@@ -6,7 +6,7 @@ class ParamThickness
 	 *
 	 * @var int
 	 */
-	public static $maxThickness = 5;
+	public static $maxThickness = 25;
 	
 	/**
 	 * maximal possible thickness

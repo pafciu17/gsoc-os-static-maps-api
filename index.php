@@ -1,5 +1,5 @@
 <?php
-//all errors will be report
+//all errors will be report, test
 error_reporting(E_ALL | E_STRICT);
 
 set_time_limit(90);

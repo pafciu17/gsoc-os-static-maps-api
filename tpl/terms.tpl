@@ -1,7 +1,6 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>OSM static map api - admin panel</title>
 {foreach from=$css_files item=file}
 <link rel="stylesheet" type="text/css" href="{$file}" />
@@ -13,7 +12,7 @@
 </div>
 <div id="termsBody">
 <h2>OSM Static maps API</h2>
-{assign var=host value=http://dev.openstreetmap.org/~pafciu17}
+{assign var=host value=''}
 <div>
 <p>
 Main idea of the project is to create an web application which will provide an easy way of embedding maps into web pages.
@@ -27,7 +26,7 @@ You can send comments, information about errors etc. to <b>osm.static.maps.api(a
 </p>
 <h2>Sample maps</h2>
 <div id="sampleMaps">
-<p><b>{$host}/?module=map&center=55.027084,24.999439&zoom=10&type=mapnik&width=400&height=200&points=54.99,25.01,pointImagePattern:greenP;55.05,25.039,pointImagePattern:redI</b><br/>
+<p><b>{$host}/?module=map&amp;center=55.027084,24.999439&zoom=10&type=mapnik&width=400&height=200&points=54.99,25.01,pointImagePattern:greenP;55.05,25.039,pointImagePattern:redI</b><br/>
 <img class="sampleMap" src="{$host}/?module=map&center=55.027084,24.999439&zoom=10&type=mapnik&width=400&height=200&points=54.99,25.01,pointImagePattern:greenP;55.05,25.039,pointImagePattern:redI" />
 </p>
 <p><b>{$host}/?module=map&bbox=69.2,-47.2,71,-50&width=400&height=250</b><br />
@@ -52,7 +51,7 @@ You can send comments, information about errors etc. to <b>osm.static.maps.api(a
 	<p>For that moment map can be build in 3 ways:
 		<ul>
 			<li>from given center point, width, height and zoom of the map:<br /> 
-			<a href="{$host}/?module=map&center=0,51&zoom=7&width=400&height=400">{$host}/?module=map&center=0,51&zoom=7&width=400&height=400</a></li>
+			<a href="{$host}/?module=map&center=0,51&zoom=7&width=400&height=400">{$host}/?module=map&amp;center=0,51&zoom=7&width=400&height=400</a></li>
 			<li>from given bound box and zoom:<br /> 
 			<a href="{$host}/?module=map&bbox=0,70,40,50&zoom=4">{$host}/?module=map&bbox=0,70,40,50&zoom=4</a></li>
 			<li>from given bound box, width and/or height: <br>

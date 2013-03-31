@@ -1,6 +1,7 @@
 <?php
 //all errors will be report, test
-error_reporting(E_ALL | E_STRICT);
+//error_reporting(E_ALL | E_STRICT);
+error_reporting(E_ERROR | E_PARSE | E_NOTICE);
 
 set_time_limit(90);
 

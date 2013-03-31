@@ -144,6 +144,7 @@ class TileSource
 	 */
 	protected function _loadImage($url)
 	{
+		error_log('url: ' . $url);
 		return $this->_imageHandler->loadImage($url);
 	}
 	
